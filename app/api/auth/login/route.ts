@@ -1,6 +1,7 @@
 import { NextResponse, type NextRequest } from "next/server";
 import { createClient } from "@/lib/supabase/server";
 import { createAdminClient } from "@/lib/supabase/admin";
+import { logAction } from "@/lib/audit";
 
 // Spec §5: 5 failed attempts per minute per IP → "Too many login attempts".
 // In-memory is fine for local/dev; a shared store is needed when multi-instance.
@@ -81,6 +82,7 @@ export async function POST(req: NextRequest) {
   }
 
   attempts.delete(ip);
+  await logAction(profile.username, "login", "profiles", profile.id, { ip });
   return NextResponse.json({
     user: {
       id: profile.id,
