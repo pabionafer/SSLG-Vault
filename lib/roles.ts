@@ -59,6 +59,29 @@ export type Guarded =
   | { user: User; profile: Profile; response?: undefined }
   | { response: NextResponse; user?: undefined; profile?: undefined };
 
+/** Any logged-in, active user (no specific guard). Same 401/403 contract. */
+export async function requireUser(): Promise<Guarded> {
+  const supabase = await createClient();
+  const {
+    data: { user },
+    error,
+  } = await supabase.auth.getUser();
+  if (error || !user) {
+    return { response: NextResponse.json({ error: "Not authenticated" }, { status: 401 }) };
+  }
+  const { data: profile } = await supabase
+    .from("profiles")
+    .select("*")
+    .eq("id", user.id)
+    .maybeSingle();
+  if (!profile || !profile.is_active) {
+    return {
+      response: NextResponse.json({ error: "Account is inactive or missing" }, { status: 403 }),
+    };
+  }
+  return { user, profile: profile as Profile };
+}
+
 /**
  * Route-handler guard. Returns either the authed user + profile, or a ready
  * 401/403 JSON response:
