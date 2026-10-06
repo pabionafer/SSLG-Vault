@@ -41,6 +41,10 @@ let clearanceId: string | null = null;
 let paymentId: string | null = null;
 let receiptId: string | null = null;
 let clearanceItemId: number | null = null;
+let expenseId: string | null = null;
+let igpId: string | null = null;
+let incomeId: string | null = null;
+let auditId: string | null = null;
 
 async function run(c: Case): Promise<void> {
   const headers: Record<string, string> = {};
@@ -74,6 +78,10 @@ async function run(c: Case): Promise<void> {
         clearanceItemId = null;
       }
       if (json?.items?.[0]?.id && c.path.startsWith("/api/clearances/")) clearanceItemId = json.items[0].id;
+      if (json?.expense?.id && c.method === "POST" && c.path === "/api/expenses") expenseId = String(json.expense.id);
+      if (json?.igp?.id && c.method === "POST" && c.path === "/api/igps") igpId = String(json.igp.id);
+      if (json?.income?.id && c.method === "POST" && c.path === "/api/income") incomeId = String(json.income.id);
+      if (json?.items?.[0]?.id && c.path === "/api/audit-log") auditId = String(json.items[0].id);
     } catch {
       /* not json */
     }
@@ -400,6 +408,134 @@ if (paymentId) {
   await run({ method: "POST", path: `/api/payments/${paymentId}/schedule-purge`, expect: [200] });
   await run({ method: "POST", path: `/api/payments/${paymentId}/schedule-purge`, expect: [409] });
   await run({ method: "POST", path: `/api/payments/${paymentId}/restore`, expect: [200] });
+}
+
+// --- expenses (8) -----------------------------------------------------------
+await run({
+  method: "POST",
+  path: "/api/expenses",
+  body: {
+    description: "Smoke expense — office supplies",
+    amount: 123.45,
+    expense_date: "2026-10-07",
+    academic_year: "2026-2027",
+    semester: "1st Semester",
+    payee: "Smoke Store",
+    voucher_no: `SV-${Date.now()}`,
+  },
+  expect: [201],
+});
+await run({ method: "GET", path: "/api/expenses", expect: [200] });
+if (expenseId) {
+  await run({ method: "GET", path: `/api/expenses/${expenseId}`, expect: [200] });
+  await run({ method: "PATCH", path: `/api/expenses/${expenseId}`, body: { amount: 150.5, status: "posted" }, expect: [200] });
+  await run({ method: "GET", path: "/api/expenses/summary?from=2026-01-01", expect: [200] });
+  {
+    const res = await fetch(`${BASE}/api/expenses/export`, { headers: { cookie: cookies } });
+    const good = res.status === 200 && (res.headers.get("content-type") ?? "").includes("csv");
+    console.log(`${good ? "ok  " : "FAIL"} GET /api/expenses/export -> ${res.status} ${res.headers.get("content-type")}`);
+    if (!good) failures += 1;
+  }
+  await run({ method: "DELETE", path: `/api/expenses/${expenseId}`, expect: [200] });
+  await run({ method: "POST", path: `/api/expenses/${expenseId}/restore`, expect: [200] });
+} else {
+  console.log("FAIL setup: no expense id");
+  failures += 1;
+}
+
+// --- igps (7) ---------------------------------------------------------------
+await run({
+  method: "POST",
+  path: "/api/igps",
+  body: { name: `Smoke IGP ${Date.now()}`, description: "canteen stall", custodian: "Smoke Officer" },
+  expect: [201],
+});
+await run({ method: "GET", path: "/api/igps", expect: [200] });
+if (igpId) {
+  await run({ method: "GET", path: `/api/igps/${igpId}`, expect: [200] });
+  await run({ method: "PATCH", path: `/api/igps/${igpId}`, body: { custodian: "Smoke Custodian" }, expect: [200] });
+  await run({ method: "GET", path: "/api/igps/stats", expect: [200] });
+  await run({ method: "DELETE", path: `/api/igps/${igpId}`, expect: [200] });
+  await run({ method: "POST", path: `/api/igps/${igpId}/restore`, expect: [200] });
+} else {
+  console.log("FAIL setup: no igp id");
+  failures += 1;
+}
+
+// --- income (7) -------------------------------------------------------------
+if (igpId) {
+  await run({
+    method: "POST",
+    path: "/api/income",
+    body: {
+      description: "Smoke IGP earnings",
+      amount: 75,
+      source: "igp",
+      igp_id: Number(igpId),
+      income_date: "2026-10-07",
+      academic_year: "2026-2027",
+      semester: "1st Semester",
+    },
+    expect: [201],
+  });
+}
+await run({ method: "GET", path: "/api/income", expect: [200] });
+if (incomeId) {
+  await run({ method: "GET", path: `/api/income/${incomeId}`, expect: [200] });
+  await run({ method: "PATCH", path: `/api/income/${incomeId}`, body: { amount: 80 }, expect: [200] });
+  {
+    const res = await fetch(`${BASE}/api/income/export`, { headers: { cookie: cookies } });
+    const good = res.status === 200 && (res.headers.get("content-type") ?? "").includes("csv");
+    console.log(`${good ? "ok  " : "FAIL"} GET /api/income/export -> ${res.status} ${res.headers.get("content-type")}`);
+    if (!good) failures += 1;
+  }
+  await run({ method: "DELETE", path: `/api/income/${incomeId}`, expect: [200] });
+  await run({ method: "POST", path: `/api/income/${incomeId}/restore`, expect: [200] });
+} else {
+  console.log("FAIL setup: no income id");
+  failures += 1;
+}
+
+// --- financial report (6; PDF comes in phase 10) ----------------------------
+await run({ method: "GET", path: "/api/financial-report?academic_year=2026-2027", expect: [200] });
+await run({ method: "GET", path: "/api/financial-report/by-month?academic_year=2026-2027", expect: [200] });
+await run({ method: "GET", path: "/api/financial-report/by-category", expect: [200] });
+await run({ method: "GET", path: "/api/financial-report/by-fee?academic_year=2026-2027", expect: [200] });
+await run({ method: "GET", path: "/api/financial-report/by-mode", expect: [200] });
+{
+  const res = await fetch(`${BASE}/api/financial-report/export`, { headers: { cookie: cookies } });
+  const good = res.status === 200 && (res.headers.get("content-type") ?? "").includes("csv");
+  console.log(`${good ? "ok  " : "FAIL"} GET /api/financial-report/export -> ${res.status} ${res.headers.get("content-type")}`);
+  if (!good) failures += 1;
+}
+
+// --- audit log (4) ----------------------------------------------------------
+await run({ method: "GET", path: "/api/audit-log", expect: [200] });
+if (auditId) {
+  await run({ method: "GET", path: `/api/audit-log/${auditId}`, expect: [200] });
+}
+await run({ method: "GET", path: "/api/audit-log/stats", expect: [200] });
+{
+  const res = await fetch(`${BASE}/api/audit-log/export`, { headers: { cookie: cookies } });
+  const good = res.status === 200 && (res.headers.get("content-type") ?? "").includes("csv");
+  console.log(`${good ? "ok  " : "FAIL"} GET /api/audit-log/export -> ${res.status} ${res.headers.get("content-type")}`);
+  if (!good) failures += 1;
+}
+
+// --- yearly balance (4) -----------------------------------------------------
+await run({ method: "GET", path: "/api/yearly-balance", expect: [200] });
+await run({
+  method: "POST",
+  path: "/api/yearly-balance",
+  body: { academic_year: "2026-2027" },
+  expect: [200, 201],
+});
+await run({ method: "GET", path: "/api/yearly-balance/2026-2027", expect: [200] });
+{
+  const res = await fetch(`${BASE}/api/yearly-balance/export`, { headers: { cookie: cookies } });
+  const good = res.status === 200 && (res.headers.get("content-type") ?? "").includes("csv");
+  console.log(`${good ? "ok  " : "FAIL"} GET /api/yearly-balance/export -> ${res.status} ${res.headers.get("content-type")}`);
+  if (!good) failures += 1;
 }
 
 console.log(failures === 0 ? "\nSMOKE PASS" : `\nSMOKE FAIL (${failures})`);
