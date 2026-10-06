@@ -35,6 +35,8 @@ let failures = 0;
 let createdUserId: string | null = null;
 let categoryId: string | null = null;
 let collectionId: string | null = null;
+let studentId: string | null = null;
+let feeId: string | null = null;
 
 async function run(c: Case): Promise<void> {
   const headers: Record<string, string> = {};
@@ -57,6 +59,8 @@ async function run(c: Case): Promise<void> {
       if (c.method === "POST" && c.path === "/api/users" && json?.id) createdUserId = json.id;
       if (json?.category?.id && c.method === "POST" && c.path === "/api/categories") categoryId = json.category.id;
       if (json?.collection?.id && c.method === "POST" && c.path === "/api/collections") collectionId = json.collection.id;
+      if (json?.student?.id && c.method === "POST" && c.path === "/api/students") studentId = json.student.id;
+      if (json?.fee?.id && c.method === "POST" && c.path === "/api/fees") feeId = json.fee.id;
     } catch {
       /* not json */
     }
@@ -114,7 +118,7 @@ await run({
 });
 if (categoryId) {
   await run({ method: "GET", path: `/api/categories/${categoryId}`, expect: [200] });
-  await run({ method: "PATCH", path: `/api/categories/${categoryId}`, body: { name: "Smoke Cat Renamed" }, expect: [200] });
+  await run({ method: "PATCH", path: `/api/categories/${categoryId}`, body: { name: `Smoke Cat Renamed ${Date.now()}` }, expect: [200] });
   await run({ method: "DELETE", path: `/api/categories/${categoryId}`, expect: [200] });
   await run({ method: "POST", path: `/api/categories/${categoryId}/restore`, expect: [200] });
 } else {
@@ -139,6 +143,92 @@ if (collectionId) {
   await run({ method: "POST", path: `/api/collections/${collectionId}/restore`, expect: [200] });
 } else {
   console.log("FAIL setup: no collection id");
+  failures += 1;
+}
+
+// --- students (11) ---------------------------------------------------------
+const sno = `SMOKE-${Date.now()}`;
+await run({
+  method: "POST",
+  path: "/api/students",
+  body: { student_no: sno, first_name: "Juan", last_name: "Dela Cruz", year_level: 1, course: "BSIT", section: "A" },
+  expect: [201],
+});
+if (!studentId) {
+  const res = await fetch(`${BASE}/api/students?q=${sno}`, { headers: { cookie: cookies } });
+  const j = await res.json().catch(() => ({ items: [] }));
+  studentId = j.items?.[0]?.id ?? null;
+}
+await run({ method: "GET", path: "/api/students", expect: [200] });
+if (studentId) {
+  await run({ method: "GET", path: `/api/students/${studentId}`, expect: [200] });
+  await run({ method: "PATCH", path: `/api/students/${studentId}`, body: { section: "B" }, expect: [200] });
+  await run({ method: "GET", path: `/api/students/${studentId}/fees`, expect: [200] });
+  await run({ method: "GET", path: `/api/students/${studentId}/payments`, expect: [200] });
+  await run({ method: "GET", path: `/api/students/${studentId}/clearances`, expect: [200] });
+} else {
+  console.log("FAIL setup: no student id");
+  failures += 1;
+}
+await run({
+  method: "POST",
+  path: "/api/students/import",
+  body: {
+    dry_run: true,
+    rows: [{ student_no: "IMP-1", first_name: "Maria", last_name: "Santos", year_level: 2 }],
+  },
+  expect: [200],
+});
+await run({
+  method: "POST",
+  path: "/api/students/import",
+  body: {
+    rows: [{ student_no: `IMP-${Date.now()}`, first_name: "Maria", last_name: "Santos", year_level: 2 }],
+  },
+  expect: [201],
+});
+{
+  const res = await fetch(`${BASE}/api/students/export`, { headers: { cookie: cookies } });
+  const good = res.status === 200 && (res.headers.get("content-type") ?? "").includes("csv");
+  console.log(`${good ? "ok  " : "FAIL"} GET /api/students/export -> ${res.status} ${res.headers.get("content-type")}`);
+  if (!good) failures += 1;
+}
+if (studentId) {
+  await run({ method: "DELETE", path: `/api/students/${studentId}`, expect: [200] });
+  await run({ method: "POST", path: `/api/students/${studentId}/restore`, expect: [200] });
+}
+
+// --- fees (10) -------------------------------------------------------------
+await run({
+  method: "POST",
+  path: "/api/fees",
+  body: {
+    name: `Smoke Fee ${Date.now()}`,
+    amount: 1500,
+    academic_year: "2026-2027",
+    semester: "1st Semester",
+    due_date: "2026-11-30",
+  },
+  expect: [201],
+});
+if (!feeId) {
+  const res = await fetch(`${BASE}/api/fees?q=Smoke%20Fee`, { headers: { cookie: cookies } });
+  const j = await res.json().catch(() => ({ items: [] }));
+  feeId = j.items?.[0]?.id ?? null;
+}
+await run({ method: "GET", path: "/api/fees", expect: [200] });
+if (feeId) {
+  await run({ method: "GET", path: `/api/fees/${feeId}`, expect: [200] });
+  await run({ method: "GET", path: `/api/fees/${feeId}/targets`, expect: [200] });
+  await run({ method: "PUT", path: `/api/fees/${feeId}/targets`, body: { targets: [{ year_level: 1 }] }, expect: [200] });
+  await run({ method: "PUT", path: `/api/fees/${feeId}/targets`, body: { targets: [] }, expect: [200] });
+  await run({ method: "GET", path: `/api/fees/${feeId}/stats`, expect: [200] });
+  await run({ method: "GET", path: `/api/fees/${feeId}/defaulters`, expect: [200] });
+  await run({ method: "PATCH", path: `/api/fees/${feeId}`, body: { amount: 1600 }, expect: [200] });
+  await run({ method: "DELETE", path: `/api/fees/${feeId}`, expect: [200] });
+  await run({ method: "POST", path: `/api/fees/${feeId}/restore`, expect: [200] });
+} else {
+  console.log("FAIL setup: no fee id");
   failures += 1;
 }
 
