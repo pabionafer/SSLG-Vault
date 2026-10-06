@@ -17,8 +17,9 @@ export async function GET(req: NextRequest) {
 
     let q = db
       .from("income")
-      .select("*, igp:igps(id,name), category:categories(id,name)", { count: "exact" })
-      .is("deleted_at", null);
+      .select("*, igp:igps(id,name), category:categories(id,name)", { count: "exact" });
+    if (sp.get("trash") === "true") q = q.not("deleted_at", "is", null);
+    else q = q.is("deleted_at", null);
     const igpId = sp.get("igp_id");
     if (igpId) q = q.eq("igp_id", igpId);
     const source = sp.get("source");

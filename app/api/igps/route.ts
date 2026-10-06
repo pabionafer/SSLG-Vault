@@ -16,7 +16,9 @@ export async function GET(req: NextRequest) {
     const p = paging(req);
     const sp = req.nextUrl.searchParams;
 
-    let q = db.from("igps").select("*, category:categories(id,name)", { count: "exact" }).is("deleted_at", null);
+    let q = db.from("igps").select("*, category:categories(id,name)", { count: "exact" });
+    if (sp.get("trash") === "true") q = q.not("deleted_at", "is", null);
+    else q = q.is("deleted_at", null);
     const active = sp.get("is_active");
     if (active === "true") q = q.eq("is_active", true);
     if (active === "false") q = q.eq("is_active", false);
