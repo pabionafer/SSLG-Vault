@@ -1,9 +1,9 @@
 "use client";
 
-import { useEffect, type ReactNode } from "react";
+import { useEffect, useRef, type ReactNode } from "react";
 
 export const inputCls =
-  "w-full rounded-md border border-line bg-bg px-3 py-2 text-sm text-ink placeholder:text-muted focus:border-primary";
+  "w-full rounded-md border border-line-strong bg-bg px-3 py-2 text-sm text-ink placeholder:text-muted focus:border-primary";
 
 export function Field({
   label,
@@ -40,19 +40,62 @@ export function Modal({
   children: ReactNode;
   footer?: ReactNode;
 }) {
+  const overlayRef = useRef<HTMLDivElement>(null);
+  const onCloseRef = useRef(onClose);
+
+  useEffect(() => {
+    onCloseRef.current = onClose;
+  });
+
   useEffect(() => {
     if (!open) return;
+    const overlay = overlayRef.current;
+    const previous = document.activeElement as HTMLElement | null;
+    overlay?.focus();
+    const focusables = () =>
+      Array.from(
+        overlay?.querySelectorAll<HTMLElement>(
+          'a[href], button:not([disabled]), input:not([disabled]), select:not([disabled]), textarea:not([disabled]), [tabindex]:not([tabindex="-1"])',
+        ) ?? [],
+      );
     const onKey = (e: KeyboardEvent) => {
-      if (e.key === "Escape") onClose();
+      if (e.key === "Escape") {
+        onCloseRef.current();
+        return;
+      }
+      if (e.key !== "Tab") return;
+      const items = focusables();
+      if (items.length === 0) {
+        e.preventDefault();
+        return;
+      }
+      const first = items[0];
+      const last = items[items.length - 1];
+      const active = document.activeElement;
+      const inside = active instanceof Node && overlay ? overlay.contains(active) : false;
+      if (e.shiftKey) {
+        if (!inside || active === first) {
+          e.preventDefault();
+          last.focus();
+        }
+      } else if (!inside || active === last) {
+        e.preventDefault();
+        first.focus();
+      }
     };
     document.addEventListener("keydown", onKey);
-    return () => document.removeEventListener("keydown", onKey);
-  }, [open, onClose]);
+    return () => {
+      document.removeEventListener("keydown", onKey);
+      previous?.focus?.();
+    };
+  }, [open]);
 
   if (!open) return null;
   return (
     <div
-      className="fixed inset-0 z-50 flex items-center justify-center bg-black/40 p-4"
+      ref={overlayRef}
+      tabIndex={-1}
+      className="fixed inset-0 z-50 flex items-center justify-center bg-black/40 p-4 outline-none"
       role="dialog"
       aria-modal="true"
       aria-label={title}
@@ -67,7 +110,7 @@ export function Modal({
             type="button"
             aria-label="Close"
             onClick={onClose}
-            className="rounded-md px-2 py-1 text-muted hover:bg-tint hover:text-ink"
+            className="inline-flex min-h-7 min-w-7 items-center justify-center rounded-md px-2 py-1 text-muted hover:bg-tint hover:text-ink"
           >
             ✕
           </button>
@@ -112,7 +155,7 @@ export function Confirm({
           <button
             type="button"
             onClick={onCancel}
-            className="rounded-md border border-line px-3 py-1.5 text-sm font-semibold hover:bg-tint"
+            className="rounded-md border border-line-strong px-3 py-1.5 text-sm font-semibold hover:bg-tint"
           >
             Cancel
           </button>
@@ -179,7 +222,7 @@ export function Pagination({
           type="button"
           disabled={page <= 1}
           onClick={() => onPage(page - 1)}
-          className="rounded-md border border-line px-3 py-1 font-semibold disabled:opacity-50"
+          className="rounded-md border border-line-strong px-3 py-1 font-semibold disabled:opacity-50"
         >
           Previous
         </button>
@@ -187,7 +230,7 @@ export function Pagination({
           type="button"
           disabled={page >= pages}
           onClick={() => onPage(page + 1)}
-          className="rounded-md border border-line px-3 py-1 font-semibold disabled:opacity-50"
+          className="rounded-md border border-line-strong px-3 py-1 font-semibold disabled:opacity-50"
         >
           Next
         </button>
@@ -220,4 +263,4 @@ export function ErrorNote({ message }: { message: string }) {
 export const btnPrimary =
   "rounded-md bg-primary px-3 py-1.5 text-sm font-semibold text-on-primary hover:opacity-90 disabled:opacity-60";
 export const btnGhost =
-  "rounded-md border border-line px-3 py-1.5 text-sm font-semibold text-ink hover:bg-tint disabled:opacity-60";
+  "rounded-md border border-line-strong px-3 py-1.5 text-sm font-semibold text-ink hover:bg-tint disabled:opacity-60";

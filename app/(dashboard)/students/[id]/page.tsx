@@ -246,107 +246,111 @@ export default function StudentDetailPage() {
         )}
 
         {tab === "payments" && (
-          <table className="w-full text-sm">
-            <thead>
-              <tr className="border-b border-line text-left text-xs uppercase text-muted">
-                <th className="px-3 py-2">Receipt</th>
-                <th className="px-3 py-2">Date</th>
-                <th className="px-3 py-2">Fee</th>
-                <th className="px-3 py-2">Amount</th>
-                <th className="px-3 py-2">Mode</th>
-                <th className="px-3 py-2">Status</th>
-              </tr>
-            </thead>
-            <tbody className="divide-y divide-line">
-              {payments.length === 0 ? (
-                <tr>
-                  <td colSpan={6}>
-                    <EmptyState message="No payments recorded." />
-                  </td>
+          <div className="overflow-x-auto">
+            <table className="w-full text-sm">
+              <thead>
+                <tr className="border-b border-line text-left text-xs uppercase text-muted">
+                  <th className="px-3 py-2">Receipt</th>
+                  <th className="px-3 py-2">Date</th>
+                  <th className="px-3 py-2">Fee</th>
+                  <th className="px-3 py-2">Amount</th>
+                  <th className="px-3 py-2">Mode</th>
+                  <th className="px-3 py-2">Status</th>
                 </tr>
-              ) : (
-                payments.map((p) => (
-                  <tr key={p.id}>
-                    <td className="px-3 py-2 font-mono text-xs">{p.receipt_no}</td>
-                    <td className="px-3 py-2">{p.payment_date}</td>
-                    <td className="px-3 py-2">{p.fee?.name ?? "—"}</td>
-                    <td className="px-3 py-2">{php(p.amount)}</td>
-                    <td className="px-3 py-2 capitalize">{p.mode}</td>
-                    <td className="px-3 py-2">
-                      <Badge tone={p.status === "posted" ? "ok" : "danger"}>{p.status}</Badge>
+              </thead>
+              <tbody className="divide-y divide-line">
+                {payments.length === 0 ? (
+                  <tr>
+                    <td colSpan={6}>
+                      <EmptyState message="No payments recorded." />
                     </td>
                   </tr>
-                ))
-              )}
-            </tbody>
-          </table>
+                ) : (
+                  payments.map((p) => (
+                    <tr key={p.id}>
+                      <td className="px-3 py-2 font-mono text-xs">{p.receipt_no}</td>
+                      <td className="px-3 py-2">{p.payment_date}</td>
+                      <td className="px-3 py-2">{p.fee?.name ?? "—"}</td>
+                      <td className="px-3 py-2">{php(p.amount)}</td>
+                      <td className="px-3 py-2 capitalize">{p.mode}</td>
+                      <td className="px-3 py-2">
+                        <Badge tone={p.status === "posted" ? "ok" : "danger"}>{p.status}</Badge>
+                      </td>
+                    </tr>
+                  ))
+                )}
+              </tbody>
+            </table>
+          </div>
         )}
 
         {tab === "clearances" && (
-          <table className="w-full text-sm">
-            <thead>
-              <tr className="border-b border-line text-left text-xs uppercase text-muted">
-                <th className="px-3 py-2">Purpose</th>
-                <th className="px-3 py-2">Requested</th>
-                <th className="px-3 py-2">Status</th>
-                <th className="px-3 py-2 text-right">Actions</th>
-              </tr>
-            </thead>
-            <tbody className="divide-y divide-line">
-              {clearances.length === 0 ? (
-                <tr>
-                  <td colSpan={4}>
-                    <EmptyState message="No clearance requests." />
-                  </td>
+          <div className="overflow-x-auto">
+            <table className="w-full text-sm">
+              <thead>
+                <tr className="border-b border-line text-left text-xs uppercase text-muted">
+                  <th className="px-3 py-2">Purpose</th>
+                  <th className="px-3 py-2">Requested</th>
+                  <th className="px-3 py-2">Status</th>
+                  <th className="px-3 py-2 text-right">Actions</th>
                 </tr>
-              ) : (
-                clearances.map((c) => (
-                  <tr key={c.id}>
-                    <td className="px-3 py-2 font-semibold">{c.purpose}</td>
-                    <td className="px-3 py-2">
-                      {new Date(c.requested_at).toLocaleDateString()}
+              </thead>
+              <tbody className="divide-y divide-line">
+                {clearances.length === 0 ? (
+                  <tr>
+                    <td colSpan={4}>
+                      <EmptyState message="No clearance requests." />
                     </td>
-                    <td className="px-3 py-2">
-                      <Badge tone={toneFor(c.status)}>{c.status}</Badge>
-                    </td>
-                    <td className="px-3 py-2 text-right">
-                      {canManage && (
-                        <div className="inline-flex gap-2">
-                          {c.status === "pending" && (
-                            <>
+                  </tr>
+                ) : (
+                  clearances.map((c) => (
+                    <tr key={c.id}>
+                      <td className="px-3 py-2 font-semibold">{c.purpose}</td>
+                      <td className="px-3 py-2">
+                        {new Date(c.requested_at).toLocaleDateString()}
+                      </td>
+                      <td className="px-3 py-2">
+                        <Badge tone={toneFor(c.status)}>{c.status}</Badge>
+                      </td>
+                      <td className="px-3 py-2 text-right">
+                        {canManage && (
+                          <div className="inline-flex gap-2">
+                            {c.status === "pending" && (
+                              <>
+                                <button
+                                  type="button"
+                                  className="text-primary hover:underline"
+                                  onClick={() => setAction({ kind: "approve", row: c })}
+                                >
+                                  Approve
+                                </button>
+                                <button
+                                  type="button"
+                                  className="text-danger hover:underline"
+                                  onClick={() => setAction({ kind: "reject", row: c })}
+                                >
+                                  Reject
+                                </button>
+                              </>
+                            )}
+                            {c.status === "approved" && (
                               <button
                                 type="button"
                                 className="text-primary hover:underline"
-                                onClick={() => setAction({ kind: "approve", row: c })}
+                                onClick={() => setAction({ kind: "release", row: c })}
                               >
-                                Approve
+                                Release
                               </button>
-                              <button
-                                type="button"
-                                className="text-danger hover:underline"
-                                onClick={() => setAction({ kind: "reject", row: c })}
-                              >
-                                Reject
-                              </button>
-                            </>
-                          )}
-                          {c.status === "approved" && (
-                            <button
-                              type="button"
-                              className="text-primary hover:underline"
-                              onClick={() => setAction({ kind: "release", row: c })}
-                            >
-                              Release
-                            </button>
-                          )}
-                        </div>
-                      )}
-                    </td>
-                  </tr>
-                ))
-              )}
-            </tbody>
-          </table>
+                            )}
+                          </div>
+                        )}
+                      </td>
+                    </tr>
+                  ))
+                )}
+              </tbody>
+            </table>
+          </div>
         )}
       </div>
 

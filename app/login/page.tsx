@@ -57,7 +57,7 @@ function LoginForm() {
               required
               value={identifier}
               onChange={(e) => setIdentifier(e.target.value)}
-              className="mt-1 w-full rounded-md border border-line bg-bg px-3 py-2 text-ink placeholder:text-muted focus:border-primary"
+              className="mt-1 w-full rounded-md border border-line-strong bg-bg px-3 py-2 text-ink placeholder:text-muted focus:border-primary"
               placeholder="admin"
             />
           </div>
@@ -74,7 +74,7 @@ function LoginForm() {
               required
               value={password}
               onChange={(e) => setPassword(e.target.value)}
-              className="mt-1 w-full rounded-md border border-line bg-bg px-3 py-2 text-ink placeholder:text-muted focus:border-primary"
+              className="mt-1 w-full rounded-md border border-line-strong bg-bg px-3 py-2 text-ink placeholder:text-muted focus:border-primary"
             />
           </div>
 

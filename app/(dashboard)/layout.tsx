@@ -119,7 +119,7 @@ function Shell({ children }: { children: ReactNode }) {
           <button
             type="button"
             aria-label="Open menu"
-            className="rounded-md border border-line px-2 py-1 text-sm lg:hidden"
+            className="rounded-md border border-line-strong px-2 py-1 text-sm lg:hidden"
             onClick={() => setOpen(true)}
           >
             ☰

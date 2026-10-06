@@ -9,6 +9,7 @@
   --g-on: #ffffff;
   --g2: #e1ecdf;
   --line: #d9d0b8;
+  --line-strong: #8b8266;
   --danger: #b3261e;
   --danger-tint: #f9e3e0;
   --warn: #8a5a00;
@@ -29,6 +30,7 @@
     --g-on: #10201a;
     --g2: #1f2d25;
     --line: #2d3b32;
+    --line-strong: #61746a;
     --danger: #f2a199;
     --danger-tint: #2c1a18;
     --warn: #e0b464;
@@ -49,6 +51,7 @@
   --color-on-primary: var(--g-on);
   --color-tint: var(--g2);
   --color-line: var(--line);
+  --color-line-strong: var(--line-strong);
   --color-danger: var(--danger);
   --color-danger-tint: var(--danger-tint);
   --color-warn: var(--warn);

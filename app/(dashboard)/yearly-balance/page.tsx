@@ -210,38 +210,40 @@ export default function YearlyBalancePage() {
           <Spinner />
         ) : detail ? (
           <div className="space-y-3">
-            <table className="w-full text-sm">
-              <thead>
-                <tr className="border-b border-line text-left text-xs uppercase text-muted">
-                  <th className="px-2 py-2">Source</th>
-                  <th className="px-2 py-2 text-right">Income</th>
-                  <th className="px-2 py-2 text-right">Expenses</th>
-                  <th className="px-2 py-2 text-right">Balance</th>
-                </tr>
-              </thead>
-              <tbody className="divide-y divide-line">
-                <tr>
-                  <td className="px-2 py-2 font-semibold">Live</td>
-                  <td className="px-2 py-2 text-right">{php(detail.data.live.total_income)}</td>
-                  <td className="px-2 py-2 text-right">{php(detail.data.live.total_expenses)}</td>
-                  <td className="px-2 py-2 text-right font-semibold">
-                    {php(detail.data.live.balance)}
-                  </td>
-                </tr>
-                <tr>
-                  <td className="px-2 py-2 font-semibold">Snapshot</td>
-                  <td className="px-2 py-2 text-right">
-                    {detail.data.snapshot ? php(detail.data.snapshot.total_income) : "—"}
-                  </td>
-                  <td className="px-2 py-2 text-right">
-                    {detail.data.snapshot ? php(detail.data.snapshot.total_expenses) : "—"}
-                  </td>
-                  <td className="px-2 py-2 text-right font-semibold">
-                    {detail.data.snapshot ? php(detail.data.snapshot.balance) : "—"}
-                  </td>
-                </tr>
-              </tbody>
-            </table>
+            <div className="overflow-x-auto">
+              <table className="w-full text-sm">
+                <thead>
+                  <tr className="border-b border-line text-left text-xs uppercase text-muted">
+                    <th className="px-2 py-2">Source</th>
+                    <th className="px-2 py-2 text-right">Income</th>
+                    <th className="px-2 py-2 text-right">Expenses</th>
+                    <th className="px-2 py-2 text-right">Balance</th>
+                  </tr>
+                </thead>
+                <tbody className="divide-y divide-line">
+                  <tr>
+                    <td className="px-2 py-2 font-semibold">Live</td>
+                    <td className="px-2 py-2 text-right">{php(detail.data.live.total_income)}</td>
+                    <td className="px-2 py-2 text-right">{php(detail.data.live.total_expenses)}</td>
+                    <td className="px-2 py-2 text-right font-semibold">
+                      {php(detail.data.live.balance)}
+                    </td>
+                  </tr>
+                  <tr>
+                    <td className="px-2 py-2 font-semibold">Snapshot</td>
+                    <td className="px-2 py-2 text-right">
+                      {detail.data.snapshot ? php(detail.data.snapshot.total_income) : "—"}
+                    </td>
+                    <td className="px-2 py-2 text-right">
+                      {detail.data.snapshot ? php(detail.data.snapshot.total_expenses) : "—"}
+                    </td>
+                    <td className="px-2 py-2 text-right font-semibold">
+                      {detail.data.snapshot ? php(detail.data.snapshot.balance) : "—"}
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
             {detail.data.snapshot && (
               <div className="rounded-lg border border-line bg-tint px-3 py-2 text-xs text-muted">
                 Prepared by <strong>{detail.data.snapshot.prepared_by}</strong> on{" "}

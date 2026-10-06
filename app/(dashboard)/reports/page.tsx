@@ -278,146 +278,154 @@ export default function ReportsPage() {
               <div className="border-b border-line px-3 py-2 text-xs font-semibold uppercase text-muted">
                 Expenses by category
               </div>
-              <table className="w-full text-sm">
-                <tbody className="divide-y divide-line">
-                  {categories.expenses.length === 0 ? (
-                    <tr>
-                      <td>
-                        <EmptyState message="No expenses." />
-                      </td>
-                    </tr>
-                  ) : (
-                    categories.expenses.map((c) => (
-                      <tr key={c.category}>
-                        <td className="px-3 py-2">{c.category}</td>
-                        <td className="px-3 py-2 text-right font-semibold">{php(c.total)}</td>
+              <div className="overflow-x-auto">
+                <table className="w-full text-sm">
+                  <tbody className="divide-y divide-line">
+                    {categories.expenses.length === 0 ? (
+                      <tr>
+                        <td>
+                          <EmptyState message="No expenses." />
+                        </td>
                       </tr>
-                    ))
-                  )}
-                </tbody>
-              </table>
+                    ) : (
+                      categories.expenses.map((c) => (
+                        <tr key={c.category}>
+                          <td className="px-3 py-2">{c.category}</td>
+                          <td className="px-3 py-2 text-right font-semibold">{php(c.total)}</td>
+                        </tr>
+                      ))
+                    )}
+                  </tbody>
+                </table>
+              </div>
             </div>
             <div>
               <div className="border-b border-line px-3 py-2 text-xs font-semibold uppercase text-muted">
                 Income by category
               </div>
-              <table className="w-full text-sm">
-                <tbody className="divide-y divide-line">
-                  {categories.income.length === 0 ? (
-                    <tr>
-                      <td>
-                        <EmptyState message="No other income." />
-                      </td>
-                    </tr>
-                  ) : (
-                    categories.income.map((c) => (
-                      <tr key={c.category}>
-                        <td className="px-3 py-2">{c.category}</td>
-                        <td className="px-3 py-2 text-right font-semibold">{php(c.total)}</td>
+              <div className="overflow-x-auto">
+                <table className="w-full text-sm">
+                  <tbody className="divide-y divide-line">
+                    {categories.income.length === 0 ? (
+                      <tr>
+                        <td>
+                          <EmptyState message="No other income." />
+                        </td>
                       </tr>
-                    ))
-                  )}
-                </tbody>
-              </table>
+                    ) : (
+                      categories.income.map((c) => (
+                        <tr key={c.category}>
+                          <td className="px-3 py-2">{c.category}</td>
+                          <td className="px-3 py-2 text-right font-semibold">{php(c.total)}</td>
+                        </tr>
+                      ))
+                    )}
+                  </tbody>
+                </table>
+              </div>
             </div>
           </div>
         )}
 
         {tab === "fee" && (
-          <table className="w-full text-sm">
-            <thead>
-              <tr className="border-b border-line text-left text-xs uppercase text-muted">
-                <th className="px-3 py-2">Fee</th>
-                <th className="px-3 py-2">Period</th>
-                <th className="px-3 py-2 text-right">Amount</th>
-                <th className="px-3 py-2 text-right">Collected</th>
-                <th className="px-3 py-2 text-right">Balance</th>
-                <th className="px-3 py-2">Progress</th>
-              </tr>
-            </thead>
-            <tbody className="divide-y divide-line">
-              {fees.items.length === 0 ? (
-                <tr>
-                  <td colSpan={6}>
-                    <EmptyState message="No active fees." />
-                  </td>
+          <div className="overflow-x-auto">
+            <table className="w-full text-sm">
+              <thead>
+                <tr className="border-b border-line text-left text-xs uppercase text-muted">
+                  <th className="px-3 py-2">Fee</th>
+                  <th className="px-3 py-2">Period</th>
+                  <th className="px-3 py-2 text-right">Amount</th>
+                  <th className="px-3 py-2 text-right">Collected</th>
+                  <th className="px-3 py-2 text-right">Balance</th>
+                  <th className="px-3 py-2">Progress</th>
                 </tr>
-              ) : (
-                fees.items.map((f) => (
-                  <tr key={f.fee_id}>
-                    <td className="px-3 py-2 font-semibold">{f.name}</td>
-                    <td className="px-3 py-2 text-xs">
-                      {f.semester} {f.academic_year}
-                    </td>
-                    <td className="px-3 py-2 text-right">{php(f.amount)}</td>
-                    <td className="px-3 py-2 text-right">{php(f.collected)}</td>
-                    <td className="px-3 py-2 text-right font-semibold">{php(f.balance)}</td>
-                    <td className="px-3 py-2">
-                      <div className="flex items-center gap-2">
-                        <div className="h-2 w-24 overflow-hidden rounded-full bg-tint">
-                          <div
-                            className="h-full bg-primary"
-                            style={{ width: `${Math.min(100, f.progress)}%` }}
-                          />
-                        </div>
-                        <span className="text-xs text-muted">{f.progress}%</span>
-                      </div>
+              </thead>
+              <tbody className="divide-y divide-line">
+                {fees.items.length === 0 ? (
+                  <tr>
+                    <td colSpan={6}>
+                      <EmptyState message="No active fees." />
                     </td>
                   </tr>
-                ))
+                ) : (
+                  fees.items.map((f) => (
+                    <tr key={f.fee_id}>
+                      <td className="px-3 py-2 font-semibold">{f.name}</td>
+                      <td className="px-3 py-2 text-xs">
+                        {f.semester} {f.academic_year}
+                      </td>
+                      <td className="px-3 py-2 text-right">{php(f.amount)}</td>
+                      <td className="px-3 py-2 text-right">{php(f.collected)}</td>
+                      <td className="px-3 py-2 text-right font-semibold">{php(f.balance)}</td>
+                      <td className="px-3 py-2">
+                        <div className="flex items-center gap-2">
+                          <div className="h-2 w-24 overflow-hidden rounded-full bg-tint">
+                            <div
+                              className="h-full bg-primary"
+                              style={{ width: `${Math.min(100, f.progress)}%` }}
+                            />
+                          </div>
+                          <span className="text-xs text-muted">{f.progress}%</span>
+                        </div>
+                      </td>
+                    </tr>
+                  ))
+                )}
+              </tbody>
+              {fees.unassigned_total > 0 && (
+                <tfoot>
+                  <tr className="border-t border-line text-sm">
+                    <td colSpan={4} className="px-3 py-2 text-muted">
+                      Payments not assigned to a fee
+                    </td>
+                    <td colSpan={2} className="px-3 py-2 text-right font-semibold">
+                      {php(fees.unassigned_total)}
+                    </td>
+                  </tr>
+                </tfoot>
               )}
-            </tbody>
-            {fees.unassigned_total > 0 && (
-              <tfoot>
-                <tr className="border-t border-line text-sm">
-                  <td colSpan={4} className="px-3 py-2 text-muted">
-                    Payments not assigned to a fee
-                  </td>
-                  <td colSpan={2} className="px-3 py-2 text-right font-semibold">
-                    {php(fees.unassigned_total)}
-                  </td>
-                </tr>
-              </tfoot>
-            )}
-          </table>
+            </table>
+          </div>
         )}
 
         {tab === "mode" && (
-          <table className="w-full text-sm">
-            <thead>
-              <tr className="border-b border-line text-left text-xs uppercase text-muted">
-                <th className="px-3 py-2">Mode</th>
-                <th className="px-3 py-2 text-right">Transactions</th>
-                <th className="px-3 py-2 text-right">Total</th>
-              </tr>
-            </thead>
-            <tbody className="divide-y divide-line">
-              {modes && Object.keys(modes.by_mode).length === 0 ? (
-                <tr>
-                  <td colSpan={3}>
-                    <EmptyState message="No payments in this period." />
-                  </td>
+          <div className="overflow-x-auto">
+            <table className="w-full text-sm">
+              <thead>
+                <tr className="border-b border-line text-left text-xs uppercase text-muted">
+                  <th className="px-3 py-2">Mode</th>
+                  <th className="px-3 py-2 text-right">Transactions</th>
+                  <th className="px-3 py-2 text-right">Total</th>
                 </tr>
-              ) : (
-                Object.entries(modes?.by_mode ?? {}).map(([m, v]) => (
-                  <tr key={m}>
-                    <td className="px-3 py-2 font-semibold capitalize">{m.replace("_", " ")}</td>
-                    <td className="px-3 py-2 text-right">{v.count}</td>
-                    <td className="px-3 py-2 text-right font-semibold">{php(v.total)}</td>
+              </thead>
+              <tbody className="divide-y divide-line">
+                {modes && Object.keys(modes.by_mode).length === 0 ? (
+                  <tr>
+                    <td colSpan={3}>
+                      <EmptyState message="No payments in this period." />
+                    </td>
                   </tr>
-                ))
+                ) : (
+                  Object.entries(modes?.by_mode ?? {}).map(([m, v]) => (
+                    <tr key={m}>
+                      <td className="px-3 py-2 font-semibold capitalize">{m.replace("_", " ")}</td>
+                      <td className="px-3 py-2 text-right">{v.count}</td>
+                      <td className="px-3 py-2 text-right font-semibold">{php(v.total)}</td>
+                    </tr>
+                  ))
+                )}
+              </tbody>
+              {modes && (
+                <tfoot>
+                  <tr className="border-t border-line text-sm">
+                    <td className="px-3 py-2 font-semibold">Total</td>
+                    <td className="px-3 py-2 text-right">{modes.count}</td>
+                    <td className="px-3 py-2 text-right font-semibold">{php(modes.total)}</td>
+                  </tr>
+                </tfoot>
               )}
-            </tbody>
-            {modes && (
-              <tfoot>
-                <tr className="border-t border-line text-sm">
-                  <td className="px-3 py-2 font-semibold">Total</td>
-                  <td className="px-3 py-2 text-right">{modes.count}</td>
-                  <td className="px-3 py-2 text-right font-semibold">{php(modes.total)}</td>
-                </tr>
-              </tfoot>
-            )}
-          </table>
+            </table>
+          </div>
         )}
       </div>
     </div>
