@@ -1,0 +1,1583 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="color-scheme" content="dark">
+<title>UI/UX Review Workbench · Syntaxure Labs</title>
+<link rel="icon" href="data:image/png;base64,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">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  color-scheme:dark;
+  --bg:#050505;--text:#ededed;--text2:#B7BFCB;--muted:#8A93A0;
+  --line:rgba(255,255,255,.10);
+  --panel:rgba(255,255,255,.045);
+  --field:rgba(255,255,255,.06);
+  --edge:#6B7686;
+  --accent:#22D3EE;--accent-2:#A855F7;
+  --grad:linear-gradient(135deg,#22D3EE,#A855F7);
+  --focus:#7DD3FC;
+  --r-sm:6px;--r-lg:16px;
+  --topbar-h:64px;--side-w:248px;--rail-w:352px;
+  --pass:#4ADE80;--pass-bg:rgba(74,222,128,.12);--pass-solid:#4ADE80;--pass-ink:#04210F;
+  --fail:#FB7185;--fail-bg:rgba(251,113,133,.13);--fail-solid:#FB7185;--fail-ink:#2B0309;
+  --na:#B4C1D4;--na-bg:rgba(180,193,212,.12);--na-solid:#B4C1D4;--na-ink:#050505;
+  --warn:#FBBF24;--warn-bg:rgba(251,191,36,.12);
+  --sans:'Inter',ui-sans-serif,system-ui,-apple-system,'Segoe UI',Roboto,sans-serif;
+  --mono:'JetBrains Mono',ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+  box-sizing:border-box;
+  padding-top:env(safe-area-inset-top,0px);
+  padding-bottom:env(safe-area-inset-bottom,0px);
+}
+html{scroll-padding-top:calc(env(safe-area-inset-top,0px) + var(--topbar-h) + 20px);scroll-behavior:smooth}
+*,*::before,*::after{box-sizing:inherit}
+[hidden]{display:none!important}
+body{margin:0;background:var(--bg);color:var(--text);font:400 16px/1.65 var(--sans);-webkit-font-smoothing:antialiased;overflow-wrap:anywhere}
+h1,h2,h3,p,dl,dd,figure,blockquote{margin:0}
+h1{font-size:clamp(28px,3.6vw,40px);line-height:1.12;font-weight:800;letter-spacing:-.025em}
+h2{font-size:clamp(21px,2.4vw,26px);line-height:1.25;font-weight:700;letter-spacing:-.015em;margin-bottom:10px}
+h3{font-size:17px;line-height:1.35;font-weight:700}
+a{color:var(--accent);text-underline-offset:3px}
+code{font-family:var(--mono);font-size:13px;background:var(--panel);border:1px solid var(--line);padding:1px 6px;border-radius:var(--r-sm);color:var(--text)}
+:focus-visible{outline:3px solid var(--focus);outline-offset:2px;border-radius:var(--r-sm)}
+.skip{position:absolute;left:-999px;top:8px;background:var(--accent);color:#050505;padding:10px 14px;border-radius:var(--r-sm);font-weight:700;z-index:100}
+.skip:focus{left:12px}
+
+/* ---------- top bar ---------- */
+.topbar{position:sticky;top:env(safe-area-inset-top,0px);z-index:60;height:var(--topbar-h);display:grid;grid-template-columns:auto minmax(0,1fr) auto;align-items:center;gap:16px;padding:0 clamp(16px,2.5vw,32px);background:rgba(5,5,5,.84);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);border-bottom:1px solid var(--line)}
+.tb-left{display:flex;align-items:center;gap:12px}
+.btn.hamburger{display:none}
+.wordmark{display:flex;align-items:center;gap:10px;white-space:nowrap}
+.wordmark img{width:34px;height:34px;border-radius:var(--r-sm);display:block}
+.wm-text b{display:block;font-weight:700;font-size:15px;line-height:1.1}
+.wm-text span{display:block;font-size:12.5px;color:var(--muted);line-height:1.25}
+.tabs{display:flex;gap:4px;justify-content:center;overflow-x:auto;scrollbar-width:none;-webkit-overflow-scrolling:touch}
+.tabs::-webkit-scrollbar{display:none}
+.tabs button{font:600 14px var(--sans);color:var(--text2);background:transparent;border:1px solid transparent;border-radius:var(--r-sm);padding:0 14px;min-height:40px;cursor:pointer;white-space:nowrap}
+.tabs button:hover{background:var(--panel);color:var(--text)}
+.tabs button[aria-selected="true"]{color:var(--text);background:var(--panel);border-color:var(--line);box-shadow:inset 0 -2px 0 var(--accent)}
+.utility{display:flex;align-items:center;gap:8px}
+.search-wrap input{width:clamp(160px,17vw,250px)}
+.btn.search-toggle{display:none}
+.avatar{min-width:40px;min-height:40px;display:grid;place-items:center;font-weight:600;text-transform:none}
+
+/* ---------- shared controls ---------- */
+.btn{font:600 14px/1 var(--sans);min-height:40px;padding:0 14px;border-radius:var(--r-sm);border:1px solid var(--edge);background:var(--field);color:var(--text);cursor:pointer}
+.btn:hover{background:rgba(255,255,255,.10)}
+.btn.primary{background:var(--grad);color:#050505;border-color:transparent;font-weight:700}
+.btn.primary:hover{filter:brightness(1.1)}
+.btn.small{min-height:36px;padding:0 12px;font-size:13.5px}
+.btn.danger{color:var(--fail);border-color:var(--fail)}
+.btn.danger.armed{background:var(--fail-solid);color:var(--fail-ink)}
+.icon-btn{min-width:40px;min-height:40px;padding:0;display:inline-grid;place-items:center}
+input,select,textarea{font:inherit;font-size:15px;color:var(--text);background:var(--field);border:1px solid var(--edge);border-radius:var(--r-sm);padding:9px 11px;min-height:40px;width:100%}
+select option{background:#14171d;color:var(--text)}
+textarea{min-height:84px;resize:vertical;line-height:1.5}
+input::placeholder,textarea::placeholder{color:var(--muted)}
+input[type=color]{padding:3px;width:48px;min-width:48px;cursor:pointer}
+input[type=checkbox]{width:20px;height:20px;min-height:0;accent-color:var(--accent)}
+label.fld{display:grid;gap:6px;font-weight:600;font-size:14px}
+label.check{display:inline-flex;align-items:center;gap:8px;font-weight:600;font-size:14px;min-height:40px}
+.chip{display:inline-block;background:var(--panel);border:1px solid var(--line);border-radius:var(--r-sm);font-family:var(--mono);font-size:11.5px;letter-spacing:.04em;padding:3px 8px;text-transform:uppercase;color:var(--accent);line-height:1.5}
+button.chip{cursor:pointer;min-height:40px;padding:0 14px;font-size:12px;color:var(--text)}
+button.chip:hover{background:rgba(255,255,255,.10)}
+button.chip[aria-pressed="true"]{background:var(--grad);color:#050505;border-color:transparent;font-weight:600}
+button.chip[aria-pressed="true"]::before{content:"\2713\00a0"}
+.chip.pass{color:var(--pass)}.chip.fail{color:var(--fail)}.chip.na{color:var(--na)}.chip.warn{color:var(--warn)}
+.panel{background:var(--panel);border:1px solid var(--line);border-radius:var(--r-lg);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);box-shadow:0 1px 0 rgba(255,255,255,.05) inset}
+.pad{padding:clamp(16px,2vw,24px)}
+.callout{position:relative;padding:18px 22px 18px 26px;border-radius:var(--r-lg);background:var(--panel);border:1px solid var(--line);backdrop-filter:blur(14px);margin:18px 0}
+.callout::before{content:'';position:absolute;left:0;top:0;bottom:0;width:3px;background:var(--grad);border-radius:var(--r-lg) 0 0 var(--r-lg)}
+.callout .tag{float:right;margin-left:12px}
+.callout p{max-width:none;color:var(--text2)}
+.callout h3{margin-bottom:4px}
+.bar{height:10px;border-radius:var(--r-sm);background:rgba(255,255,255,.08);border:1px solid var(--edge);overflow:hidden}
+.fill{height:100%;width:0;background:var(--grad);transition:width .25s ease}
+.stat-row{display:flex;flex-wrap:wrap;gap:8px;margin:16px 0 0}
+.hint{font-size:14px;color:var(--muted)}
+.tablewrap{overflow-x:auto;border-radius:var(--r-sm)}
+table{border-collapse:collapse;width:100%;min-width:520px;font-size:14.5px}
+th,td{padding:10px 12px;text-align:left;vertical-align:top;border-bottom:1px solid var(--line)}
+th{font-weight:700;color:var(--text);white-space:nowrap}
+td{color:var(--text2)}
+td strong{color:var(--text)}
+.mono{font-family:var(--mono)}
+
+/* ---------- shell ---------- */
+.shell{display:grid;grid-template-columns:var(--side-w) minmax(0,1fr) var(--rail-w);gap:clamp(16px,2vw,32px);padding:24px clamp(16px,2.5vw,32px) 80px;align-items:start;max-width:1760px;margin:0 auto}
+.sidebar,.rail{position:sticky;top:calc(env(safe-area-inset-top,0px) + var(--topbar-h) + 16px);max-height:calc(100vh - env(safe-area-inset-top,0px) - var(--topbar-h) - 32px)}
+.sidebar{overflow-y:auto;padding:2px 4px 16px 0;font-size:14px}
+#sectionNav a,.appendix a{display:flex;justify-content:space-between;align-items:center;gap:8px;padding:8px 10px;min-height:38px;border-radius:var(--r-sm);color:var(--text2);text-decoration:none}
+#sectionNav a:hover,.appendix a:hover{background:var(--panel);color:var(--text)}
+#sectionNav a.active{color:var(--text);background:linear-gradient(180deg,#22D3EE,#A855F7) left center/3px 70% no-repeat,var(--panel)}
+.cnt{font:600 12px var(--mono);color:var(--muted);white-space:nowrap}
+.side-divider{height:1px;background:var(--line);margin:14px 6px}
+.side-group{font:600 12px var(--mono);letter-spacing:.06em;text-transform:uppercase;color:var(--muted);padding:0 10px 6px}
+main{min-width:0;container-type:inline-size;container-name:main}
+.section{padding:6px 0 44px}
+.section+.section{border-top:1px solid var(--line);padding-top:36px}
+.section p{max-width:72ch;color:var(--text2)}
+.section p+p{margin-top:12px}
+.section .abstract{font-size:17px;margin-top:12px}
+.section h1+.abstract{margin-top:14px}
+.section ul.plain{margin:10px 0 0;padding-left:20px;max-width:72ch;color:var(--text2)}
+.section ul.plain li{margin:6px 0}
+.section ul.plain strong,.section p strong{color:var(--text)}
+.rail-inline{display:none;margin-top:18px;padding:16px 18px}
+
+/* ---------- rail: facts and tool dock ---------- */
+.rail{display:flex;flex-direction:column;gap:12px;min-height:0}
+.rail[data-mode="facts"] .dock{display:none}
+.rail[data-mode="dock"] .rail-facts{display:none}
+.rail-facts{display:flex;flex-direction:column;gap:12px;overflow-y:auto}
+.facts{padding:16px 18px}
+.facts h3,.rail-inline h3{font-size:15px;margin-bottom:8px}
+dl.kv{display:grid;grid-template-columns:auto 1fr;gap:6px 14px;font-size:14px}
+dl.kv dt{color:var(--muted)}
+dl.kv dd{color:var(--text);text-align:right;min-width:0}
+.ring-box{display:flex;align-items:center;gap:14px;padding:16px 18px}
+.ring-label b{display:block;font-size:22px;font-weight:800;line-height:1.1}
+.ring-label span{font-size:13.5px;color:var(--muted)}
+.quote{padding:18px 20px;margin:0}
+.quote p{font-size:18px;font-weight:700;letter-spacing:-.01em;color:var(--text)}
+.quote cite{display:block;margin-top:8px;font-style:normal;font-size:13px;color:var(--muted)}
+.dock{display:flex;flex-direction:column;min-height:0;flex:1;overflow:hidden}
+.dock-status{padding:14px 16px 12px;border-bottom:1px solid var(--line)}
+.ds-row{display:flex;align-items:baseline;gap:10px;margin-bottom:8px}
+.ds-pct{font-size:26px;font-weight:800;letter-spacing:-.02em;line-height:1}
+.ds-lab{font-size:13.5px;color:var(--muted)}
+.ds-chips{display:flex;flex-wrap:wrap;gap:6px;margin-top:10px}
+.dock-tabs{display:grid;grid-template-columns:repeat(4,1fr);gap:4px;padding:8px;border-bottom:1px solid var(--line)}
+.dock-tabs button{font:600 13px var(--sans);min-height:38px;padding:0 6px;border-radius:var(--r-sm);border:1px solid transparent;background:transparent;color:var(--text2);cursor:pointer}
+.dock-tabs button:hover{background:var(--panel);color:var(--text)}
+.dock-tabs button[aria-selected="true"]{background:var(--panel);border-color:var(--line);color:var(--text);box-shadow:inset 0 -2px 0 var(--accent)}
+.dock-body{overflow-y:auto;padding:14px 16px 18px;min-height:0;flex:1}
+.tool-title{font-size:15px;margin-bottom:4px}
+.pick{display:flex;gap:8px;align-items:center}
+.pick .btn{flex:none;white-space:nowrap}
+.pick input[type=text]{min-width:0}
+.cfield{margin-top:12px}
+.cfield>label{font-weight:600;font-size:14px;display:block;margin-bottom:6px}
+.swatch{border-radius:var(--r-sm);padding:14px 16px;border:1px solid var(--line);margin-top:12px}
+.ratio{font:800 clamp(34px,4vw,46px)/1 var(--sans);letter-spacing:-.03em;margin-top:14px}
+.res{list-style:none;margin:10px 0 0;padding:0;display:grid;gap:6px}
+.res li{display:flex;justify-content:space-between;gap:10px;align-items:center;padding:8px 10px;border-radius:var(--r-sm);background:var(--field);border:1px solid var(--line);font-size:13.5px}
+.res .v{font-weight:700;padding:2px 8px;border-radius:var(--r-sm);white-space:nowrap}
+.res .v.pass{background:var(--pass-bg);color:var(--pass)}
+.res .v.fail{background:var(--fail-bg);color:var(--fail)}
+.res .v.info{background:var(--na-bg);color:var(--na)}
+.addnote{display:grid;grid-template-columns:1fr auto;gap:8px;margin-top:14px;align-items:end}
+.msg{font-size:13.5px;color:var(--muted);min-height:20px;margin-top:6px}
+.snip{margin-top:14px}
+.snip h4{margin:0 0 2px;font-size:14px}
+.snip p{font-size:13.5px;color:var(--muted);line-height:1.5;max-width:none}
+.snip pre{margin:8px 0 6px;padding:10px 12px;background:rgba(0,0,0,.45);border:1px solid var(--line);border-radius:var(--r-sm);font:12.5px/1.5 var(--mono);color:var(--text);overflow-x:auto;white-space:pre}
+.dock-body dl.kv dd{text-align:right}
+.evform{display:grid;gap:10px;margin-top:12px}
+
+/* ---------- checklist ---------- */
+.ctl{display:flex;flex-wrap:wrap;gap:8px 14px;align-items:center;margin-top:18px}
+.seg2{display:inline-flex;gap:6px;flex-wrap:wrap}
+.minibar{display:block;height:6px;border-radius:var(--r-sm);background:rgba(255,255,255,.08);overflow:hidden;margin:2px 0 12px;max-width:72ch}
+.minibar span{display:block;height:100%;width:0;background:var(--grad);transition:width .25s ease}
+.cat-head{display:flex;align-items:center;gap:12px;flex-wrap:wrap;margin-bottom:6px}
+.cat-head h2{margin:0}
+.items{list-style:none;margin:0;padding:6px 8px}
+.item{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:10px 18px;padding:14px 12px;border-top:1px solid var(--line);border-radius:var(--r-sm)}
+.item:first-child{border-top:0}
+.item[data-state="fail"]{box-shadow:inset 3px 0 0 var(--fail);background:var(--fail-bg)}
+.item[data-state="done"]{box-shadow:inset 3px 0 0 var(--pass)}
+.item-head{display:flex;gap:12px;align-items:flex-start}
+.iid{font:600 12.5px var(--mono);background:var(--panel);border:1px solid var(--line);padding:2px 8px;border-radius:var(--r-sm);white-space:nowrap;margin-top:2px;color:var(--accent)}
+.it{font-weight:600;color:var(--text);font-size:15px;line-height:1.5;max-width:none!important}
+.tags{display:flex;flex-wrap:wrap;gap:6px;margin-top:8px}
+.tag{font:600 12px var(--mono);letter-spacing:.02em;padding:2px 8px;border-radius:var(--r-sm);background:var(--na-bg);color:var(--na)}
+.tag.ref{background:var(--panel);border:1px solid var(--line);color:var(--text2)}
+.tag.practice{background:var(--warn-bg);color:var(--warn)}
+.how{margin-top:6px;font-size:14px}
+.how summary{cursor:pointer;color:var(--accent);font-weight:600;min-height:32px;display:inline-flex;align-items:center}
+.how p{color:var(--text2);padding:2px 0 4px;max-width:70ch!important}
+.controls{display:flex;flex-direction:column;gap:8px;align-items:flex-end}
+.segrow{display:flex;gap:8px;align-items:center;justify-content:flex-end}
+.seglabel{font-size:13px;font-weight:600;color:var(--muted);min-width:36px;text-align:right}
+.seg{display:inline-flex;border-radius:var(--r-sm);overflow:hidden;border:1px solid var(--edge)}
+.seg button{font:600 13.5px/1 var(--sans);min-height:38px;min-width:54px;padding:0 10px;border:0;border-left:1px solid var(--edge);background:var(--field);color:var(--text);cursor:pointer}
+.seg button:first-child{border-left:0}
+.seg button:hover{background:rgba(255,255,255,.12)}
+.seg button[aria-pressed="true"]::before{margin-right:5px}
+.seg button[aria-pressed="true"][data-v="pass"]{background:var(--pass-solid);color:var(--pass-ink)}
+.seg button[aria-pressed="true"][data-v="pass"]::before{content:"\2713"}
+.seg button[aria-pressed="true"][data-v="fail"]{background:var(--fail-solid);color:var(--fail-ink)}
+.seg button[aria-pressed="true"][data-v="fail"]::before{content:"\2715"}
+.seg button[aria-pressed="true"][data-v="na"]{background:var(--na-solid);color:var(--na-ink)}
+.seg button[aria-pressed="true"][data-v="na"]::before{content:"\2013"}
+.detail{grid-column:1 / -1;display:grid;gap:10px;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));padding-top:6px}
+.detail .sevrow{grid-column:1 / -1;display:flex;flex-wrap:wrap;gap:10px 18px}
+.detail .sevrow label{display:flex;gap:8px;align-items:center;font-weight:600;font-size:14px}
+.detail .sevrow select{width:auto;min-width:170px}
+.detail .wide{grid-column:1 / -1}
+@container main (max-width:700px){
+  .item{grid-template-columns:1fr}
+  .controls{align-items:flex-start}
+  .segrow{justify-content:flex-start}
+  .seglabel{text-align:left}
+}
+.nomatch{padding:22px;text-align:center;color:var(--muted)}
+
+/* ---------- diagram ---------- */
+.diagram{margin:22px 0;padding:16px;background:var(--panel);border:1px solid var(--line);border-radius:var(--r-lg);backdrop-filter:blur(14px);overflow-x:auto}
+.diagram svg{display:block;margin:0 auto;max-width:100%;min-width:720px;height:auto}
+.diagram figcaption{margin-top:10px;font-family:var(--mono);font-size:12px;color:var(--muted);text-align:center}
+
+/* ---------- plan, findings ---------- */
+.stack{display:flex;height:14px;border-radius:var(--r-sm);overflow:hidden;background:rgba(255,255,255,.08);border:1px solid var(--edge);margin-top:16px;max-width:560px}
+.stack i{display:block;height:100%;transition:width .25s ease}
+.stack .p{background:var(--pass-solid)}.stack .f{background:var(--fail-solid)}.stack .n{background:var(--na-solid)}
+.mx th,.mx td{text-align:center;padding:8px}
+.mx th:first-child,.mx td:first-child{text-align:left;font-weight:700;color:var(--text)}
+.mx .cell{min-height:40px;min-width:92px;font:600 13.5px var(--sans);border-radius:var(--r-sm);border:1px solid var(--edge);background:var(--field);color:var(--text);cursor:pointer}
+.mx .cell[aria-pressed="true"]{background:var(--pass-solid);color:var(--pass-ink);border-color:var(--pass-solid)}
+.chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px}
+.flowhead,.flowrow{display:grid;grid-template-columns:minmax(140px,1.2fr) 140px minmax(160px,2fr) auto;gap:10px;align-items:center}
+.flowhead{font-size:14px;font-weight:700;padding:0 2px 6px;margin-top:14px}
+.flowrow{padding:6px 0}
+@container main (max-width:700px){.flowhead{display:none}.flowrow{grid-template-columns:1fr;padding:12px 0;border-top:1px solid var(--line)}}
+.sev{display:inline-block;font:600 12px var(--mono);padding:2px 8px;border-radius:var(--r-sm);white-space:nowrap}
+.sev.S1,.sev.S2{background:var(--fail-bg);color:var(--fail)}
+.sev.S3{background:var(--warn-bg);color:var(--warn)}
+.sev.S4,.sev.none{background:var(--na-bg);color:var(--na)}
+.verdict-box{padding:clamp(18px,2.4vw,26px);margin-top:18px}
+.verdict-box .big{font-size:clamp(22px,2.8vw,30px);font-weight:800;letter-spacing:-.015em}
+.big.bad{color:var(--fail)}.big.ok{color:var(--pass)}.big.mid{color:var(--warn)}.big.wait{color:var(--na)}
+.grid2{display:grid;gap:14px;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));margin-top:16px}
+.evrow{display:grid;grid-template-columns:90px minmax(120px,1fr) minmax(150px,2fr) minmax(120px,1.2fr) auto;gap:10px;align-items:center;padding:6px 0}
+.evhead{font-weight:700;font-size:14px;color:var(--text)}
+@container main (max-width:760px){.evhead{display:none}.evrow{grid-template-columns:1fr;padding:12px 0;border-top:1px solid var(--line)}}
+.report{font:13.5px/1.55 var(--mono);min-height:220px}
+
+/* ---------- overlays, mobile ---------- */
+.scrim{position:fixed;inset:0;background:rgba(0,0,0,.6);z-index:55}
+.tools-fab{display:none;position:fixed;right:16px;bottom:calc(16px + env(safe-area-inset-bottom,0px));z-index:65;min-height:48px;padding:0 20px;box-shadow:0 8px 24px rgba(0,0,0,.5)}
+
+@media (max-width:1279px){
+  .shell{grid-template-columns:minmax(0,1fr) var(--rail-w)}
+  .btn.hamburger{display:inline-grid}
+  .sidebar{position:fixed;top:0;bottom:0;left:0;width:min(84vw,300px);max-height:none;transform:translateX(-100%);transition:transform .22s ease;z-index:70;background:#0A0A0B;border-right:1px solid var(--line);padding:calc(16px + env(safe-area-inset-top,0px)) 12px 20px}
+  .sidebar.open{transform:none}
+}
+@media (max-width:900px){
+  :root{--topbar-h:108px}
+  .topbar{grid-template-columns:auto 1fr auto;grid-template-areas:"left . util" "tabs tabs tabs";align-content:center;gap:4px 12px}
+  .tb-left{grid-area:left}.tabs{grid-area:tabs;justify-content:flex-start}.utility{grid-area:util}
+  .btn.search-toggle{display:inline-grid}
+  .search-wrap{display:none;position:absolute;left:12px;right:12px;top:calc(100% + 8px)}
+  .search-wrap.show{display:block}
+  .search-wrap input{width:100%;background:#14171d}
+  .shell{grid-template-columns:minmax(0,1fr)}
+  .rail-inline{display:block}
+  .rail{position:fixed;left:0;right:0;bottom:0;top:auto;max-height:82vh;z-index:70;transform:translateY(110%);transition:transform .22s ease;padding:0 10px calc(10px + env(safe-area-inset-bottom,0px))}
+  .rail.sheet-open{transform:none}
+  .rail[data-mode="facts"]{display:none}
+  .rail .dock{background:#0A0A0B;border-color:var(--edge)}
+  body[data-rail="dock"] .tools-fab{display:inline-flex;align-items:center}
+}
+@media (max-width:560px){.wm-text span{display:none}}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}*{transition:none!important}}
+@media print{
+  .topbar,.sidebar,.rail,.tools-fab,.scrim,.skip,.noprint{display:none!important}
+  body{background:#fff;color:#000}
+  .shell{display:block;padding:0}
+  .panel,.callout,.diagram{background:#fff;border-color:#999;backdrop-filter:none}
+  [data-panel]{display:block!important}
+  :root{--text:#000;--text2:#222;--muted:#444;--accent:#055;--line:#bbb;--edge:#555}
+}
+</style>
+</head>
+<body data-rail="facts">
+<a class="skip" href="#main">Skip to content</a>
+
+<header class="topbar">
+  <div class="tb-left">
+    <button class="btn icon-btn hamburger" id="burger" type="button" aria-label="Open section navigation" aria-expanded="false" aria-controls="sidebar">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+    </button>
+    <div class="wordmark">
+      <img src="data:image/png;base64,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" alt="Syntaxure Labs logo" width="34" height="34">
+      <div class="wm-text"><b>Syntaxure</b><span>UI/UX Review Workbench</span></div>
+    </div>
+  </div>
+  <nav class="tabs" role="tablist" aria-label="Workbench tabs">
+    <button type="button" role="tab" id="tab-overview" aria-controls="panel-overview" aria-selected="true" data-tab="overview">Overview</button>
+    <button type="button" role="tab" id="tab-method" aria-controls="panel-method" aria-selected="false" data-tab="method">Review flow</button>
+    <button type="button" role="tab" id="tab-checklist" aria-controls="panel-checklist" aria-selected="false" data-tab="checklist">Checklist</button>
+    <button type="button" role="tab" id="tab-plan" aria-controls="panel-plan" aria-selected="false" data-tab="plan">Test plan</button>
+    <button type="button" role="tab" id="tab-findings" aria-controls="panel-findings" aria-selected="false" data-tab="findings">Findings</button>
+    <button type="button" role="tab" id="tab-reference" aria-controls="panel-reference" aria-selected="false" data-tab="reference">Reference</button>
+  </nav>
+  <div class="utility">
+    <button class="btn icon-btn search-toggle" id="search-toggle" type="button" aria-label="Filter checklist" aria-expanded="false">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/></svg>
+    </button>
+    <div class="search-wrap" id="search-wrap"><input type="search" id="q" placeholder="Filter checklist items" aria-label="Filter checklist items by text, ID, or criterion" autocomplete="off"></div>
+    <div class="avatar chip" id="avatar" role="img" aria-label="Reviewer initials">JM</div>
+  </div>
+</header>
+<div class="scrim" id="scrim" hidden></div>
+
+<div class="shell">
+  <aside class="sidebar" id="sidebar" aria-label="Section index">
+    <nav id="sectionNav" aria-label="Sections on this tab"></nav>
+    <div id="appendixBox">
+      <div class="side-divider"></div>
+      <div class="side-group">Appendix</div>
+      <nav class="appendix" aria-label="Appendix">
+        <a href="#reference/s-ref-thresholds" data-goto="reference" data-sec="s-ref-thresholds">Thresholds</a>
+        <a href="#reference/s-ref-severity" data-goto="reference" data-sec="s-ref-severity">Severity scale</a>
+        <a href="#reference/s-ref-22" data-goto="reference" data-sec="s-ref-22">WCAG 2.2 additions</a>
+        <a href="#reference/s-ref-devtools" data-goto="reference" data-sec="s-ref-devtools">DevTools methods</a>
+      </nav>
+    </div>
+  </aside>
+
+  <main id="main" tabindex="-1">
+    <noscript><p>This workbench needs JavaScript to track progress.</p></noscript>
+
+    <!-- ===== OVERVIEW ===== -->
+    <section role="tabpanel" id="panel-overview" aria-labelledby="tab-overview" data-panel="overview">
+      <article class="section" id="s-abstract" data-title="Summary">
+        <h1>Manual UI/UX review workbench</h1>
+        <p class="abstract">A reusable checklist, test plan, and evidence log for reviewing any app against WCAG 2.2 AA in both light and dark mode. Work through the checklist with the tool dock beside it, log every failure with a severity and a screenshot reference, then read the suggested verdict. Your entries are saved in this browser only.</p>
+        <div class="stat-row" aria-live="polite">
+          <span class="chip" id="c-total">0 checks</span>
+          <span class="chip" id="c-pct">0% reviewed</span>
+          <span class="chip fail" id="c-fail">0 failed</span>
+        </div>
+        <div class="panel rail-inline">
+          <h3>Key facts</h3>
+          <dl class="kv">
+            <dt>App</dt><dd data-fact="app"></dd>
+            <dt>Build</dt><dd data-fact="build"></dd>
+            <dt>Reviewer</dt><dd data-fact="reviewer"></dd>
+            <dt>Date</dt><dd data-fact="date"></dd>
+            <dt>Reviewed</dt><dd data-fact="reviewed"></dd>
+            <dt>Verdict so far</dt><dd data-fact="verdict"></dd>
+          </dl>
+        </div>
+      </article>
+
+      <article class="section" id="s-details" data-title="Review details">
+        <h2>Review details</h2>
+        <p>These fields head the exported report and identify the build under test. Fill them in before you start, because findings are only reproducible against a known build, role, and device.</p>
+        <div class="panel pad" style="margin-top:16px">
+          <div class="grid2" style="margin-top:0">
+            <label class="fld">App under review<input type="text" data-meta="app" placeholder="e.g. Admin panel v0.4"></label>
+            <label class="fld">Build, commit, or URL<input type="text" data-meta="build" placeholder="Staging URL or commit hash"></label>
+            <label class="fld">Reviewer<input type="text" data-meta="reviewer" placeholder="Your name"></label>
+            <label class="fld">Review date<input type="date" data-meta="date"></label>
+            <label class="fld">Roles or accounts tested<input type="text" data-meta="roles" placeholder="e.g. admin, standard user"></label>
+            <label class="fld">Devices and browsers<input type="text" data-meta="devices" placeholder="e.g. Chrome 130 on Windows, iPhone 14"></label>
+          </div>
+        </div>
+      </article>
+
+      <article class="section" id="s-marking" data-title="How to mark a check">
+        <h2>How to mark a check</h2>
+        <p>Every check takes one of three marks, or stays blank. Items tagged <strong>per theme</strong> take a mark for light and a mark for dark, and count as two checks.</p>
+        <div class="panel pad tablewrap" style="margin-top:16px">
+          <table>
+            <thead><tr><th>Mark</th><th>Meaning</th><th>Required follow-up</th></tr></thead>
+            <tbody>
+              <tr><td><span class="chip pass">Pass</span></td><td>Meets the criterion on every screen and state you sampled for this item.</td><td>None.</td></tr>
+              <tr><td><span class="chip fail">Fail</span></td><td>At least one reproducible instance does not meet it.</td><td>Severity, a note with the measured value, and an evidence reference.</td></tr>
+              <tr><td><span class="chip na">N/A</span></td><td>The feature does not exist in this app.</td><td>Say why in the note.</td></tr>
+              <tr><td><span class="chip">Blank</span></td><td>Not reviewed yet.</td><td>Keeps the verdict at Incomplete. A blank is never a pass.</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="callout">
+          <span class="chip tag warn">Limit</span>
+          <h3>A pass is not a conformance claim</h3>
+          <p>A manual review samples screens and states. Passing means you found no failure in what you tested, not that the whole app conforms. Treat the verdict as evidence about the sample.</p>
+        </div>
+        <p><strong>WCAG items</strong> cite a success criterion from WCAG 2.2 at level A or AA and have a measurable pass or fail. <strong>Practice items</strong> are good-UX checks that WCAG does not require, so they are judgment calls. Use <em>WCAG items only</em> on the Checklist tab for a strict conformance read.</p>
+      </article>
+
+      <article class="section" id="s-status" data-title="Where the review stands">
+        <h2>Where the review stands</h2>
+        <p>Live totals across every check currently in scope. Open blockers and majors are the failures that decide the verdict.</p>
+        <div class="stat-row" aria-live="polite">
+          <span class="chip pass" id="l-pass">0 passed</span>
+          <span class="chip fail" id="l-fail">0 failed</span>
+          <span class="chip na" id="l-na">0 not applicable</span>
+          <span class="chip" id="l-unset">0 not reviewed</span>
+          <span class="chip warn" id="l-major">0 blockers and majors</span>
+        </div>
+        <div class="stack" role="img" aria-label="Proportion of checks passed, failed, not applicable, and not yet reviewed">
+          <i class="p" id="b-pass" style="width:0"></i><i class="f" id="b-fail" style="width:0"></i><i class="n" id="b-na" style="width:0"></i>
+        </div>
+      </article>
+    </section>
+
+    <!-- ===== REVIEW FLOW ===== -->
+    <section role="tabpanel" id="panel-method" aria-labelledby="tab-method" data-panel="method" hidden>
+      <article class="section" id="s-flow" data-title="Review flow">
+        <h1>Review flow</h1>
+        <p class="abstract">Seven steps in a fixed order. Each theme gets its own pass so you never compare one against the other from memory, and keyboard and screen reader checks come last because by then you already know the screens. The loop at the end is the part people skip: every fix is retested in both themes.</p>
+        <!-- mermaid source (each arrow is written with a backslash before the closing angle bracket so it cannot close this comment; remove the backslashes before re-rendering):
+        flowchart LR
+          P["1 Scope<br/>2 Set up"] --\> R["3 Light pass<br/>4 Dark pass<br/>5 Functional walk"]
+          R --\> L["6 Log<br/>findings"]
+          L --\> V{"7 Verdict"}
+          V --\>|"Approved"| D["Done"]
+          V --\>|"Fixes needed"| X["Fix, then<br/>retest both<br/>themes"]
+          X --\> L
+        -->
+        <figure class="diagram" role="group" aria-label="Review flow diagram"><svg id="svg-flow" width="100%" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" class="flowchart" style="max-width: 1008.58px; background-color: transparent;" viewBox="0 0 1008.578125 233.89453125" role="graphics-document document" aria-roledescription="flowchart-v2"><style>#svg-flow{font-family:Inter,ui-sans-serif,system-ui,sans-serif;font-size:15px;fill:#ededed;}@keyframes edge-animation-frame{from{stroke-dashoffset:0;}}@keyframes dash{to{stroke-dashoffset:0;}}#svg-flow .edge-animation-slow{stroke-dasharray:9,5!important;stroke-dashoffset:900;animation:dash 50s linear infinite;stroke-linecap:round;}#svg-flow .edge-animation-fast{stroke-dasharray:9,5!important;stroke-dashoffset:900;animation:dash 20s linear infinite;stroke-linecap:round;}#svg-flow .error-icon{fill:#0a0c10;}#svg-flow .error-text{fill:#f5f3ef;stroke:#f5f3ef;}#svg-flow .edge-thickness-normal{stroke-width:1px;}#svg-flow .edge-thickness-thick{stroke-width:3.5px;}#svg-flow .edge-pattern-solid{stroke-dasharray:0;}#svg-flow .edge-thickness-invisible{stroke-width:0;fill:none;}#svg-flow .edge-pattern-dashed{stroke-dasharray:3;}#svg-flow .edge-pattern-dotted{stroke-dasharray:2;}#svg-flow .marker{fill:#5b6472;stroke:#5b6472;}#svg-flow .marker.cross{stroke:#5b6472;}#svg-flow svg{font-family:Inter,ui-sans-serif,system-ui,sans-serif;font-size:15px;}#svg-flow p{margin:0;}#svg-flow .label{font-family:Inter,ui-sans-serif,system-ui,sans-serif;color:#ededed;}#svg-flow .cluster-label text{fill:#f5f3ef;}#svg-flow .cluster-label span{color:#f5f3ef;}#svg-flow .cluster-label span p{background-color:transparent;}#svg-flow .label text,#svg-flow span{fill:#ededed;color:#ededed;}#svg-flow .node rect,#svg-flow .node circle,#svg-flow .node ellipse,#svg-flow .node polygon,#svg-flow .node path{fill:#12151b;stroke:rgba(255,255,255,0.16);stroke-width:1px;}#svg-flow .rough-node .label text,#svg-flow .node .label text,#svg-flow .image-shape .label,#svg-flow .icon-shape .label{text-anchor:middle;}#svg-flow .node .katex path{fill:#000;stroke:#000;stroke-width:1px;}#svg-flow .rough-node .label,#svg-flow .node .label,#svg-flow .image-shape .label,#svg-flow .icon-shape .label{text-align:center;}#svg-flow .node.clickable{cursor:pointer;}#svg-flow .root .anchor path{fill:#5b6472!important;stroke-width:0;stroke:#5b6472;}#svg-flow .arrowheadPath{fill:rgba(255, 255, 255, 0);}#svg-flow .edgePath .path{stroke:#5b6472;stroke-width:1px;}#svg-flow .flowchart-link{stroke:#5b6472;fill:none;}#svg-flow .edgeLabel{background-color:#050505;text-align:center;}#svg-flow .edgeLabel p{background-color:#050505;}#svg-flow .edgeLabel rect{opacity:0.5;background-color:#050505;fill:#050505;}#svg-flow .labelBkg{background-color:rgba(5, 5, 5, 0.5);}#svg-flow .cluster rect{fill:#0a0c10;stroke:rgba(255,255,255,0.12);stroke-width:1px;}#svg-flow .cluster text{fill:#f5f3ef;}#svg-flow .cluster span{color:#f5f3ef;}#svg-flow div.mermaidTooltip{position:absolute;text-align:center;max-width:200px;padding:2px;font-family:Inter,ui-sans-serif,system-ui,sans-serif;font-size:12px;background:#0a0c10;border:1px solid hsl(220, 0%, 0%);border-radius:2px;pointer-events:none;z-index:100;}#svg-flow .flowchartTitleText{text-anchor:middle;font-size:18px;fill:#ededed;}#svg-flow rect.text{fill:none;stroke-width:0;}#svg-flow .icon-shape,#svg-flow .image-shape{background-color:#050505;text-align:center;}#svg-flow .icon-shape p,#svg-flow .image-shape p{background-color:#050505;padding:2px;}#svg-flow .icon-shape .label rect,#svg-flow .image-shape .label rect{opacity:0.5;background-color:#050505;fill:#050505;}#svg-flow .label-icon{display:inline-block;height:1em;overflow:visible;vertical-align:-0.125em;}#svg-flow .node .label-icon path{fill:currentColor;stroke:revert;stroke-width:revert;}#svg-flow .node .neo-node{stroke:rgba(255,255,255,0.16);}#svg-flow [data-look="neo"].node rect,#svg-flow [data-look="neo"].cluster rect,#svg-flow [data-look="neo"].node polygon{stroke:url(#svg-flow-gradient);filter:drop-shadow( 1px 2px 2px rgba(185,185,185,1));}#svg-flow [data-look="neo"].node path{stroke:url(#svg-flow-gradient);stroke-width:1px;}#svg-flow [data-look="neo"].node .outer-path{filter:drop-shadow( 1px 2px 2px rgba(185,185,185,1));}#svg-flow [data-look="neo"].node .neo-line path{stroke:rgba(255,255,255,0.16);filter:none;}#svg-flow [data-look="neo"].node circle{stroke:url(#svg-flow-gradient);filter:drop-shadow( 1px 2px 2px rgba(185,185,185,1));}#svg-flow [data-look="neo"].node circle .state-start{fill:#000000;}#svg-flow [data-look="neo"].icon-shape .icon{fill:url(#svg-flow-gradient);filter:drop-shadow( 1px 2px 2px rgba(185,185,185,1));}#svg-flow [data-look="neo"].icon-shape .icon-neo path{stroke:url(#svg-flow-gradient);filter:drop-shadow( 1px 2px 2px rgba(185,185,185,1));}#svg-flow :root{--mermaid-font-family:"trebuchet ms",verdana,arial,sans-serif;}</style><g><marker id="svg-flow_flowchart-v2-pointEnd" class="marker flowchart-v2" viewBox="0 0 10 10" refX="5" refY="5" markerUnits="userSpaceOnUse" markerWidth="8" markerHeight="8" orient="auto"><path d="M 0 0 L 10 5 L 0 10 z" class="arrowMarkerPath" style="stroke-width: 1; stroke-dasharray: 1, 0;"/></marker><marker id="svg-flow_flowchart-v2-pointStart" class="marker flowchart-v2" viewBox="0 0 10 10" refX="4.5" refY="5" markerUnits="userSpaceOnUse" markerWidth="8" markerHeight="8" orient="auto"><path d="M 0 5 L 10 10 L 10 0 z" class="arrowMarkerPath" style="stroke-width: 1; stroke-dasharray: 1, 0;"/></marker><marker id="svg-flow_flowchart-v2-pointEnd-margin" class="marker flowchart-v2" viewBox="0 0 11.5 14" refX="11.5" refY="7" markerUnits="userSpaceOnUse" markerWidth="10.5" markerHeight="14" orient="auto"><path d="M 0 0 L 11.5 7 L 0 14 z" class="arrowMarkerPath" style="stroke-width: 0; stroke-dasharray: 1, 0;"/></marker><marker id="svg-flow_flowchart-v2-pointStart-margin" class="marker flowchart-v2" viewBox="0 0 11.5 14" refX="1" refY="7" markerUnits="userSpaceOnUse" markerWidth="11.5" markerHeight="14" orient="auto"><polygon points="0,7 11.5,14 11.5,0" class="arrowMarkerPath" style="stroke-width: 0; stroke-dasharray: 1, 0;"/></marker><marker id="svg-flow_flowchart-v2-circleEnd" class="marker flowchart-v2" viewBox="0 0 10 10" refX="11" refY="5" markerUnits="userSpaceOnUse" markerWidth="11" markerHeight="11" orient="auto"><circle cx="5" cy="5" r="5" class="arrowMarkerPath" style="stroke-width: 1; stroke-dasharray: 1, 0;"/></marker><marker id="svg-flow_flowchart-v2-circleStart" class="marker flowchart-v2" viewBox="0 0 10 10" refX="-1" refY="5" markerUnits="userSpaceOnUse" markerWidth="11" markerHeight="11" orient="auto"><circle cx="5" cy="5" r="5" class="arrowMarkerPath" style="stroke-width: 1; stroke-dasharray: 1, 0;"/></marker><marker id="svg-flow_flowchart-v2-circleEnd-margin" class="marker flowchart-v2" viewBox="0 0 10 10" refY="5" refX="12.25" markerUnits="userSpaceOnUse" markerWidth="14" markerHeight="14" orient="auto"><circle cx="5" cy="5" r="5" class="arrowMarkerPath" style="stroke-width: 0; stroke-dasharray: 1, 0;"/></marker><marker id="svg-flow_flowchart-v2-circleStart-margin" class="marker flowchart-v2" viewBox="0 0 10 10" refX="-2" refY="5" markerUnits="userSpaceOnUse" markerWidth="14" markerHeight="14" orient="auto"><circle cx="5" cy="5" r="5" class="arrowMarkerPath" style="stroke-width: 0; stroke-dasharray: 1, 0;"/></marker><marker id="svg-flow_flowchart-v2-crossEnd" class="marker cross flowchart-v2" viewBox="0 0 11 11" refX="12" refY="5.2" markerUnits="userSpaceOnUse" markerWidth="11" markerHeight="11" orient="auto"><path d="M 1,1 l 9,9 M 10,1 l -9,9" class="arrowMarkerPath" style="stroke-width: 2; stroke-dasharray: 1, 0;"/></marker><marker id="svg-flow_flowchart-v2-crossStart" class="marker cross flowchart-v2" viewBox="0 0 11 11" refX="-1" refY="5.2" markerUnits="userSpaceOnUse" markerWidth="11" markerHeight="11" orient="auto"><path d="M 1,1 l 9,9 M 10,1 l -9,9" class="arrowMarkerPath" style="stroke-width: 2; stroke-dasharray: 1, 0;"/></marker><marker id="svg-flow_flowchart-v2-crossEnd-margin" class="marker cross flowchart-v2" viewBox="0 0 15 15" refX="17.7" refY="7.5" markerUnits="userSpaceOnUse" markerWidth="12" markerHeight="12" orient="auto"><path d="M 1,1 L 14,14 M 1,14 L 14,1" class="arrowMarkerPath" style="stroke-width: 2.5;"/></marker><marker id="svg-flow_flowchart-v2-crossStart-margin" class="marker cross flowchart-v2" viewBox="0 0 15 15" refX="-3.5" refY="7.5" markerUnits="userSpaceOnUse" markerWidth="12" markerHeight="12" orient="auto"><path d="M 1,1 L 14,14 M 1,14 L 14,1" class="arrowMarkerPath" style="stroke-width: 2.5; stroke-dasharray: 1, 0;"/></marker><g class="root"><g class="clusters"/><g class="edgePaths"><path d="M130.75,114.645L134.917,114.645C139.083,114.645,147.417,114.645,155.083,114.645C162.75,114.645,169.75,114.645,173.25,114.645L176.75,114.645" id="svg-flow-L_P_R_0" class="edge-thickness-normal edge-pattern-solid edge-thickness-normal edge-pattern-solid flowchart-link" style=";" data-edge="true" data-et="edge" data-id="L_P_R_0" data-points="W3sieCI6MTMwLjc1LCJ5IjoxMTQuNjQ0NTMxMjV9LHsieCI6MTU1Ljc1LCJ5IjoxMTQuNjQ0NTMxMjV9LHsieCI6MTgwLjc1LCJ5IjoxMTQuNjQ0NTMxMjV9XQ==" data-look="classic" marker-end="url(#svg-flow_flowchart-v2-pointEnd)"/><path d="M371.313,114.645L375.479,114.645C379.646,114.645,387.979,114.645,395.646,114.645C403.313,114.645,410.313,114.645,413.813,114.645L417.313,114.645" id="svg-flow-L_R_L_0" class="edge-thickness-normal edge-pattern-solid edge-thickness-normal edge-pattern-solid flowchart-link" style=";" data-edge="true" data-et="edge" data-id="L_R_L_0" data-points="W3sieCI6MzcxLjMxMjUsInkiOjExNC42NDQ1MzEyNX0seyJ4IjozOTYuMzEyNSwieSI6MTE0LjY0NDUzMTI1fSx7IngiOjQyMS4zMTI1LCJ5IjoxMTQuNjQ0NTMxMjV9XQ==" data-look="classic" marker-end="url(#svg-flow_flowchart-v2-pointEnd)"/><path d="M540.813,81.357L544.979,79.036C549.146,76.715,557.479,72.072,565.146,69.751C572.813,67.43,579.813,67.43,583.313,67.43L586.813,67.43" id="svg-flow-L_L_V_0" class="edge-thickness-normal edge-pattern-solid edge-thickness-normal edge-pattern-solid flowchart-link" style=";" data-edge="true" data-et="edge" data-id="L_L_V_0" data-points="W3sieCI6NTQwLjgxMjUsInkiOjgxLjM1NzM3MDAyMjEyMzg5fSx7IngiOjU2NS44MTI1LCJ5Ijo2Ny40Mjk2ODc1fSx7IngiOjU5MC44MTI1LCJ5Ijo2Ny40Mjk2ODc1fV0=" data-look="classic" marker-end="url(#svg-flow_flowchart-v2-pointEnd)"/><path d="M701.512,59.27L715.22,57.088C728.927,54.906,756.343,50.543,785.337,48.361C814.331,46.18,844.904,46.18,860.19,46.18L875.477,46.18" id="svg-flow-L_V_D_0" class="edge-thickness-normal edge-pattern-solid edge-thickness-normal edge-pattern-solid flowchart-link" style=";" data-edge="true" data-et="edge" data-id="L_V_D_0" data-points="W3sieCI6NzAxLjUxMTkxNzkwNzYyMjQsInkiOjU5LjI2OTczMDQwNzYyMjQxfSx7IngiOjc4My43NTc4MTI1LCJ5Ijo0Ni4xNzk2ODc1fSx7IngiOjg3OS40NzY1NjI1LCJ5Ijo0Ni4xNzk2ODc1fV0=" data-look="classic" marker-end="url(#svg-flow_flowchart-v2-pointEnd)"/><path d="M690.723,86.379L706.228,93.637C721.734,100.896,752.746,115.413,779.966,126.474C807.185,137.534,830.612,145.139,842.326,148.941L854.039,152.743" id="svg-flow-L_V_X_0" class="edge-thickness-normal edge-pattern-solid edge-thickness-normal edge-pattern-solid flowchart-link" style=";" data-edge="true" data-et="edge" data-id="L_V_X_0" data-points="W3sieCI6NjkwLjcyMjU5MjQxNzI5NzcsInkiOjg2LjM3ODk3MDA4MjcwMjI3fSx7IngiOjc4My43NTc4MTI1LCJ5IjoxMjkuOTI5Njg3NX0seyJ4Ijo4NTcuODQzNzUsInkiOjE1My45NzgzNjk1OTY5NjI2fV0=" data-look="classic" marker-end="url(#svg-flow_flowchart-v2-pointEnd)"/><path d="M857.844,184.811L845.496,186.137C833.148,187.464,808.453,190.117,773.853,191.443C739.253,192.77,694.747,192.77,658.423,192.77C622.099,192.77,593.956,192.77,573.029,186.451C552.103,180.132,538.393,167.494,531.538,161.175L524.684,154.856" id="svg-flow-L_X_L_0" class="edge-thickness-normal edge-pattern-solid edge-thickness-normal edge-pattern-solid flowchart-link" style=";" data-edge="true" data-et="edge" data-id="L_X_L_0" data-points="W3sieCI6ODU3Ljg0Mzc1LCJ5IjoxODQuODExMDAzMjEyNjE2OH0seyJ4Ijo3ODMuNzU3ODEyNSwieSI6MTkyLjc2OTUzMTI1fSx7IngiOjY1MC4yNDIxODc1LCJ5IjoxOTIuNzY5NTMxMjV9LHsieCI6NTY1LjgxMjUsInkiOjE5Mi43Njk1MzEyNX0seyJ4Ijo1MjEuNzQyNSwieSI6MTUyLjE0NDUzMTI1fV0=" data-look="classic" marker-end="url(#svg-flow_flowchart-v2-pointEnd)"/></g><g class="edgeLabels"><g class="edgeLabel"><g class="label" data-id="L_P_R_0" transform="translate(0, 0)"><foreignObject width="0" height="0"><div xmlns="http://www.w3.org/1999/xhtml" class="labelBkg" style="display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;"><span class="edgeLabel"></span></div></foreignObject></g></g><g class="edgeLabel"><g class="label" data-id="L_R_L_0" transform="translate(0, 0)"><foreignObject width="0" height="0"><div xmlns="http://www.w3.org/1999/xhtml" class="labelBkg" style="display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;"><span class="edgeLabel"></span></div></foreignObject></g></g><g class="edgeLabel"><g class="label" data-id="L_L_V_0" transform="translate(0, 0)"><foreignObject width="0" height="0"><div xmlns="http://www.w3.org/1999/xhtml" class="labelBkg" style="display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;"><span class="edgeLabel"></span></div></foreignObject></g></g><g class="edgeLabel" transform="translate(783.7578125, 46.1796875)"><g class="label" data-id="L_V_D_0" transform="translate(-35.9765625, -11.25)"><foreignObject width="71.953125" height="22.5"><div xmlns="http://www.w3.org/1999/xhtml" class="labelBkg" style="display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;"><span class="edgeLabel"><p>Approved</p></span></div></foreignObject></g></g><g class="edgeLabel" transform="translate(772.51259, 124.66569)"><g class="label" data-id="L_V_X_0" transform="translate(-49.0859375, -11.25)"><foreignObject width="98.171875" height="22.5"><div xmlns="http://www.w3.org/1999/xhtml" class="labelBkg" style="display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;"><span class="edgeLabel"><p>Fixes needed</p></span></div></foreignObject></g></g><g class="edgeLabel"><g class="label" data-id="L_X_L_0" transform="translate(0, 0)"><foreignObject width="0" height="0"><div xmlns="http://www.w3.org/1999/xhtml" class="labelBkg" style="display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;"><span class="edgeLabel"></span></div></foreignObject></g></g></g><g class="nodes"><g class="node default" id="svg-flow-flowchart-P-0" data-look="classic" transform="translate(69.375, 114.64453125)"><rect class="basic label-container" style="" x="-61.375" y="-37.5" width="122.75" height="75"/><g class="label" style="" transform="translate(-31.375, -22.5)"><rect/><foreignObject width="62.75" height="45"><div xmlns="http://www.w3.org/1999/xhtml" style="display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;"><span class="nodeLabel"><p>1 Scope<br />2 Set up</p></span></div></foreignObject></g></g><g class="node default" id="svg-flow-flowchart-R-1" data-look="classic" transform="translate(276.03125, 114.64453125)"><rect class="basic label-container" style="" x="-95.28125" y="-48.75" width="190.5625" height="97.5"/><g class="label" style="" transform="translate(-65.28125, -33.75)"><rect/><foreignObject width="130.5625" height="67.5"><div xmlns="http://www.w3.org/1999/xhtml" style="display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;"><span class="nodeLabel"><p>3 Light pass<br />4 Dark pass<br />5 Functional walk</p></span></div></foreignObject></g></g><g class="node default" id="svg-flow-flowchart-L-3" data-look="classic" transform="translate(481.0625, 114.64453125)"><rect class="basic label-container" style="" x="-59.75" y="-37.5" width="119.5" height="75"/><g class="label" style="" transform="translate(-29.75, -22.5)"><rect/><foreignObject width="59.5" height="45"><div xmlns="http://www.w3.org/1999/xhtml" style="display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;"><span class="nodeLabel"><p>6 Log<br />findings</p></span></div></foreignObject></g></g><g class="node default" id="svg-flow-flowchart-V-5" data-look="classic" transform="translate(650.2421875, 67.4296875)"><polygon points="59.4296875,0 118.859375,-59.4296875 59.4296875,-118.859375 0,-59.4296875" class="label-container" transform="translate(-58.9296875, 59.4296875)"/><g class="label" style="" transform="translate(-33.1796875, -11.25)"><rect/><foreignObject width="66.359375" height="22.5"><div xmlns="http://www.w3.org/1999/xhtml" style="display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;"><span class="nodeLabel"><p>7 Verdict</p></span></div></foreignObject></g></g><g class="node default" id="svg-flow-flowchart-D-7" data-look="classic" transform="translate(929.2109375, 46.1796875)"><rect class="basic label-container" style="" x="-49.734375" y="-26.25" width="99.46875" height="52.5"/><g class="label" style="" transform="translate(-19.734375, -11.25)"><rect/><foreignObject width="39.46875" height="22.5"><div xmlns="http://www.w3.org/1999/xhtml" style="display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;"><span class="nodeLabel"><p>Done</p></span></div></foreignObject></g></g><g class="node default" id="svg-flow-flowchart-X-9" data-look="classic" transform="translate(929.2109375, 177.14453125)"><rect class="basic label-container" style="" x="-71.3671875" y="-48.75" width="142.734375" height="97.5"/><g class="label" style="" transform="translate(-41.3671875, -33.75)"><rect/><foreignObject width="82.734375" height="67.5"><div xmlns="http://www.w3.org/1999/xhtml" style="display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;"><span class="nodeLabel"><p>Fix, then<br />retest both<br />themes</p></span></div></foreignObject></g></g></g></g></g><defs><filter id="svg-flow-drop-shadow" height="130%" width="130%"><feDropShadow dx="4" dy="4" stdDeviation="0" flood-opacity="0.06" flood-color="#000000"/></filter></defs><defs><filter id="svg-flow-drop-shadow-small" height="150%" width="150%"><feDropShadow dx="2" dy="2" stdDeviation="0" flood-opacity="0.06" flood-color="#000000"/></filter></defs><linearGradient id="svg-flow-gradient" gradientUnits="objectBoundingBox" x1="0%" y1="0%" x2="100%" y2="0%"><stop offset="0%" stop-color="#22D3EE" stop-opacity="1"/><stop offset="100%" stop-color="hsl(220, 0%, 0%)" stop-opacity="1"/></linearGradient></svg><figcaption>Fig. 1 — review stages and the retest loop</figcaption></figure>
+        <div class="panel pad tablewrap">
+          <table>
+            <thead><tr><th>#</th><th>Step</th><th>What you do</th><th>What you end with</th></tr></thead>
+            <tbody>
+              <tr><td class="mono">1</td><td><strong>Scope</strong></td><td>Fill in the review details. List 3 to 6 critical flows on the Test plan tab.</td><td>Details and flow list</td></tr>
+              <tr><td class="mono">2</td><td><strong>Set up</strong></td><td>Zoom 100%, extensions off, fresh profile, throwaway data ready, versions noted.</td><td>Environment notes</td></tr>
+              <tr><td class="mono">3</td><td><strong>Light pass</strong></td><td>Contrast, type, and layout. Sample the worst case on each screen, not the best.</td><td>Light results</td></tr>
+              <tr><td class="mono">4</td><td><strong>Dark pass</strong></td><td>Repeat the per-theme items. Hunt for hard-coded colors left over from light.</td><td>Dark results</td></tr>
+              <tr><td class="mono">5</td><td><strong>Functional walk</strong></td><td>Keyboard only, then forms and errors, then navigation, then a screen reader on the critical flow.</td><td>Functional results</td></tr>
+              <tr><td class="mono">6</td><td><strong>Log</strong></td><td>Give every failure a severity, a note with the measured value, and a named screenshot.</td><td>Findings and evidence</td></tr>
+              <tr><td class="mono">7</td><td><strong>Verdict</strong></td><td>Apply the suggested verdict, then retest each fix in both themes before closing it.</td><td>Decision</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </article>
+
+      <article class="section" id="s-setup" data-title="Set up before you start">
+        <h2>Set up before you start</h2>
+        <p>Most false results come from the environment, not the app. A browser extension that restyles pages, a cached stylesheet, or a stored theme preference can all make a broken screen look fine or a fine one look broken.</p>
+        <ul class="plain">
+          <li>Reset browser zoom to 100% and turn off extensions that restyle or block page content, including dark-mode extensions and ad blockers.</li>
+          <li>Use a fresh profile or a private window so a stored theme choice or cached CSS cannot hide a problem.</li>
+          <li>Prepare throwaway data for delete, deactivate, and submit tests, and one account per role you need to cover.</li>
+          <li>Open DevTools and enable the rendering emulations you will need: color scheme, forced colors, reduced motion, and vision deficiencies (see the DevTools reference in the appendix).</li>
+          <li>Write browser and OS versions into the environment notes on the Test plan tab, and name screenshots using the convention on the Findings tab as you take them.</li>
+        </ul>
+        <div class="callout">
+          <span class="chip tag">Method</span>
+          <h3>Do the theme passes separately</h3>
+          <p>Finish every per-theme item in light, then repeat them in dark. A screen that passes in light can fail in dark for unrelated reasons, such as a brand accent that only works on one background, so a quick side-by-side glance is not a substitute for measuring each theme.</p>
+        </div>
+      </article>
+
+      <article class="section" id="s-tools" data-title="Using the tool dock">
+        <h2>Using the tool dock</h2>
+        <p>On the Checklist, Test plan, and Findings tabs, the right-hand column holds a dock with four tools. The dock stays in place while the checklist scrolls, so you can measure a color without losing your position. Your last-used tool is remembered. On a phone the dock opens from the Tools button.</p>
+        <div class="panel pad tablewrap" style="margin-top:16px">
+          <table>
+            <thead><tr><th>Tool</th><th>Use it for</th></tr></thead>
+            <tbody>
+              <tr><td><strong>Contrast</strong></td><td>Measuring a text or component color against its background. It truncates the ratio instead of rounding, and can append the measurement to a checklist item's note. A Pick button appears in browsers that support the EyeDropper API, so you can sample any pixel on screen, including another window.</td></tr>
+              <tr><td><strong>Rules</strong></td><td>Quick lookup of the thresholds you are measuring against.</td></tr>
+              <tr><td><strong>Snippets</strong></td><td>Copy-paste console and CSS helpers to run in the app under review: text spacing override, grayscale check, small-target finder, heading outline, missing alt text, unlabeled fields.</td></tr>
+              <tr><td><strong>Evidence</strong></td><td>Log a screenshot reference without leaving the checklist.</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </article>
+    </section>
+
+    <!-- ===== CHECKLIST ===== -->
+    <section role="tabpanel" id="panel-checklist" aria-labelledby="tab-checklist" data-panel="checklist" hidden>
+      <article class="section" id="s-check-intro" data-title="Checklist overview">
+        <h1>Checklist</h1>
+        <p class="abstract">Nine groups of checks against WCAG 2.2 A and AA, plus practice checks for judgment calls. Open <em>How to test</em> on any item for the method. Failures and notes feed the Findings tab automatically, and the tool dock beside this column stays put while you scroll.</p>
+        <div class="ctl noprint">
+          <div class="seg2" role="group" aria-label="Filter checklist items by status">
+            <button class="chip" type="button" data-filter="all" aria-pressed="true">All items</button>
+            <button class="chip" type="button" data-filter="open" aria-pressed="false">Not yet reviewed</button>
+            <button class="chip" type="button" data-filter="fail" aria-pressed="false">Failed</button>
+          </div>
+          <label class="check"><input type="checkbox" id="strict"> WCAG items only</label>
+        </div>
+        <p class="hint" id="filter-note" style="margin-top:8px" aria-live="polite"></p>
+      </article>
+      <div id="cats"></div>
+      <p class="nomatch panel" id="nomatch" hidden>No items match the current filter or search.</p>
+    </section>
+
+    <!-- ===== TEST PLAN ===== -->
+    <section role="tabpanel" id="panel-plan" aria-labelledby="tab-plan" data-panel="plan" hidden>
+      <article class="section" id="s-plan" data-title="Test plan">
+        <h1>Test plan</h1>
+        <p class="abstract">The plan records what you intend to cover and what you actually covered. A finding means little without knowing which theme, width, and flow it came from.</p>
+        <div class="stat-row" aria-live="polite"><span class="chip" id="cov-text">0 coverage items marked</span></div>
+      </article>
+
+      <article class="section" id="s-matrix" data-title="Coverage matrix">
+        <h2>Coverage matrix</h2>
+        <p>Mark each theme and width once you have walked the key screens at that combination. Only 320 px is a WCAG requirement (reflow); the other widths catch real layout breakage.</p>
+        <div class="panel pad tablewrap" style="margin-top:16px"><table class="mx" id="mx"></table></div>
+      </article>
+
+      <article class="section" id="s-modes" data-title="Modes, browsers, devices">
+        <h2>Modes, browsers, and devices</h2>
+        <p>Assistive and environmental checks that sit outside the theme and width grid.</p>
+        <h3 style="margin-top:16px;font-size:15px">Modes and assistive checks</h3>
+        <div class="chips" id="modes" role="group" aria-label="Modes and assistive checks completed"></div>
+        <h3 style="margin-top:20px;font-size:15px">Browsers and devices</h3>
+        <div class="chips" id="browsers" role="group" aria-label="Browsers and devices completed"></div>
+      </article>
+
+      <article class="section" id="s-flows" data-title="Critical user flows">
+        <h2>Critical user flows</h2>
+        <p>Add the end-to-end tasks that matter most. Independently working screens do not prove a whole flow works, so walk each one from start to finish and record where it broke.</p>
+        <div class="chips noprint" id="flow-sugg" aria-label="Quick-add flow suggestions"></div>
+        <div class="panel pad" style="margin-top:16px">
+          <div class="flowhead"><span>Flow</span><span>Result</span><span>Notes</span><span></span></div>
+          <div id="flows"></div>
+          <div class="noprint" style="margin-top:12px"><button class="btn" type="button" id="add-flow">Add a blank flow</button></div>
+        </div>
+      </article>
+
+      <article class="section" id="s-env" data-title="Environment notes">
+        <h2>Environment notes</h2>
+        <p>Record whatever someone would need to reproduce your results.</p>
+        <label class="fld" style="margin-top:14px;max-width:72ch">Environment
+          <textarea id="env" placeholder="Versions, screen sizes, throttling profile, screen reader and browser pairing, test accounts used"></textarea>
+        </label>
+      </article>
+    </section>
+
+    <!-- ===== FINDINGS ===== -->
+    <section role="tabpanel" id="panel-findings" aria-labelledby="tab-findings" data-panel="findings" hidden>
+      <article class="section" id="s-failed" data-title="Failed checks">
+        <h1>Findings</h1>
+        <p class="abstract">Every failed check lands here automatically. Rate each failure's severity on its checklist item. Unrated failures block the suggested verdict until you triage them. The severity scale is in the appendix.</p>
+        <div class="panel pad" style="margin-top:18px">
+          <div class="tablewrap">
+            <table id="ftable">
+              <thead><tr><th>Ref</th><th>Theme</th><th>What failed</th><th>Severity</th><th>Note</th><th>Evidence</th><th class="noprint"></th></tr></thead>
+              <tbody id="fbody"></tbody>
+            </table>
+          </div>
+          <p class="nomatch" id="fnone" style="padding:16px">No failures logged yet.</p>
+        </div>
+      </article>
+
+      <article class="section" id="s-verdict" data-title="Verdict">
+        <h2>Verdict</h2>
+        <p>The suggested verdict applies these rules in order, and the first one that matches wins. It is a recommendation from the numbers, not a decision. Change the rules if they do not fit your release bar.</p>
+        <div class="panel pad tablewrap" style="margin-top:16px">
+          <table>
+            <thead><tr><th>Order</th><th>Condition</th><th>Suggested verdict</th></tr></thead>
+            <tbody>
+              <tr><td class="mono">1</td><td>Any S1 blocker is open, even if the review is incomplete</td><td><span class="sev S1">Reject: rework needed</span></td></tr>
+              <tr><td class="mono">2</td><td>Any check is not reviewed</td><td><span class="sev none">Incomplete</span></td></tr>
+              <tr><td class="mono">3</td><td>Any failure has no severity</td><td><span class="sev none">Triage needed</span></td></tr>
+              <tr><td class="mono">4</td><td>Any S2 major is open</td><td><span class="sev S2">Reject: rework needed</span></td></tr>
+              <tr><td class="mono">5</td><td>Only S3 or S4 items are open</td><td><span class="sev S3">Approve with fixes</span></td></tr>
+              <tr><td class="mono">6</td><td>No failures, everything reviewed</td><td><span class="chip pass">Approve</span></td></tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="panel verdict-box">
+          <h3>Suggested verdict</h3>
+          <div class="big wait" id="v-big" aria-live="polite">Incomplete</div>
+          <p id="v-why" style="margin-top:6px"></p>
+          <div class="grid2">
+            <label class="fld">Final decision
+              <select id="v-final">
+                <option value="">Not decided</option>
+                <option>Approve</option>
+                <option>Approve with fixes</option>
+                <option>Reject: rework needed</option>
+              </select>
+            </label>
+            <label class="fld">Reasoning
+              <textarea id="v-notes" placeholder="Why this decision, what must be retested, who owns the fixes"></textarea>
+            </label>
+          </div>
+        </div>
+      </article>
+
+      <article class="section" id="s-evidence" data-title="Evidence log">
+        <h2>Evidence log</h2>
+        <p>Screenshots stay on your machine. Record the file name or link here so each finding can be reproduced. Suggested naming: <code id="namex">appname_C2_dark_375_YYYYMMDD.png</code> (app, item ID, theme, viewport width, date).</p>
+        <div class="panel pad" style="margin-top:16px">
+          <div class="evrow evhead noprint"><span>Ref</span><span>Theme and width</span><span>File name or URL</span><span>Description</span><span></span></div>
+          <div class="evrow noprint">
+            <input type="text" id="ev-ref" aria-label="Evidence reference, such as an item ID" placeholder="C2">
+            <input type="text" id="ev-ctx" aria-label="Theme and viewport width" placeholder="Dark, 375">
+            <input type="text" id="ev-file" aria-label="Screenshot file name or URL" placeholder="appname_C2_dark_375_20261003.png">
+            <input type="text" id="ev-desc" aria-label="Short description" placeholder="Muted caption 3.1:1">
+            <button class="btn primary" type="button" id="ev-add">Add</button>
+          </div>
+          <div id="evlist"></div>
+        </div>
+      </article>
+
+      <article class="section" id="s-report" data-title="Report and backup">
+        <h2>Report and backup</h2>
+        <p>Build a Markdown report to paste into a ticket or doc. The JSON backup lets you move a review between browsers. If copy is blocked, select the text and copy it manually.</p>
+        <div class="panel pad noprint" style="margin-top:16px">
+          <div style="display:flex;flex-wrap:wrap;gap:10px">
+            <button class="btn primary" type="button" id="b-report">Build report</button>
+            <button class="btn" type="button" id="b-json">Show JSON backup</button>
+            <button class="btn" type="button" id="b-load">Load from JSON below</button>
+            <button class="btn" type="button" id="b-copy">Copy text below</button>
+            <button class="btn" type="button" id="b-print">Print or save as PDF</button>
+            <button class="btn danger" type="button" id="b-reset">Start a new review</button>
+          </div>
+          <div class="msg" id="msg" role="status" aria-live="polite"></div>
+          <label class="fld" style="margin-top:6px">Output
+            <textarea class="report" id="out" spellcheck="false" placeholder="Report or JSON appears here"></textarea>
+          </label>
+        </div>
+      </article>
+    </section>
+
+    <!-- ===== REFERENCE ===== -->
+    <section role="tabpanel" id="panel-reference" aria-labelledby="tab-reference" data-panel="reference" hidden>
+      <article class="section" id="s-ref-thresholds" data-title="Thresholds">
+        <h1>Reference</h1>
+        <p class="abstract">The numbers and definitions behind the checklist. These are the minimums to measure against, not targets to aim just above.</p>
+        <h2 style="margin-top:26px">Thresholds to measure against</h2>
+        <div class="panel pad tablewrap" style="margin-top:12px">
+          <table>
+            <thead><tr><th>What you are measuring</th><th>Minimum</th><th>Criterion</th></tr></thead>
+            <tbody>
+              <tr><td><strong>Normal text</strong> (below 24px, or below 18.66px bold)</td><td>4.5:1</td><td class="mono">1.4.3 · AA</td></tr>
+              <tr><td><strong>Large text</strong> (24px and up, or 18.66px bold and up)</td><td>3:1</td><td class="mono">1.4.3 · AA</td></tr>
+              <tr><td><strong>UI component boundaries, states, meaningful icons, chart marks</strong></td><td>3:1 against adjacent colors</td><td class="mono">1.4.11 · AA</td></tr>
+              <tr><td><strong>Focus indicator</strong></td><td>Visible, and 3:1 against adjacent colors</td><td class="mono">2.4.7 · AA, 1.4.11</td></tr>
+              <tr><td><strong>Exempt</strong>: disabled controls, logos, purely decorative elements</td><td>None</td><td class="mono">1.4.3, 1.4.11</td></tr>
+              <tr><td><strong>Pointer target size</strong></td><td>24 by 24 CSS px, or enough spacing</td><td class="mono">2.5.8 · AA</td></tr>
+              <tr><td><strong>Reflow</strong></td><td>No 2-D scrolling at 320 CSS px wide (400% zoom)</td><td class="mono">1.4.10 · AA</td></tr>
+              <tr><td><strong>Text spacing override</strong></td><td>Line height 1.5, paragraph gap 2x, letter 0.12em, word 0.16em, nothing clipped</td><td class="mono">1.4.12 · AA</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p style="margin-top:14px">The calculator truncates the ratio to two decimals instead of rounding, because 4.49:1 does not meet a 4.5:1 requirement. If a color sits on a gradient, image, or translucent layer, the CSS value is not the final color: sample the rendered pixel.</p>
+      </article>
+
+      <article class="section" id="s-ref-severity" data-title="Severity scale">
+        <h2>Severity scale</h2>
+        <p>Rate severity by user impact on a real task, not by how hard the fix is.</p>
+        <div class="panel pad tablewrap" style="margin-top:14px">
+          <table>
+            <thead><tr><th>Level</th><th>Meaning</th><th>Example</th></tr></thead>
+            <tbody>
+              <tr><td><span class="sev S1">S1 Blocker</span></td><td>Stops a user finishing a core task, or makes core content unreadable or unreachable.</td><td>Primary button invisible in dark mode; keyboard trap in a dialog.</td></tr>
+              <tr><td><span class="sev S2">S2 Major</span></td><td>A significant barrier, but a workaround exists.</td><td>Muted table text at 3:1; error shown by color only.</td></tr>
+              <tr><td><span class="sev S3">S3 Minor</span></td><td>Noticeable, low impact, does not block anything.</td><td>Inconsistent spacing; tooltip not dismissible.</td></tr>
+              <tr><td><span class="sev S4">S4 Polish</span></td><td>Refinement with no real user impact.</td><td>Icon weight differs between two screens.</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </article>
+
+      <article class="section" id="s-ref-22" data-title="WCAG 2.2 additions">
+        <h2>WCAG 2.2 additions in this checklist</h2>
+        <p>These criteria are new in WCAG 2.2, so older checklists and audit habits often miss them.</p>
+        <div class="panel pad tablewrap" style="margin-top:14px">
+          <table>
+            <thead><tr><th>Criterion</th><th>Level</th><th>In plain terms</th><th>Checklist item</th></tr></thead>
+            <tbody>
+              <tr><td class="mono">2.4.11 Focus Not Obscured (Minimum)</td><td>AA</td><td>The focused element is never entirely hidden behind sticky bars or banners.</td><td class="mono">K5</td></tr>
+              <tr><td class="mono">2.5.7 Dragging Movements</td><td>AA</td><td>Anything done by dragging also works with a single click or tap.</td><td class="mono">K9</td></tr>
+              <tr><td class="mono">2.5.8 Target Size (Minimum)</td><td>AA</td><td>Pointer targets are at least 24 by 24 CSS px, or spaced enough.</td><td class="mono">K10</td></tr>
+              <tr><td class="mono">3.2.6 Consistent Help</td><td>A</td><td>Help or contact options sit in the same place across pages.</td><td class="mono">N5</td></tr>
+              <tr><td class="mono">3.3.7 Redundant Entry</td><td>A</td><td>Do not ask for information the user already entered in the same process.</td><td class="mono">F7</td></tr>
+              <tr><td class="mono">3.3.8 Accessible Authentication (Minimum)</td><td>AA</td><td>Sign-in does not require memorizing or solving a puzzle; paste and password managers work.</td><td class="mono">F8</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p style="margin-top:14px">Level AAA criteria, including 2.4.8 Location and 2.4.13 Focus Appearance, are out of scope. Where this checklist asks for something AAA-adjacent, such as marking the current nav location, it is tagged as a practice item.</p>
+      </article>
+
+      <article class="section" id="s-ref-devtools" data-title="DevTools methods">
+        <h2>DevTools methods</h2>
+        <p>Chromium-based DevTools are described here. Firefox and Safari have close equivalents under their own names.</p>
+        <ul class="plain">
+          <li><strong>Sample a color.</strong> In the Styles pane, click a color swatch, then use the eyedropper to pick the rendered pixel. This is the right method for gradients, images, and translucent glass layers.</li>
+          <li><strong>Emulate color scheme, reduced motion, forced colors, and vision deficiencies.</strong> Open the Rendering panel from the three-dot menu under More tools. Set the options you need, then reload.</li>
+          <li><strong>Test widths.</strong> Use the device toolbar and set a custom width of 320, 375, 768, 1280, and 1920.</li>
+          <li><strong>Throttle the network and CPU.</strong> In the Network panel pick Slow 4G, and use the Performance panel for CPU throttling.</li>
+          <li><strong>Inspect accessible names and roles.</strong> Use the Accessibility pane in the Elements panel to see the computed name, role, and state of any element.</li>
+          <li><strong>Check zoom.</strong> Browser zoom to 200% for text resize and 400% (or a 320px device width) for reflow.</li>
+        </ul>
+      </article>
+    </section>
+  </main>
+
+  <aside class="rail" id="rail" data-mode="facts" aria-label="Context and tools">
+    <div class="rail-facts">
+      <div class="panel ring-box">
+        <svg viewBox="0 0 72 72" width="72" height="72" role="img" aria-label="Sections read" style="flex:none">
+          <defs><linearGradient id="rg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#22D3EE"/><stop offset="1" stop-color="#A855F7"/></linearGradient></defs>
+          <circle cx="36" cy="36" r="30" fill="none" stroke="rgba(255,255,255,.14)" stroke-width="7"/>
+          <circle id="ringFill" cx="36" cy="36" r="30" fill="none" stroke="url(#rg)" stroke-width="7" stroke-linecap="round" transform="rotate(-90 36 36)" stroke-dasharray="0 188.5"/>
+        </svg>
+        <div class="ring-label"><b id="ringPct">0%</b><span id="ringCount">sections read</span></div>
+      </div>
+      <div class="panel facts">
+        <h3>Key facts</h3>
+        <dl class="kv">
+          <dt>App</dt><dd data-fact="app"></dd>
+          <dt>Build</dt><dd data-fact="build"></dd>
+          <dt>Reviewer</dt><dd data-fact="reviewer"></dd>
+          <dt>Date</dt><dd data-fact="date"></dd>
+          <dt>Standard</dt><dd data-fact="standard"></dd>
+          <dt>Reviewed</dt><dd data-fact="reviewed"></dd>
+          <dt>Failed</dt><dd data-fact="failed"></dd>
+          <dt>Verdict so far</dt><dd data-fact="verdict"></dd>
+        </dl>
+      </div>
+      <blockquote class="panel quote"><p>A blank is never a pass.</p><cite>The marking rule for every check</cite></blockquote>
+    </div>
+
+    <div class="panel dock" id="dock">
+      <div class="dock-status" aria-live="polite">
+        <div class="ds-row"><span class="ds-pct" id="d-pct">0%</span><span class="ds-lab" id="d-lab">0 of 0 reviewed</span></div>
+        <div class="bar" role="progressbar" aria-label="Checks reviewed" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" id="d-bar"><div class="fill" id="d-fill"></div></div>
+        <div class="ds-chips"><span class="chip fail" id="d-fail">0 failed</span><span class="chip warn" id="d-major">0 blockers and majors</span></div>
+      </div>
+      <div class="dock-tabs" role="tablist" aria-label="Tools">
+        <button type="button" role="tab" id="dt-contrast" aria-controls="dp-contrast" aria-selected="true" data-tool="contrast">Contrast</button>
+        <button type="button" role="tab" id="dt-rules" aria-controls="dp-rules" aria-selected="false" data-tool="rules">Rules</button>
+        <button type="button" role="tab" id="dt-snippets" aria-controls="dp-snippets" aria-selected="false" data-tool="snippets">Snippets</button>
+        <button type="button" role="tab" id="dt-evidence" aria-controls="dp-evidence" aria-selected="false" data-tool="evidence">Evidence</button>
+      </div>
+      <div class="dock-body">
+        <!-- contrast -->
+        <div role="tabpanel" id="dp-contrast" aria-labelledby="dt-contrast" data-tool-panel="contrast">
+          <h3 class="tool-title">Contrast calculator</h3>
+          <p class="hint">Enter the text or icon color and the color behind it.</p>
+          <div class="cfield">
+            <label for="fg-t">Foreground</label>
+            <div class="pick"><input type="color" id="fg-c" value="#777777" aria-label="Foreground color picker"><input type="text" id="fg-t" value="#777777" spellcheck="false" autocomplete="off"><button class="btn small pickbtn" type="button" data-pick="fg" hidden>Pick</button></div>
+          </div>
+          <div class="cfield">
+            <label for="bg-t">Background</label>
+            <div class="pick"><input type="color" id="bg-c" value="#ffffff" aria-label="Background color picker"><input type="text" id="bg-t" value="#ffffff" spellcheck="false" autocomplete="off"><button class="btn small pickbtn" type="button" data-pick="bg" hidden>Pick</button></div>
+          </div>
+          <div style="margin-top:10px"><button class="btn small" type="button" id="swap">Swap colors</button></div>
+          <div class="swatch" id="swatch">
+            <div style="font-size:16px">Sample text at 16px</div>
+            <div style="font-size:24px;font-weight:700;margin-top:2px">Large text at 24px</div>
+          </div>
+          <div class="ratio" id="ratio" aria-live="polite">0:1</div>
+          <ul class="res">
+            <li><span>Normal text, AA (4.5:1)</span><span class="v" id="r-n">-</span></li>
+            <li><span>Large text, AA (3:1)</span><span class="v" id="r-l">-</span></li>
+            <li><span>UI and graphics, AA (3:1)</span><span class="v" id="r-u">-</span></li>
+            <li><span>Enhanced, AAA (7:1), info only</span><span class="v" id="r-a">-</span></li>
+          </ul>
+          <div class="addnote">
+            <label class="fld" style="font-size:13.5px">Add this measurement to a note
+              <select id="c-target"></select>
+            </label>
+            <button class="btn small" type="button" id="c-add">Add</button>
+          </div>
+          <div class="msg" id="c-msg" role="status" aria-live="polite"></div>
+          <p class="hint" style="margin-top:6px">The starting values are a classic near-miss: mid-gray on white fails by a hair. For translucent layers, gradients, or images, sample the rendered pixel instead of trusting the CSS value.</p>
+        </div>
+        <!-- rules -->
+        <div role="tabpanel" id="dp-rules" aria-labelledby="dt-rules" data-tool-panel="rules" hidden>
+          <h3 class="tool-title">Rules at a glance</h3>
+          <p class="hint">Minimums, not targets. Full table in the appendix.</p>
+          <dl class="kv" style="margin-top:12px">
+            <dt>Normal text</dt><dd>4.5:1</dd>
+            <dt>Large text (24px, or 18.66px bold)</dt><dd>3:1</dd>
+            <dt>UI components, icons, chart marks</dt><dd>3:1</dd>
+            <dt>Focus indicator</dt><dd>Visible, 3:1</dd>
+            <dt>Pointer target</dt><dd>24 by 24 px</dd>
+            <dt>Reflow width</dt><dd>320 px</dd>
+            <dt>Text resize</dt><dd>200%</dd>
+            <dt>Line height override</dt><dd>1.5</dd>
+            <dt>Paragraph gap override</dt><dd>2x font size</dd>
+            <dt>Letter spacing override</dt><dd>0.12em</dd>
+            <dt>Word spacing override</dt><dd>0.16em</dd>
+            <dt>Exempt</dt><dd>Disabled, logos, decorative</dd>
+          </dl>
+        </div>
+        <!-- snippets -->
+        <div role="tabpanel" id="dp-snippets" aria-labelledby="dt-snippets" data-tool-panel="snippets" hidden>
+          <h3 class="tool-title">Console and CSS snippets</h3>
+          <p class="hint">Paste into the DevTools console of the app under review, not this page. They only read the page or add a temporary style. Reload to undo.</p>
+          <div id="snips"></div>
+        </div>
+        <!-- evidence -->
+        <div role="tabpanel" id="dp-evidence" aria-labelledby="dt-evidence" data-tool-panel="evidence" hidden>
+          <h3 class="tool-title">Log evidence</h3>
+          <p class="hint">Record a screenshot reference now. The full log is on the Findings tab.</p>
+          <div class="evform">
+            <label class="fld">Ref<input type="text" id="de-ref" placeholder="C2"></label>
+            <label class="fld">Theme and width<input type="text" id="de-ctx" placeholder="Dark, 375"></label>
+            <label class="fld">File name or URL<input type="text" id="de-file" placeholder="appname_C2_dark_375_YYYYMMDD.png"></label>
+            <label class="fld">Description<input type="text" id="de-desc" placeholder="Muted caption 3.1:1"></label>
+            <button class="btn primary" type="button" id="de-add">Add to log</button>
+          </div>
+          <div class="msg" id="de-msg" role="status" aria-live="polite"></div>
+        </div>
+      </div>
+    </div>
+  </aside>
+</div>
+<button class="btn primary tools-fab" id="fab" type="button" aria-expanded="false" aria-controls="rail">Tools</button>
+
+<script>
+(function(){
+'use strict';
+var $=function(s,r){return (r||document).querySelector(s)};
+var $$=function(s,r){return Array.prototype.slice.call((r||document).querySelectorAll(s))};
+function h(tag,props){
+  var e=document.createElement(tag),k,v;
+  props=props||{};
+  for(k in props){v=props[k];
+    if(k==='class')e.className=v;
+    else if(k==='text')e.textContent=v;
+    else if(k.indexOf('on')===0)e.addEventListener(k.slice(2),v);
+    else if(v===true)e.setAttribute(k,'');
+    else if(v!==false&&v!=null)e.setAttribute(k,v);
+  }
+  for(var i=2;i<arguments.length;i++){var c=arguments[i];
+    if(c==null)continue;
+    if(Array.isArray(c)){c.forEach(function(x){e.append(x.nodeType?x:document.createTextNode(x))})}
+    else e.append(c.nodeType?c:document.createTextNode(c));
+  }
+  return e;
+}
+
+/* ---------- checklist data ---------- */
+var W='wcag',P='practice';
+var CATS=[
+{id:'C',name:'Color and contrast',blurb:'Measure, do not eyeball. Sample the worst case on each screen: the lightest background under the darkest-looking text, the busiest part of a gradient, the least obvious state.',items:[
+ {id:'C1',t:'Body text has at least 4.5:1 contrast against its actual background.',ref:'1.4.3 · AA',kind:W,themed:true,how:'Pick the text and background pixel with the DevTools color picker eyedropper, enter both in the contrast calculator. Check each distinct body style once per surface it appears on.'},
+ {id:'C2',t:'Muted text (captions, helper text, timestamps, table sub-labels, placeholders) has at least 4.5:1.',ref:'1.4.3 · AA',kind:W,themed:true,how:'Muted gray is the most common failure. List each distinct muted style, then measure it on every surface it sits on: page, card, table row, banner.'},
+ {id:'C3',t:'Large text (24px or bigger, or 18.66px bold or bigger) has at least 3:1.',ref:'1.4.3 · AA',kind:W,themed:true,how:'Confirm the rendered size in DevTools computed styles before applying the lower threshold. Headings often qualify; small bold labels often do not.'},
+ {id:'C4',t:'Text on tinted or colored surfaces (badges, chips, alerts, buttons, active nav) has at least 4.5:1 in every state.',ref:'1.4.3 · AA',kind:W,themed:true,how:'Check default, hover, active, selected. Translucent tints over a gradient change with what is underneath, so sample the rendered pixel.'},
+ {id:'C5',t:'Input borders, checkboxes, toggles, and icon-button outlines have at least 3:1 against adjacent colors.',ref:'1.4.11 · AA',kind:W,themed:true,how:'If a control has no border or fill that separates it from the page, something else (label, icon at 3:1) must still identify it. Faint hairline borders usually fail here.'},
+ {id:'C6',t:'Meaningful icons, chart lines and bars, and status dots have at least 3:1.',ref:'1.4.11 · AA',kind:W,themed:true,how:'Decorative icons next to a text label are exempt. An icon that is the only cue for a status or action is not.'},
+ {id:'C7',t:'Hover, selected, active, and focus states are clearly distinguishable from the default state.',ref:'1.4.11 · AA',kind:W,themed:true,how:'Tab and hover through nav items, tabs, table rows, and buttons. If you have to squint to see which is selected, mark Fail.'},
+ {id:'C8',t:'Color is never the only signal for status, errors, required fields, chart series, or links inside text.',ref:'1.4.1 · A',kind:W,themed:false,how:'Use the grayscale snippet, or DevTools rendering emulation for achromatopsia, and check you can still tell states apart.'},
+ {id:'C9',t:'Text over images, gradients, or translucent glass layers keeps its contrast at the worst point behind it, including while scrolling.',ref:'1.4.3 · AA',kind:W,themed:true,how:'Scroll content underneath sticky or blurred headers and panels. Re-measure when busy content passes behind the text.'}
+]},
+{id:'T',name:'Typography and readability',blurb:'Text that can be resized, reflowed, and respaced without breaking, and that reads comfortably at default settings.',items:[
+ {id:'T1',t:'Text can be resized to 200% with no lost content or function.',ref:'1.4.4 · AA',kind:W,how:'Zoom the browser to 200% (Firefox: Zoom Text Only) and walk the main flow. Look for clipped labels, overlapping elements, and buttons that vanish.'},
+ {id:'T2',t:'At 320 CSS px wide (about 400% zoom on a 1280px screen) content reflows with no two-dimensional scrolling, except for data tables, maps, and similar.',ref:'1.4.10 · AA',kind:W,how:'Set DevTools device width to 320, or zoom to 400%. Horizontal scrollbars on the page body are a Fail.'},
+ {id:'T3',t:'Applying the text-spacing override causes no clipping or overlap.',ref:'1.4.12 · AA',kind:W,how:'Use the text spacing snippet in the dock: line-height 1.5, paragraph spacing 2x font size, letter-spacing 0.12em, word-spacing 0.16em. Check buttons, badges, and fixed-height cards.'},
+ {id:'T4',t:'Tooltips and popovers triggered by hover or focus can be dismissed, hovered over, and stay visible until dismissed.',ref:'1.4.13 · AA',kind:W,how:'Trigger one, press Esc, move the pointer onto the popup, and wait. It should not vanish by itself.'},
+ {id:'T5',t:'Text is real text, not an image of text (logos excepted).',ref:'1.4.5 · AA',kind:W,how:'Try selecting the text. Check banners, buttons, and chart labels in particular.'},
+ {id:'T6',t:'Body text is at least 16px with line height of at least 1.4.',ref:'Practice',kind:P,how:'Read computed font-size and line-height in DevTools for the main body style and for table cells. WCAG sets no minimum size; this is a readability norm.'},
+ {id:'T7',t:'Prose line length stays within roughly 45 to 80 characters.',ref:'Practice',kind:P,how:'Check the widest text column at 1920px. Dashboards with data tables are exempt.'},
+ {id:'T8',t:'Hierarchy is clear: headings, labels, body, and metadata are visibly distinct and used consistently across screens.',ref:'Practice',kind:P,how:'Squint test: blur your eyes and confirm the most important thing is still obvious.'},
+ {id:'T9',t:'Truncated text (ellipsis) never hides IDs, status, or amounts, and the full value is reachable.',ref:'Practice',kind:P,how:'Resize narrow and use long real-world values (long names, large numbers) to provoke truncation.'}
+]},
+{id:'M',name:'Light and dark mode',blurb:'Dark mode is not an inverted light mode. Each theme needs its own measurements, and the toggle itself has to work for everyone.',items:[
+ {id:'M1',t:'A theme control exists, works by keyboard, has an accessible name, and exposes its current state.',ref:'4.1.2 · A',kind:W,how:'Tab to it, activate with Enter or Space, and listen with a screen reader or inspect the accessibility tree for a name and pressed or selected state.'},
+ {id:'M2',t:'First load follows the OS preference, and the user choice persists after reload.',ref:'Practice',kind:P,how:'Switch the OS (or DevTools rendering emulation: prefers-color-scheme) and reload. Then choose a theme manually and reload again.'},
+ {id:'M3',t:'No flash of the wrong theme on load or navigation.',ref:'Practice',kind:P,how:'Hard reload with CPU and network throttling in each theme and watch the first paint.'},
+ {id:'M4',t:'No hard-coded leftovers: white cards in dark, near-black text or icons in dark, glows or shadows that only suit the other theme.',ref:'Practice',kind:P,themed:true,how:'Open every screen and state: modals, dropdowns, toasts, empty states, error pages, 404. Leftovers hide in the least-visited screens.'},
+ {id:'M5',t:'Surfaces and boundaries still separate: cards from page, rows from rows, inputs from background (3:1 where the boundary is the only cue).',ref:'1.4.11 · AA',kind:W,themed:true,how:'In dark mode especially, check that elevation survives. Pure dark-on-dark with no border often merges.'},
+ {id:'M6',t:'Brand and accent colors are re-tuned per theme. An accent that works on dark often fails on white, and the reverse.',ref:'1.4.3 · AA',kind:W,themed:true,how:'Measure the accent as text and as a button fill in both themes. Yellow and light green on white are frequent failures.'},
+ {id:'M7',t:'Third-party and native pieces follow the theme: charts, maps, embeds, date pickers, select menus, scrollbars, autofill.',ref:'Practice',kind:P,themed:true,how:'Open each one. Native controls follow the page color-scheme setting; embedded widgets usually do not.'},
+ {id:'M8',t:'Logos, illustrations, and transparent images stay visible and correct.',ref:'Practice',kind:P,themed:true,how:'Dark logos on dark backgrounds disappear. Check the sidebar, login, empty states, and email or PDF exports.'},
+ {id:'M9',t:'Forced colors mode (Windows high contrast) does not hide controls, borders, or focus.',ref:'Practice',kind:P,how:'Enable DevTools rendering emulation: forced-colors: active. Buttons or inputs styled only with background color often lose their shape.'}
+]},
+{id:'L',name:'Layout and visual consistency',blurb:'Nothing overlaps or gets cut off, and the same thing always looks and behaves the same.',items:[
+ {id:'L1',t:'No overlap, clipping, or overflow at 320, 375, 768, 1280, and 1920 px widths.',ref:'1.4.10 · AA',kind:W,how:'Step through the five widths on every key screen. Only 320 is a WCAG requirement; the rest are practical.'},
+ {id:'L2',t:'Spacing, alignment, and corner radii follow one scale across screens.',ref:'Practice',kind:P,how:'Compare equivalent elements on two or three different screens side by side.'},
+ {id:'L3',t:'Each view has one clear primary action, and secondary actions are visibly lower in weight.',ref:'Practice',kind:P,how:'Ask a colleague to point at what they would click first, without prompting.'},
+ {id:'L4',t:'Components that do the same thing look the same and carry the same label everywhere.',ref:'3.2.4 · AA',kind:W,how:'Check search, save, delete, filter, and close controls across screens for matching icon, text, and position.'},
+ {id:'L5',t:'Empty, loading, error, and partial-data states are designed, not blank or raw.',ref:'Practice',kind:P,how:'Force each one: new account with no data, throttled network, offline, a failed request.'},
+ {id:'L6',t:'Layout does not jump while content loads.',ref:'Practice',kind:P,how:'Throttle the network and watch for content that shifts under the cursor or after an image or font loads.'},
+ {id:'L7',t:'Icon-only controls use one consistent icon style, and unfamiliar icons have a text label or tooltip.',ref:'Practice',kind:P,how:'List every icon-only control and ask whether a first-time user would know what it does.'}
+]},
+{id:'K',name:'Keyboard and focus',blurb:'Put the mouse away. Everything a pointer can do should work from the keyboard, and you should always know where you are.',items:[
+ {id:'K1',t:'Every function is operable with the keyboard alone: links, buttons, menus, dialogs, custom widgets.',ref:'2.1.1 · A',kind:W,how:'Complete each critical flow using Tab, Shift+Tab, Enter, Space, arrows, and Esc only.'},
+ {id:'K2',t:'No keyboard trap: modals and menus can always be closed with Esc or a reachable control.',ref:'2.1.2 · A',kind:W,how:'Open every dialog, dropdown, and embedded widget and try to leave using the keyboard.'},
+ {id:'K3',t:'Tab order follows the visual and reading order.',ref:'2.4.3 · A',kind:W,how:'Tab through each screen and watch for focus jumping around or skipping controls.'},
+ {id:'K4',t:'Every interactive element shows a visible focus indicator with at least 3:1 contrast against adjacent colors.',ref:'2.4.7 · AA',kind:W,themed:true,how:'Tab through each screen in each theme. Check inputs, custom buttons, cards, table rows, and the theme toggle. A removed outline with no replacement is a Fail.'},
+ {id:'K5',t:'Focus is never hidden behind sticky headers, footers, cookie bars, or chat widgets.',ref:'2.4.11 · AA',kind:W,how:'Tab to elements near the top and bottom edges of long pages. The focused item must not be entirely covered. New in WCAG 2.2.'},
+ {id:'K6',t:'A skip link or landmarks let keyboard users bypass repeated navigation.',ref:'2.4.1 · A',kind:W,how:'Press Tab once on a fresh page load. Expect a skip link, or confirm landmarks exist in the accessibility tree.'},
+ {id:'K7',t:'Dialogs move focus in when opened and return it to the trigger when closed.',ref:'Practice',kind:P,how:'Open a dialog by keyboard, check where focus lands, close it, check where focus returns.'},
+ {id:'K8',t:'Single-character keyboard shortcuts can be turned off, remapped, or only work when the component has focus.',ref:'2.1.4 · A',kind:W,how:'Look for letter-key shortcuts in the app and its help. Mark N/A if there are none.'},
+ {id:'K9',t:'Anything that requires dragging has a single-pointer alternative, such as buttons or a menu.',ref:'2.5.7 · AA',kind:W,how:'Find reorder, slider, and drag-to-upload interactions and confirm there is a click-only path. New in WCAG 2.2.'},
+ {id:'K10',t:'Pointer targets are at least 24 by 24 CSS px, or have enough spacing around them.',ref:'2.5.8 · AA',kind:W,how:'Use the small-target snippet, then confirm flagged items by measuring in DevTools. Inline text links are exempt. About 44px is the better target for touch. New in WCAG 2.2.'},
+ {id:'K11',t:'No function depends on hover alone, and touch users have an equivalent.',ref:'Practice',kind:P,how:'Use a touch device or touch emulation and look for actions or information only reachable by hovering.'}
+]},
+{id:'F',name:'Forms, feedback, and errors',blurb:'Where people lose data or give up. Test with bad input, empty input, and dangerous actions, using throwaway data.',items:[
+ {id:'F1',t:'Every field has a visible, persistent label. A placeholder is not a label.',ref:'3.3.2 · A',kind:W,how:'Type into each field and confirm the label stays visible. The unlabeled-fields snippet finds fields with no programmatic label.'},
+ {id:'F2',t:'Labels are programmatically tied to their fields: clicking the label focuses the input.',ref:'1.3.1 · A',kind:W,how:'Click each label. Then inspect the accessibility tree for the accessible name.'},
+ {id:'F3',t:'Required and optional fields are marked in text, not by color alone.',ref:'3.3.2 · A',kind:W,how:'Look for an asterisk with a legend, or the words required and optional.'},
+ {id:'F4',t:'Errors are described in text, next to the field, in plain words.',ref:'3.3.1 · A',kind:W,how:'Submit empty and invalid values. A red border alone is a Fail.'},
+ {id:'F5',t:'Errors say how to fix the problem, such as a format example or allowed range.',ref:'3.3.3 · AA',kind:W,how:'Read each error message. "Invalid input" is a Fail; "Enter a date like 2026-10-03" passes.'},
+ {id:'F6',t:'Destructive, financial, or data-changing actions are reversible, checked, or confirmed.',ref:'3.3.4 · AA',kind:W,how:'Try delete, deactivate, and submit on throwaway data. A good confirmation names the thing being affected.'},
+ {id:'F7',t:'Information already entered is not asked for again in the same process.',ref:'3.3.7 · A',kind:W,how:'Walk multi-step forms and checkouts looking for repeated fields. New in WCAG 2.2.'},
+ {id:'F8',t:'Sign-in does not rely on memory or puzzles: pasting is allowed and password managers work.',ref:'3.3.8 · AA',kind:W,how:'Try pasting into the password field and using a password manager. Mark N/A if there is no sign-in. New in WCAG 2.2.'},
+ {id:'F9',t:'Personal-data fields use the right autocomplete attribute (name, email, tel, and so on).',ref:'1.3.5 · AA',kind:W,how:'Inspect fields that collect the user\'s own details for autocomplete values.'},
+ {id:'F10',t:'Status messages (saved, loading, errors, toasts) are announced to assistive technology without moving focus.',ref:'4.1.3 · AA',kind:W,how:'Trigger a toast with a screen reader running, or check for role="status" or aria-live regions.'},
+ {id:'F11',t:'Session timeouts warn the user and allow extension without losing data.',ref:'2.2.1 · A',kind:W,how:'Check the app\'s timeout behavior in settings or docs. Mark N/A if sessions never expire.'},
+ {id:'F12',t:'Actions give immediate feedback: pressed state, spinner, double-submit prevention, success confirmation.',ref:'Practice',kind:P,how:'Click save twice quickly on a throttled network and see what happens.'},
+ {id:'F13',t:'After a failed submit, focus or an error summary leads the user to the first problem.',ref:'Practice',kind:P,how:'Submit a long form with an error near the bottom and see where the user ends up.'}
+]},
+{id:'N',name:'Navigation and structure',blurb:'People should always know where they are, how they got there, and how to leave.',items:[
+ {id:'N1',t:'Page and screen titles are unique and describe the page.',ref:'2.4.2 · A',kind:W,how:'Check the browser tab title on each route. A single title for the whole app is a Fail.'},
+ {id:'N2',t:'Heading levels are logical, with one h1 and no skipped levels used for styling.',ref:'1.3.1 · A',kind:W,how:'Use the heading outline snippet per screen.'},
+ {id:'N3',t:'Link and button text states its purpose out of context. Links navigate; buttons act.',ref:'2.4.4 · A',kind:W,how:'List links and buttons out of context. "Click here" and "More" are Fails.'},
+ {id:'N4',t:'Navigation appears in the same order on every page.',ref:'3.2.3 · AA',kind:W,how:'Compare the nav on three or more different screens.'},
+ {id:'N5',t:'A help or contact option, where present, sits in the same place on every page.',ref:'3.2.6 · A',kind:W,how:'Mark N/A if the app has no help mechanism. New in WCAG 2.2.'},
+ {id:'N6',t:'The current location is clearly marked in navigation, not by color alone.',ref:'Practice',kind:P,how:'Look at the active nav item in grayscale.'},
+ {id:'N7',t:'Back, reload, and deep links keep the user\'s place, and URLs reflect the current view.',ref:'Practice',kind:P,how:'Open a deep screen, reload, press Back, and paste the URL into a new tab.'},
+ {id:'N8',t:'Labels use users\' words, not system jargon or internal names.',ref:'Practice',kind:P,how:'Read every nav label and button as someone who has never seen the codebase.'},
+ {id:'N9',t:'There is more than one way to find a page, such as navigation, search, or a sitemap, in multi-page apps.',ref:'2.4.5 · AA',kind:W,how:'Mark N/A for small single-purpose tools.'}
+]},
+{id:'R',name:'Responsive and device',blurb:'Real devices catch what emulators miss. Do at least one real phone.',items:[
+ {id:'R1',t:'Content works in both portrait and landscape orientation.',ref:'1.3.4 · AA',kind:W,how:'Rotate a real device or use the DevTools orientation toggle. Nothing should be locked to one orientation unless essential.'},
+ {id:'R2',t:'Data tables and long content scroll inside their own container, never the whole page.',ref:'1.4.10 · AA',kind:W,how:'View each table at 320 and 375px.'},
+ {id:'R3',t:'The core flow completes on a phone with the on-screen keyboard open, and fields are not covered.',ref:'Practice',kind:P,how:'Fill in the longest form on a real phone.'},
+ {id:'R4',t:'Safe areas (notches, home bars) are respected, and sticky bars do not cover content.',ref:'Practice',kind:P,how:'Check on a device with a notch or rounded corners.'},
+ {id:'R5',t:'Checked in at least Chrome, Firefox, Safari, and Edge, plus one real Android or iOS device.',ref:'Practice',kind:P,how:'Record the matrix on the Test plan tab.'},
+ {id:'R6',t:'Usable on a throttled network: content appears progressively with no blank screen.',ref:'Practice',kind:P,how:'DevTools network throttling set to Slow 4G, then reload each key screen.'}
+]},
+{id:'A',name:'Assistive technology and semantics',blurb:'An automated scan is a starting point, not a verdict. Use a screen reader on the critical flow yourself.',items:[
+ {id:'A1',t:'The critical flow has been walked with a screen reader (NVDA, VoiceOver, or TalkBack), and names, roles, and states are announced.',ref:'4.1.2 · A',kind:W,how:'Complete the sign-in and one main task with the screen reader on and your eyes off the screen if you can.'},
+ {id:'A2',t:'Informative images have meaningful alt text; decorative images have empty alt.',ref:'1.1.1 · A',kind:W,how:'Use the missing-alt snippet, then inspect images and icons used as content. Charts need a text equivalent of the key message.'},
+ {id:'A3',t:'Icon-only buttons and links have accessible names that match their visible meaning.',ref:'2.5.3 · A',kind:W,how:'Inspect each icon-only control in the accessibility tree for a name.'},
+ {id:'A4',t:'Landmarks (header, nav, main, footer) are present and the page language is set.',ref:'1.3.1 · A',kind:W,how:'Use the language and landmarks snippet, and check the lang attribute on the html element (3.1.1).'},
+ {id:'A5',t:'Motion respects prefers-reduced-motion, nothing flashes more than 3 times per second, and moving content can be paused.',ref:'2.3.1 · A',kind:W,how:'Enable reduced motion in the OS or DevTools rendering and look for autoplay, parallax, and looping animation (2.2.2 for pause).'},
+ {id:'A6',t:'An automated scan (axe, Lighthouse, or WAVE) has been run and its results logged as evidence.',ref:'Practice',kind:P,how:'Automated tools only cover part of WCAG, so a clean scan is not a pass. Treat it as one input and log the report file in the evidence log.'}
+]}
+];
+var ITEM={};CATS.forEach(function(c){c.items.forEach(function(it){it.cat=c.id;ITEM[it.id]=it})});
+function unitsOf(it){return it.themed?[it.id+'@light',it.id+'@dark']:[it.id]}
+var THEMES={light:'Light',dark:'Dark'};
+function unitLabel(u){var p=u.split('@');return p[1]?THEMES[p[1]]:'All'}
+var SEVN={S1:'S1 Blocker',S2:'S2 Major',S3:'S3 Minor',S4:'S4 Polish'};
+
+/* ---------- state ---------- */
+var KEY='uiux-review-workbench-v1';
+function DEF(){return {v:1,meta:{app:'',build:'',reviewer:'',date:'',roles:'',devices:''},st:{},sev:{},note:{},ev:{},matrix:{},flows:[],evidence:[],prefs:{strict:false,filter:'all',tool:'contrast'},verdict:{final:'',why:''},env:''}}
+function merge(d,o){if(!o||typeof o!=='object')return d;Object.keys(d).forEach(function(k){if(o[k]!==undefined){if(d[k]&&typeof d[k]==='object'&&!Array.isArray(d[k]))d[k]=Object.assign(d[k],o[k]);else d[k]=o[k]}});return d}
+function load(){try{var raw=localStorage.getItem(KEY);if(raw)return merge(DEF(),JSON.parse(raw))}catch(e){}return DEF()}
+var S=load();
+function save(){try{localStorage.setItem(KEY,JSON.stringify(S))}catch(e){}}
+function today(){return new Date().toISOString().slice(0,10)}
+if(!S.meta.date){S.meta.date=today();save()}
+function inScope(it){return !S.prefs.strict||it.kind===W}
+var query='';
+
+/* ---------- build checklist ---------- */
+var catsHost=$('#cats');
+CATS.forEach(function(cat){
+  var ul=h('ul',{class:'items'});
+  cat.items.forEach(function(it){ul.appendChild(buildItem(it))});
+  catsHost.appendChild(h('article',{class:'section',id:'s-cat-'+cat.id,'data-title':cat.name,'data-cat':cat.id},
+    h('div',{class:'cat-head'},h('h2',{text:cat.name}),h('span',{class:'chip',id:'cc-'+cat.id})),
+    h('span',{class:'minibar','aria-hidden':'true'},h('span',{id:'cb-'+cat.id})),
+    h('p',{text:cat.blurb}),
+    h('div',{class:'panel',style:'margin-top:16px'},ul)
+  ));
+});
+
+function buildItem(it){
+  var li=h('li',{class:'item',id:'item-'+it.id,'data-id':it.id,tabindex:'-1'});
+  var tags=h('div',{class:'tags'});
+  tags.appendChild(h('span',{class:'tag ref',text:it.ref}));
+  if(it.kind===P)tags.appendChild(h('span',{class:'tag practice',text:'Practice'}));
+  if(it.themed)tags.appendChild(h('span',{class:'tag',text:'Per theme'}));
+  var main=h('div',{},
+    h('div',{class:'item-head'},h('span',{class:'iid',text:it.id}),h('p',{class:'it',text:it.t})),
+    tags,
+    h('details',{class:'how'},h('summary',{text:'How to test'}),h('p',{text:it.how}))
+  );
+  var controls=h('div',{class:'controls'});
+  unitsOf(it).forEach(function(u){
+    var lab=it.themed?unitLabel(u):'';
+    var seg=h('div',{class:'seg',role:'group','aria-label':(it.themed?lab+' theme result':'Result')+' for '+it.id});
+    [['pass','Pass'],['fail','Fail'],['na','N/A']].forEach(function(p){
+      seg.appendChild(h('button',{type:'button','data-u':u,'data-v':p[0],'aria-pressed':'false',text:p[1]}));
+    });
+    var row=h('div',{class:'segrow'});
+    if(it.themed)row.appendChild(h('span',{class:'seglabel',text:lab}));
+    row.appendChild(seg);
+    controls.appendChild(row);
+  });
+  controls.appendChild(h('button',{type:'button',class:'btn small notebtn','aria-expanded':'false',text:'Notes and evidence'}));
+  var detail=h('div',{class:'detail',hidden:true},
+    h('div',{class:'sevrow'}),
+    h('label',{class:'fld wide'},'Note',h('textarea',{'data-note':it.id,placeholder:'What you saw, where, measured values, steps to reproduce'})),
+    h('label',{class:'fld wide'},'Evidence (file name or link)',h('input',{type:'text','data-ev':it.id,placeholder:'appname_'+it.id+'_dark_375_YYYYMMDD.png'}))
+  );
+  li.appendChild(main);li.appendChild(controls);li.appendChild(detail);
+  li.querySelector('[data-note]').value=S.note[it.id]||'';
+  li.querySelector('[data-ev]').value=S.ev[it.id]||'';
+  syncItem(li);
+  return li;
+}
+
+function syncItem(li){
+  var it=ITEM[li.dataset.id],units=unitsOf(it),anyFail=false,done=0;
+  $$('button[data-u]',li).forEach(function(b){b.setAttribute('aria-pressed',S.st[b.dataset.u]===b.dataset.v?'true':'false')});
+  units.forEach(function(u){if(S.st[u]==='fail')anyFail=true;if(S.st[u])done++});
+  li.dataset.state=anyFail?'fail':(done===units.length?'done':'open');
+  var sevrow=$('.sevrow',li);sevrow.textContent='';
+  units.forEach(function(u){
+    if(S.st[u]!=='fail')return;
+    var lbl='Severity'+(it.themed?' ('+unitLabel(u)+')':'');
+    var sel=h('select',{'aria-label':lbl+' for '+it.id});
+    sel.appendChild(h('option',{value:'',text:'Unrated'}));
+    Object.keys(SEVN).forEach(function(k){sel.appendChild(h('option',{value:k,text:SEVN[k]}))});
+    sel.value=S.sev[u]||'';
+    sel.addEventListener('change',function(){if(sel.value)S.sev[u]=sel.value;else delete S.sev[u];save();refresh()});
+    sevrow.appendChild(h('label',{},lbl,sel));
+  });
+  var hasText=(S.note[it.id]||'').trim()||(S.ev[it.id]||'').trim();
+  var open=anyFail||hasText||li._open;
+  $('.detail',li).hidden=!open;
+  $('.notebtn',li).setAttribute('aria-expanded',open?'true':'false');
+}
+
+catsHost.addEventListener('click',function(e){
+  var b=e.target.closest('button[data-u]');
+  if(b){
+    var u=b.dataset.u,v=b.dataset.v,li=b.closest('.item');
+    if(S.st[u]===v){delete S.st[u]}else{S.st[u]=v}
+    if(S.st[u]!=='fail')delete S.sev[u];
+    save();syncItem(li);refresh();return;
+  }
+  var n=e.target.closest('.notebtn');
+  if(n){
+    var li2=n.closest('.item'),d=$('.detail',li2);
+    if(d.hidden){li2._open=true;d.hidden=false;n.setAttribute('aria-expanded','true')}
+    else{li2._open=false;syncItem(li2)}
+  }
+});
+catsHost.addEventListener('input',function(e){
+  var t=e.target;
+  if(t.matches('[data-note]')){S.note[t.dataset.note]=t.value;save();refresh()}
+  else if(t.matches('[data-ev]')){S.ev[t.dataset.ev]=t.value;save();refresh()}
+});
+
+/* ---------- filters and search ---------- */
+function applyFilter(){
+  var any=false,q=query.trim().toLowerCase(),shown=0,total=0;
+  $$('.item').forEach(function(li){
+    var it=ITEM[li.dataset.id],show=inScope(it);
+    if(show){total++}
+    if(show&&S.prefs.filter!=='all'){
+      var vals=unitsOf(it).map(function(u){return S.st[u]});
+      if(S.prefs.filter==='open')show=vals.some(function(v){return !v});
+      else if(S.prefs.filter==='fail')show=vals.some(function(v){return v==='fail'});
+    }
+    if(show&&q){
+      var hay=(it.id+' '+it.t+' '+it.ref+' '+it.how+' '+CATS.filter(function(c){return c.id===it.cat})[0].name).toLowerCase();
+      show=hay.indexOf(q)>-1;
+    }
+    li.hidden=!show;if(show){any=true;shown++}
+  });
+  CATS.forEach(function(c){var a=$('#s-cat-'+c.id);a.hidden=!$$('.item',a).some(function(li){return !li.hidden})});
+  $('#nomatch').hidden=any;
+  $$('#sectionNav a').forEach(function(a){var t=document.getElementById(a.dataset.for);a.hidden=!!(t&&t.hidden)});
+  var note=$('#filter-note');
+  note.textContent=(S.prefs.filter!=='all'||q||S.prefs.strict)?('Showing '+shown+' of '+total+' items'+(q?' matching "'+query.trim()+'"':'')+'.'):'';
+}
+$$('[data-filter]').forEach(function(b){
+  b.addEventListener('click',function(){
+    S.prefs.filter=b.dataset.filter;save();
+    $$('[data-filter]').forEach(function(x){x.setAttribute('aria-pressed',x===b?'true':'false')});
+    applyFilter();
+  });
+  b.setAttribute('aria-pressed',b.dataset.filter===S.prefs.filter?'true':'false');
+});
+var strictEl=$('#strict');strictEl.checked=!!S.prefs.strict;
+strictEl.addEventListener('change',function(){S.prefs.strict=strictEl.checked;save();applyFilter();refresh()});
+var qEl=$('#q');
+qEl.addEventListener('input',function(){
+  query=qEl.value;
+  if(query.trim()&&currentTab!=='checklist')activate('checklist',null,true);
+  applyFilter();
+});
+
+/* ---------- tally, findings, verdict ---------- */
+function tally(){
+  var t={pass:0,fail:0,na:0,unset:0,total:0,sev:{S1:0,S2:0,S3:0,S4:0,none:0},cats:{}};
+  CATS.forEach(function(c){
+    var ct={done:0,total:0};
+    c.items.forEach(function(it){
+      if(!inScope(it))return;
+      unitsOf(it).forEach(function(u){
+        var v=S.st[u];t.total++;ct.total++;
+        if(v){t[v]++;ct.done++;if(v==='fail'){t.sev[S.sev[u]||'none']++}}else t.unset++;
+      });
+    });
+    t.cats[c.id]=ct;
+  });
+  return t;
+}
+function pct(a,b){return b?Math.round(100*a/b):0}
+function findings(){
+  var out=[];
+  CATS.forEach(function(c){c.items.forEach(function(it){
+    if(!inScope(it))return;
+    unitsOf(it).forEach(function(u){
+      if(S.st[u]==='fail')out.push({id:it.id,unit:u,theme:it.themed?unitLabel(u):'All',text:it.t,sev:S.sev[u]||'',note:(S.note[it.id]||'').trim(),ev:(S.ev[it.id]||'').trim()});
+    });
+  })});
+  var order={S1:1,S2:2,S3:3,S4:4,'':5};
+  out.sort(function(a,b){return order[a.sev]-order[b.sev]});
+  return out;
+}
+function suggest(t){
+  var rev=t.total-t.unset,s=t.sev;
+  if(s.S1>0)return {k:'bad',big:'Reject: rework needed',why:s.S1+' blocker'+(s.S1>1?'s':'')+' open. This will not improve without a fix, even though the review '+(t.unset?'is incomplete.':'is complete.')};
+  if(t.unset>0)return {k:'wait',big:'Incomplete',why:t.unset+' check'+(t.unset>1?'s':'')+' not reviewed yet ('+pct(rev,t.total)+'% done). A blank is not a pass.'};
+  if(s.none>0)return {k:'wait',big:'Triage needed',why:s.none+' failure'+(s.none>1?'s':'')+' without a severity. Rate each on its checklist item.'};
+  if(s.S2>0)return {k:'bad',big:'Reject: rework needed',why:s.S2+' major issue'+(s.S2>1?'s':'')+' open.'};
+  if(s.S3+s.S4>0)return {k:'mid',big:'Approve with fixes',why:(s.S3+s.S4)+' minor or polish item'+((s.S3+s.S4)>1?'s':'')+' open, none blocking.'};
+  return {k:'ok',big:'Approve',why:'Every check reviewed with no failures logged.'};
+}
+var fbody=$('#fbody');
+function renderFindings(){
+  var list=findings();
+  fbody.textContent='';
+  $('#fnone').hidden=list.length>0;
+  $('#ftable').hidden=list.length===0;
+  list.forEach(function(f){
+    var jump=h('button',{type:'button',class:'btn small noprint',text:'Go to item'});
+    jump.addEventListener('click',function(){
+      activate('checklist','s-cat-'+ITEM[f.id].cat,true);
+      var li=$('#item-'+f.id);if(!li)return;
+      li.hidden=false;$('#s-cat-'+ITEM[f.id].cat).hidden=false;
+      setTimeout(function(){li.scrollIntoView({block:'center'});li.focus({preventScroll:true})},30);
+    });
+    fbody.appendChild(h('tr',{},
+      h('td',{class:'mono',text:f.id}),h('td',{text:f.theme}),h('td',{text:f.text}),
+      h('td',{},h('span',{class:'sev '+(f.sev||'none'),text:f.sev?SEVN[f.sev]:'Unrated'})),
+      h('td',{text:f.note||'-'}),h('td',{text:f.ev||'-'}),h('td',{class:'noprint'},jump)
+    ));
+  });
+}
+function initials(n){n=(n||'').trim();if(!n)return 'JM';var p=n.split(/\s+/);return (p[0][0]+(p.length>1?p[p.length-1][0]:'')).toUpperCase()}
+function setFact(k,v){$$('[data-fact="'+k+'"]').forEach(function(e){e.textContent=v})}
+function refresh(){
+  var t=tally(),rev=t.total-t.unset,p=pct(rev,t.total),s=suggest(t),m=S.meta;
+  /* dock status */
+  $('#d-pct').textContent=p+'%';$('#d-lab').textContent=rev+' of '+t.total+' reviewed';
+  $('#d-fill').style.width=p+'%';$('#d-bar').setAttribute('aria-valuenow',p);
+  $('#d-fail').textContent=t.fail+' failed';$('#d-major').textContent=(t.sev.S1+t.sev.S2)+' blockers and majors';
+  /* overview */
+  $('#c-total').textContent=t.total+' checks';$('#c-pct').textContent=p+'% reviewed';$('#c-fail').textContent=t.fail+' failed';
+  $('#l-pass').textContent=t.pass+' passed';$('#l-fail').textContent=t.fail+' failed';$('#l-na').textContent=t.na+' not applicable';$('#l-unset').textContent=t.unset+' not reviewed';$('#l-major').textContent=(t.sev.S1+t.sev.S2)+' blockers and majors';
+  $('#b-pass').style.width=pct(t.pass,t.total)+'%';$('#b-fail').style.width=pct(t.fail,t.total)+'%';$('#b-na').style.width=pct(t.na,t.total)+'%';
+  /* facts */
+  setFact('app',m.app||'Not set');setFact('build',m.build||'Not set');setFact('reviewer',m.reviewer||'Not set');setFact('date',m.date||'Not set');
+  setFact('standard',S.prefs.strict?'WCAG 2.2 A and AA only':'WCAG 2.2 A and AA, plus practice');
+  setFact('reviewed',rev+' of '+t.total+' ('+p+'%)');setFact('failed',String(t.fail));setFact('verdict',s.big);
+  $('#avatar').textContent=initials(m.reviewer);$('#avatar').setAttribute('aria-label','Reviewer: '+(m.reviewer||'not set'));
+  /* categories and sidebar counts */
+  CATS.forEach(function(c){
+    var ct=t.cats[c.id];
+    $('#cc-'+c.id).textContent=ct.total?ct.done+' of '+ct.total+' reviewed':'No WCAG items';
+    $('#cb-'+c.id).style.width=pct(ct.done,ct.total)+'%';
+    $$('[data-cnt-cat="'+c.id+'"]').forEach(function(e){e.textContent=ct.done+'/'+ct.total});
+  });
+  renderFindings();
+  var big=$('#v-big');big.textContent=s.big;big.className='big '+s.k;
+  $('#v-why').textContent=s.why;
+}
+
+/* ---------- review details ---------- */
+$$('[data-meta]').forEach(function(i){
+  i.value=S.meta[i.dataset.meta]||'';
+  i.addEventListener('input',function(){S.meta[i.dataset.meta]=i.value;save();refresh()});
+});
+
+/* ---------- tabs, sidebar, scroll spy, read progress ---------- */
+var TABS=['overview','method','checklist','plan','findings','reference'];
+var RAILMODE={overview:'facts',method:'facts',reference:'facts',checklist:'dock',plan:'dock',findings:'dock'};
+var panels=$$('[data-panel]'),tabs=$$('[role=tab][data-tab]'),rail=$('#rail'),side=$('#sidebar');
+var currentTab='overview',spy=null;
+var READKEY='uiux-portal-read-v1',read={};
+try{read=JSON.parse(localStorage.getItem(READKEY)||'{}')||{}}catch(e){read={}}
+function markRead(id){if(read[id])return;read[id]=1;try{localStorage.setItem(READKEY,JSON.stringify(read))}catch(e){}renderProgress()}
+function renderProgress(){
+  var all=$$('.section[data-title]').map(function(s){return s.id}),done=all.filter(function(id){return read[id]}).length;
+  var pc=pct(done,all.length),C=2*Math.PI*30;
+  $('#ringFill').setAttribute('stroke-dasharray',(C*pc/100)+' '+C);
+  $('#ringPct').textContent=pc+'%';$('#ringCount').textContent=done+' of '+all.length+' sections read';
+}
+function buildNav(tab){
+  var panel=$('[data-panel="'+tab+'"]'),secs=$$('.section[data-title]',panel);
+  var nav=$('#sectionNav');nav.textContent='';
+  secs.forEach(function(s){
+    var a=h('a',{href:'#'+tab+'/'+s.id,'data-for':s.id},h('span',{text:s.dataset.title}));
+    if(s.dataset.cat)a.appendChild(h('span',{class:'cnt','data-cnt-cat':s.dataset.cat}));
+    nav.appendChild(a);
+  });
+  $('#appendixBox').hidden=(tab==='reference');
+  if(spy)spy.disconnect();
+  spy=new IntersectionObserver(function(entries){
+    entries.forEach(function(en){
+      if(!en.isIntersecting)return;
+      setActive(en.target.id);markRead(en.target.id);
+    });
+    edgeSpy();
+  },{rootMargin:'-45% 0px -50% 0px'});
+  secs.forEach(function(s){spy.observe(s)});
+  refresh();applyFilter();
+}
+function setActive(id){
+  $$('#sectionNav a').forEach(function(a){
+    var on=a.dataset.for===id;a.classList.toggle('active',on);
+    if(on){a.setAttribute('aria-current','true');keepVisible(a)}else a.removeAttribute('aria-current');
+  });
+}
+function edgeSpy(){
+  var links=$$('#sectionNav a').filter(function(a){return !a.hidden});if(!links.length)return;
+  var top=window.scrollY<=24,bottom=(window.innerHeight+window.scrollY)>=document.documentElement.scrollHeight-6;
+  if(!top&&!bottom)return;
+  var a=top?links[0]:links[links.length-1];
+  setActive(a.dataset.for);markRead(a.dataset.for);
+}
+var spyRaf=0;
+window.addEventListener('scroll',function(){if(spyRaf)return;spyRaf=requestAnimationFrame(function(){spyRaf=0;edgeSpy()})},{passive:true});
+function keepVisible(a){
+  var sr=side.getBoundingClientRect(),r=a.getBoundingClientRect();
+  if(r.top<sr.top+8)side.scrollTop-=(sr.top+8-r.top);
+  else if(r.bottom>sr.bottom-8)side.scrollTop+=r.bottom-(sr.bottom-8);
+}
+function setHash(tab,sec){try{history.replaceState(null,'','#'+tab+(sec?'/'+sec:''))}catch(e){}}
+function activate(name,secId,push){
+  if(TABS.indexOf(name)<0)name='overview';
+  currentTab=name;
+  panels.forEach(function(p){p.hidden=p.dataset.panel!==name});
+  tabs.forEach(function(t){
+    var on=t.dataset.tab===name;t.setAttribute('aria-selected',on?'true':'false');t.tabIndex=on?0:-1;
+    if(on){var box=t.parentNode;box.scrollLeft=Math.max(0,t.offsetLeft-box.clientWidth/2+t.offsetWidth/2)}
+  });
+  rail.dataset.mode=RAILMODE[name];document.body.dataset.rail=RAILMODE[name];
+  if(RAILMODE[name]==='facts')closeOverlays();
+  buildNav(name);
+  var el=secId&&document.getElementById(secId);
+  if(el&&!el.hidden){el.scrollIntoView({block:'start'})}else window.scrollTo({top:0,behavior:'auto'});
+  if(push)setHash(name,secId);
+}
+tabs.forEach(function(t,i){
+  t.addEventListener('click',function(){activate(t.dataset.tab,null,true)});
+  t.addEventListener('keydown',function(e){
+    var k=e.key,n=-1;
+    if(k==='ArrowRight')n=(i+1)%tabs.length;else if(k==='ArrowLeft')n=(i-1+tabs.length)%tabs.length;
+    else if(k==='Home')n=0;else if(k==='End')n=tabs.length-1;
+    if(n<0)return;e.preventDefault();tabs[n].focus();tabs[n].click();
+  });
+});
+$('#sectionNav').addEventListener('click',function(e){
+  var a=e.target.closest('a');if(!a)return;
+  e.preventDefault();
+  var el=document.getElementById(a.dataset.for);if(el)el.scrollIntoView({block:'start'});
+  setHash(currentTab,a.dataset.for);closeOverlays();
+});
+$$('.appendix a').forEach(function(a){
+  a.addEventListener('click',function(e){e.preventDefault();activate(a.dataset.goto,a.dataset.sec,true);closeOverlays()});
+});
+
+/* ---------- overlays: drawer, tools sheet, search toggle ---------- */
+var scrim=$('#scrim'),burger=$('#burger'),fab=$('#fab');
+function closeOverlays(){
+  side.classList.remove('open');rail.classList.remove('sheet-open');
+  burger.setAttribute('aria-expanded','false');fab.setAttribute('aria-expanded','false');
+  scrim.hidden=true;
+}
+burger.addEventListener('click',function(){
+  var open=!side.classList.contains('open');closeOverlays();
+  if(open){side.classList.add('open');burger.setAttribute('aria-expanded','true');scrim.hidden=false}
+});
+fab.addEventListener('click',function(){
+  var open=!rail.classList.contains('sheet-open');closeOverlays();
+  if(open){rail.classList.add('sheet-open');fab.setAttribute('aria-expanded','true');scrim.hidden=false}
+});
+scrim.addEventListener('click',closeOverlays);
+document.addEventListener('keydown',function(e){if(e.key==='Escape')closeOverlays()});
+$('#search-toggle').addEventListener('click',function(){
+  var w=$('#search-wrap'),show=!w.classList.contains('show');
+  w.classList.toggle('show',show);this.setAttribute('aria-expanded',show?'true':'false');
+  if(show)qEl.focus();
+});
+
+/* ---------- tool dock ---------- */
+var toolTabs=$$('[data-tool]'),toolPanels=$$('[data-tool-panel]');
+function setTool(name,focus){
+  if(!$('[data-tool-panel="'+name+'"]'))name='contrast';
+  toolPanels.forEach(function(p){p.hidden=p.dataset.toolPanel!==name});
+  toolTabs.forEach(function(t){var on=t.dataset.tool===name;t.setAttribute('aria-selected',on?'true':'false');t.tabIndex=on?0:-1});
+  S.prefs.tool=name;save();
+}
+toolTabs.forEach(function(t,i){
+  t.addEventListener('click',function(){setTool(t.dataset.tool)});
+  t.addEventListener('keydown',function(e){
+    var k=e.key,n=-1;
+    if(k==='ArrowRight')n=(i+1)%toolTabs.length;else if(k==='ArrowLeft')n=(i-1+toolTabs.length)%toolTabs.length;
+    else if(k==='Home')n=0;else if(k==='End')n=toolTabs.length-1;
+    if(n<0)return;e.preventDefault();toolTabs[n].focus();toolTabs[n].click();
+  });
+});
+
+/* contrast calculator */
+function hexToRgb(v){
+  v=String(v).trim().replace('#','');
+  if(v.length===3)v=v.split('').map(function(c){return c+c}).join('');
+  if(!/^[0-9a-f]{6}$/i.test(v))return null;
+  return [0,2,4].map(function(i){return parseInt(v.slice(i,i+2),16)});
+}
+function toHex(rgb){return '#'+rgb.map(function(x){return ('0'+x.toString(16)).slice(-2)}).join('')}
+function lum(c){
+  var f=function(x){x/=255;return x<=0.04045?x/12.92:Math.pow((x+0.055)/1.055,2.4)};
+  return 0.2126*f(c[0])+0.7152*f(c[1])+0.0722*f(c[2]);
+}
+function ratio(a,b){var l1=lum(a),l2=lum(b),hi=Math.max(l1,l2),lo=Math.min(l1,l2);return (hi+0.05)/(lo+0.05)}
+var fgT=$('#fg-t'),fgC=$('#fg-c'),bgT=$('#bg-t'),bgC=$('#bg-c'),last=null;
+function setRes(id,ok,info){var e=$('#'+id);e.textContent=info?(ok?'Meets':'Below'):(ok?'\u2713 Pass':'\u2715 Fail');e.className='v '+(info?'info':(ok?'pass':'fail'))}
+function calc(){
+  var a=hexToRgb(fgT.value),b=hexToRgb(bgT.value);
+  if(!a||!b){last=null;$('#ratio').textContent='Invalid hex';['r-n','r-l','r-u','r-a'].forEach(function(id){var e=$('#'+id);e.textContent='-';e.className='v'});return}
+  var r=ratio(a,b),shown=(Math.floor(r*100)/100).toFixed(2);
+  $('#ratio').textContent=shown+':1';
+  setRes('r-n',r>=4.5);setRes('r-l',r>=3);setRes('r-u',r>=3);setRes('r-a',r>=7,true);
+  var sw=$('#swatch');sw.style.background=toHex(b);sw.style.color=toHex(a);
+  last={fg:toHex(a),bg:toHex(b),shown:shown,n:r>=4.5,l:r>=3,u:r>=3};
+}
+function wire(t,c){
+  t.addEventListener('input',function(){var rgb=hexToRgb(t.value);if(rgb)c.value=toHex(rgb);calc()});
+  c.addEventListener('input',function(){t.value=c.value;calc()});
+}
+wire(fgT,fgC);wire(bgT,bgC);
+$('#swap').addEventListener('click',function(){
+  var a=fgT.value,b=bgT.value;fgT.value=b;bgT.value=a;
+  var x=hexToRgb(fgT.value),y=hexToRgb(bgT.value);if(x)fgC.value=toHex(x);if(y)bgC.value=toHex(y);calc();
+});
+if('EyeDropper' in window){
+  $$('.pickbtn').forEach(function(b){
+    b.hidden=false;
+    b.addEventListener('click',function(){
+      var t=b.dataset.pick==='fg'?fgT:bgT;
+      new window.EyeDropper().open().then(function(r){t.value=r.sRGBHex;t.dispatchEvent(new Event('input'))}).catch(function(){});
+    });
+  });
+}
+var targetSel=$('#c-target');
+['C1','C2','C3','C4','C5','C6','C7','C9','M5','M6','K4'].forEach(function(id){targetSel.appendChild(h('option',{value:id,text:id+' · '+ITEM[id].t.slice(0,44)+(ITEM[id].t.length>44?'…':'')}))});
+$('#c-add').addEventListener('click',function(){
+  var msg=$('#c-msg');
+  if(!last){msg.textContent='Enter two valid hex colors first.';return}
+  var id=targetSel.value;
+  var txt='Measured '+last.fg+' on '+last.bg+' = '+last.shown+':1 (normal text '+(last.n?'pass':'fail')+', large text '+(last.l?'pass':'fail')+', UI '+(last.u?'pass':'fail')+').';
+  var cur=(S.note[id]||'').trim();S.note[id]=cur?cur+'\n'+txt:txt;save();
+  var li=$('#item-'+id);if(li){$('[data-note]',li).value=S.note[id];li._open=true;syncItem(li)}
+  refresh();msg.textContent='Added to the note for '+id+'.';
+});
+calc();
+
+/* snippets */
+var SNIPS=[
+{t:'Text spacing override',d:'1.4.12. Applies the four WCAG spacing values. Look for clipped or overlapping text.',c:"(()=>{const s=document.createElement('style');s.id='ts-override';s.textContent='*{line-height:1.5!important;letter-spacing:.12em!important;word-spacing:.16em!important}p{margin-bottom:2em!important}';document.head.append(s)})()"},
+{t:'Grayscale check',d:'1.4.1. Can you still tell states apart without color? Run the second line to undo.',c:"document.documentElement.style.filter='grayscale(1)'\ndocument.documentElement.style.filter=''"},
+{t:'Find small targets',d:'2.5.8. Outlines controls under 24 by 24 px and lists them. It ignores the spacing exception and inline links, so confirm each hit.',c:"console.table([...document.querySelectorAll('a,button,input,select,textarea,[role=button],[tabindex]')].filter(e=>{const r=e.getBoundingClientRect();return r.width&&r.height&&(r.width<24||r.height<24)}).map(e=>{e.style.outline='3px solid red';const r=e.getBoundingClientRect();return {tag:e.tagName,size:Math.round(r.width)+'x'+Math.round(r.height),text:(e.textContent||e.getAttribute('aria-label')||'').trim().slice(0,30)}}))"},
+{t:'Heading outline',d:'1.3.1 and 2.4.6. Shows heading levels in order so skipped levels stand out.',c:"console.table([...document.querySelectorAll('h1,h2,h3,h4,h5,h6')].map(h=>({level:h.tagName,text:h.textContent.trim().slice(0,70)})))"},
+{t:'Images without alt',d:'1.1.1. Lists images missing the alt attribute entirely.',c:"console.table([...document.images].filter(i=>!i.hasAttribute('alt')).map(i=>({src:i.currentSrc.slice(-60)})))"},
+{t:'Unlabeled fields',d:'1.3.1 and 3.3.2. Lists fields with no label or ARIA name.',c:"console.table([...document.querySelectorAll('input:not([type=hidden]),select,textarea')].filter(e=>!e.labels.length&&!e.getAttribute('aria-label')&&!e.getAttribute('aria-labelledby')).map(e=>({tag:e.tagName,name:e.name||e.id,type:e.type})))"},
+{t:'Language and landmarks',d:'1.3.1 and 3.1.1. Quick presence check for lang, header, nav, and main.',c:"console.log({lang:document.documentElement.lang,header:!!document.querySelector('header,[role=banner]'),nav:!!document.querySelector('nav,[role=navigation]'),main:!!document.querySelector('main,[role=main]')})"}
+];
+var snipsEl=$('#snips');
+SNIPS.forEach(function(s,i){
+  var pre=h('pre',{id:'snip-'+i},s.c);
+  var btn=h('button',{type:'button',class:'btn small'},'Copy');
+  var st=h('span',{class:'msg',style:'margin-left:8px'});
+  btn.addEventListener('click',function(){
+    function fb(){var r=document.createRange();r.selectNodeContents(pre);var sel=window.getSelection();sel.removeAllRanges();sel.addRange(r);var ok=false;try{ok=document.execCommand('copy')}catch(e){}st.textContent=ok?'Copied.':'Selected. Press Ctrl+C or Cmd+C.'}
+    if(navigator.clipboard&&navigator.clipboard.writeText){navigator.clipboard.writeText(s.c).then(function(){st.textContent='Copied.'},fb)}else fb();
+  });
+  snipsEl.appendChild(h('div',{class:'snip'},h('h4',{text:s.t}),h('p',{text:s.d}),pre,btn,st));
+});
+
+/* evidence (shared by dock and Findings tab) */
+var evlist=$('#evlist');
+function renderEvidence(){
+  evlist.textContent='';
+  if(!S.evidence.length){evlist.appendChild(h('p',{class:'hint',style:'margin-top:10px',text:'No evidence entries yet.'}));return}
+  S.evidence.forEach(function(e,i){
+    var del=h('button',{type:'button',class:'btn small noprint','aria-label':'Remove evidence entry '+(i+1),text:'Remove'});
+    del.addEventListener('click',function(){S.evidence.splice(i,1);save();renderEvidence()});
+    evlist.appendChild(h('div',{class:'evrow'},h('span',{class:'mono',text:e.ref||'-'}),h('span',{text:e.ctx||'-'}),h('span',{text:e.file||'-'}),h('span',{text:e.desc||'-'}),del));
+  });
+}
+function addEvidence(r){
+  if(!r.ref&&!r.file&&!r.desc)return false;
+  S.evidence.push(r);save();renderEvidence();return true;
+}
+$('#ev-add').addEventListener('click',function(){
+  var ok=addEvidence({ref:$('#ev-ref').value.trim(),ctx:$('#ev-ctx').value.trim(),file:$('#ev-file').value.trim(),desc:$('#ev-desc').value.trim()});
+  if(!ok){$('#ev-ref').focus();return}
+  ['#ev-ref','#ev-ctx','#ev-file','#ev-desc'].forEach(function(s){$(s).value=''});$('#ev-ref').focus();
+});
+$('#de-add').addEventListener('click',function(){
+  var ok=addEvidence({ref:$('#de-ref').value.trim(),ctx:$('#de-ctx').value.trim(),file:$('#de-file').value.trim(),desc:$('#de-desc').value.trim()});
+  var m=$('#de-msg');
+  if(!ok){m.textContent='Enter at least a ref, file, or description.';return}
+  ['#de-ref','#de-ctx','#de-file','#de-desc'].forEach(function(s){$(s).value=''});
+  m.textContent='Added. '+S.evidence.length+' entr'+(S.evidence.length===1?'y':'ies')+' logged.';
+});
+renderEvidence();
+$('#namex').textContent='appname_C2_dark_375_'+today().replace(/-/g,'')+'.png';
+$('#de-file').placeholder='appname_C2_dark_375_'+today().replace(/-/g,'')+'.png';
+
+/* ---------- test plan ---------- */
+var WIDTHS=[320,375,768,1280,1920];
+var MODES=[{k:'zoom200',t:'200% text zoom'},{k:'reflow',t:'320px reflow (400% zoom)'},{k:'kbd',t:'Keyboard-only walkthrough'},{k:'sr',t:'Screen reader pass'},{k:'motion',t:'Reduced motion on'},{k:'forced',t:'Forced colors'},{k:'slow',t:'Throttled network'}];
+var BROWSERS=[{k:'chrome',t:'Chrome'},{k:'ff',t:'Firefox'},{k:'safari',t:'Safari'},{k:'edge',t:'Edge'},{k:'ios',t:'iOS device'},{k:'android',t:'Android device'}];
+var mx=$('#mx');
+(function(){
+  var head=h('tr',{},h('th',{scope:'col',text:'Theme'}));
+  WIDTHS.forEach(function(w){head.appendChild(h('th',{scope:'col',text:w+' px'}))});
+  mx.appendChild(h('thead',{},head));
+  var body=h('tbody');
+  Object.keys(THEMES).forEach(function(th){
+    var tr=h('tr',{},h('th',{scope:'row',text:THEMES[th]}));
+    WIDTHS.forEach(function(w){
+      tr.appendChild(h('td',{},h('button',{type:'button',class:'cell','data-m':'m:'+th+':'+w,'aria-pressed':'false','aria-label':THEMES[th]+' theme at '+w+' pixels wide',text:'Not yet'})));
+    });
+    body.appendChild(tr);
+  });
+  mx.appendChild(body);
+})();
+function chipGroup(box,list,prefix){list.forEach(function(m){box.appendChild(h('button',{type:'button',class:'chip','data-m':prefix+m.k,'aria-pressed':'false',text:m.t}))})}
+chipGroup($('#modes'),MODES,'x:');chipGroup($('#browsers'),BROWSERS,'b:');
+function syncMatrix(){
+  var cells=0,modes=0,brs=0;
+  $$('#panel-plan [data-m]').forEach(function(b){
+    var on=!!S.matrix[b.dataset.m];b.setAttribute('aria-pressed',on?'true':'false');
+    if(b.classList.contains('cell')){b.textContent=on?'\u2713 Tested':'Not yet';if(on)cells++}
+    else if(b.dataset.m.indexOf('x:')===0){if(on)modes++}
+    else if(on)brs++;
+  });
+  $('#cov-text').textContent=cells+'/'+(WIDTHS.length*2)+' theme × width · '+modes+'/'+MODES.length+' modes · '+brs+'/'+BROWSERS.length+' browsers';
+}
+$('#panel-plan').addEventListener('click',function(e){
+  var b=e.target.closest('[data-m]');if(!b)return;
+  var k=b.dataset.m;if(S.matrix[k])delete S.matrix[k];else S.matrix[k]=true;
+  save();syncMatrix();
+});
+var envEl=$('#env');envEl.value=S.env||'';envEl.addEventListener('input',function(){S.env=envEl.value;save()});
+syncMatrix();
+
+var FLOWSUG=['Sign in and out','Primary create flow','Edit or delete a record','Search and filter','Settings and profile','Error and empty states'];
+var FSTAT=['Not run','Pass','Fail','Blocked'];
+var flowsEl=$('#flows');
+function renderFlows(){
+  flowsEl.textContent='';
+  if(!S.flows.length){flowsEl.appendChild(h('p',{class:'hint',text:'No flows yet. Add one with the suggestions above.'}))}
+  S.flows.forEach(function(f,i){
+    var name=h('input',{type:'text','aria-label':'Flow name',placeholder:'Flow name'});name.value=f.n||'';
+    var sel=h('select',{'aria-label':'Flow result'});FSTAT.forEach(function(s){sel.appendChild(h('option',{value:s,text:s}))});sel.value=f.s||'Not run';
+    var note=h('input',{type:'text','aria-label':'Flow notes',placeholder:'Where it broke, or what you verified'});note.value=f.note||'';
+    var del=h('button',{type:'button',class:'btn small noprint','aria-label':'Remove flow '+(f.n||i+1),text:'Remove'});
+    name.addEventListener('input',function(){f.n=name.value;save()});
+    sel.addEventListener('change',function(){f.s=sel.value;save()});
+    note.addEventListener('input',function(){f.note=note.value;save()});
+    del.addEventListener('click',function(){S.flows.splice(i,1);save();renderFlows()});
+    flowsEl.appendChild(h('div',{class:'flowrow'},name,sel,note,del));
+  });
+}
+FLOWSUG.forEach(function(n){
+  var b=h('button',{type:'button',class:'chip',text:'+ '+n});
+  b.addEventListener('click',function(){S.flows.push({n:n,s:'Not run',note:''});save();renderFlows()});
+  $('#flow-sugg').appendChild(b);
+});
+$('#add-flow').addEventListener('click',function(){S.flows.push({n:'',s:'Not run',note:''});save();renderFlows()});
+renderFlows();
+
+/* ---------- verdict, report, backup ---------- */
+var vf=$('#v-final'),vn=$('#v-notes');
+vf.value=S.verdict.final||'';vn.value=S.verdict.why||'';
+vf.addEventListener('change',function(){S.verdict.final=vf.value;save()});
+vn.addEventListener('input',function(){S.verdict.why=vn.value;save()});
+var out=$('#out'),msg=$('#msg');
+function say(t){msg.textContent=t}
+function buildReport(){
+  var m=S.meta,t=tally(),s=suggest(t),L=[];
+  L.push('# UI/UX review: '+(m.app||'(unnamed app)'));
+  L.push('');
+  L.push('- Build or URL: '+(m.build||'-'));
+  L.push('- Reviewer: '+(m.reviewer||'-')+' on '+(m.date||'-'));
+  L.push('- Roles tested: '+(m.roles||'-'));
+  L.push('- Devices and browsers: '+(m.devices||'-'));
+  L.push('- Standard: WCAG 2.2 A and AA'+(S.prefs.strict?' (WCAG items only)':' plus practice checks'));
+  L.push('');
+  L.push('## Summary');
+  L.push('- Reviewed '+(t.total-t.unset)+' of '+t.total+' checks ('+pct(t.total-t.unset,t.total)+'%): '+t.pass+' passed, '+t.fail+' failed, '+t.na+' not applicable, '+t.unset+' not reviewed');
+  L.push('- Open failures: S1 '+t.sev.S1+', S2 '+t.sev.S2+', S3 '+t.sev.S3+', S4 '+t.sev.S4+', unrated '+t.sev.none);
+  L.push('- Suggested verdict: '+s.big+' ('+s.why+')');
+  L.push('- Final decision: '+(S.verdict.final||'not decided')+(S.verdict.why?' - '+S.verdict.why:''));
+  L.push('');
+  L.push('## Failed checks');
+  var f=findings();
+  if(!f.length)L.push('None logged.');
+  f.forEach(function(x){L.push('- ['+(x.sev||'unrated')+'] '+x.id+' ('+x.theme+'): '+x.text+(x.note?' Note: '+x.note.replace(/\n/g,' '):'')+(x.ev?' Evidence: '+x.ev:''))});
+  L.push('');
+  L.push('## Critical flows');
+  if(!S.flows.length)L.push('None recorded.');
+  S.flows.forEach(function(x){L.push('- '+(x.n||'(unnamed)')+': '+x.s+(x.note?' - '+x.note:''))});
+  L.push('');
+  L.push('## Coverage');
+  var done=Object.keys(S.matrix).filter(function(k){return S.matrix[k]});
+  var names={};MODES.forEach(function(x){names['x:'+x.k]=x.t});BROWSERS.forEach(function(x){names['b:'+x.k]=x.t});
+  var cells=done.filter(function(k){return k.indexOf('m:')===0}).map(function(k){var p=k.split(':');return THEMES[p[1]]+' '+p[2]+'px'});
+  var others=done.filter(function(k){return k.indexOf('m:')!==0}).map(function(k){return names[k]||k});
+  L.push('- Theme and width: '+(cells.join(', ')||'none'));
+  L.push('- Modes, browsers, devices: '+(others.join(', ')||'none'));
+  if(S.env)L.push('- Environment: '+S.env.replace(/\n/g,' '));
+  L.push('');
+  L.push('## Evidence');
+  if(!S.evidence.length)L.push('None recorded.');
+  S.evidence.forEach(function(e){L.push('- '+(e.ref||'-')+' | '+(e.ctx||'-')+' | '+(e.file||'-')+' | '+(e.desc||'-'))});
+  return L.join('\n');
+}
+$('#b-report').addEventListener('click',function(){out.value=buildReport();say('Report built below.')});
+$('#b-json').addEventListener('click',function(){out.value=JSON.stringify(S,null,2);say('JSON backup shown below.')});
+$('#b-load').addEventListener('click',function(){
+  try{
+    var o=JSON.parse(out.value);
+    if(!o||typeof o!=='object'||!o.st||!o.meta)throw new Error('bad');
+    S=merge(DEF(),o);save();say('Loaded. Reloading...');setTimeout(function(){location.reload()},300);
+  }catch(e){say('That text is not a valid backup. Paste a JSON backup into the box first.')}
+});
+$('#b-copy').addEventListener('click',function(){
+  if(!out.value){say('Nothing to copy yet. Build a report or show the JSON first.');return}
+  function fb(){out.focus();out.select();var ok=false;try{ok=document.execCommand('copy')}catch(e){}say(ok?'Copied.':'Text selected. Press Ctrl+C or Cmd+C to copy.')}
+  if(navigator.clipboard&&navigator.clipboard.writeText){navigator.clipboard.writeText(out.value).then(function(){say('Copied.')},fb)}else fb();
+});
+$('#b-print').addEventListener('click',function(){try{window.print()}catch(e){say('Printing is blocked here. Use your browser menu to print or save as PDF.')}});
+var resetBtn=$('#b-reset'),resetTimer=null;
+resetBtn.addEventListener('click',function(){
+  if(!resetBtn.classList.contains('armed')){
+    resetBtn.classList.add('armed');resetBtn.textContent='Click again to erase everything';
+    say('This clears all results, notes, flows, and evidence in this browser.');
+    resetTimer=setTimeout(function(){resetBtn.classList.remove('armed');resetBtn.textContent='Start a new review';say('')},6000);
+    return;
+  }
+  clearTimeout(resetTimer);S=DEF();S.meta.date=today();save();try{localStorage.removeItem(READKEY)}catch(e){}location.reload();
+});
+
+/* ---------- boot ---------- */
+setTool(S.prefs.tool||'contrast');
+(function(){
+  var raw=(location.hash||'').slice(1).split('/'),tab=raw[0]||'overview',sec=raw[1]||null;
+  activate(tab,sec,false);
+})();
+renderProgress();edgeSpy();
+window.addEventListener('hashchange',function(){var r=(location.hash||'').slice(1).split('/');if(r[0]&&r[0]!==currentTab)activate(r[0],r[1]||null,false)});
+})();
+</script>
+</body>
+</html>
