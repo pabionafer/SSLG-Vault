@@ -72,3 +72,72 @@ export async function computeFeeRows(feeId: string): Promise<FeeRowsResult> {
 
   return { ok: true, data: { fee: { ...fee, amount }, rows } };
 }
+
+export interface StudentFeeItem {
+  fee_id: string;
+  name: string;
+  amount: number;
+  academic_year: string;
+  semester: string;
+  due_date: string | null;
+  category_id: string | null;
+  paid: number;
+  balance: number;
+  status: ReturnType<typeof paymentStatus>;
+}
+
+/** All applicable fees for one student with paid/balance/status. */
+export async function computeStudentFees(
+  studentId: string,
+): Promise<{ ok: true; items: StudentFeeItem[]; student: { id: string; year_level: number } } | { ok: false; error: string }> {
+  const db = createAdminClient();
+
+  const [{ data: student, error: stErr }, { data: fees, error: feeErr }, { data: targets, error: tErr }, { data: payments, error: pErr }] =
+    await Promise.all([
+      db.from("students").select("id,year_level,first_name,last_name,student_no").eq("id", studentId).maybeSingle(),
+      db.from("fees").select("*").is("deleted_at", null).eq("is_active", true),
+      db.from("fee_targets").select("*"),
+      db
+        .from("payments")
+        .select("fee_id,amount")
+        .eq("student_id", studentId)
+        .is("deleted_at", null)
+        .eq("status", "posted"),
+    ]);
+  if (stErr) return { ok: false, error: stErr.message };
+  if (!student) return { ok: false, error: "Student not found" };
+  if (feeErr) return { ok: false, error: feeErr.message };
+  if (tErr) return { ok: false, error: tErr.message };
+  if (pErr) return { ok: false, error: pErr.message };
+
+  const paidByFee = new Map<string, number>();
+  for (const p of payments ?? []) {
+    if (p.fee_id == null) continue;
+    const key = String(p.fee_id);
+    paidByFee.set(key, (paidByFee.get(key) ?? 0) + Number(p.amount));
+  }
+
+  const items: StudentFeeItem[] = (fees ?? [])
+    .map((fee) => {
+      const feeTargets = (targets ?? []).filter((t) => String(t.fee_id) === String(fee.id));
+      if (!feeAppliesToStudent(student, feeTargets)) return null;
+      const paid = paidByFee.get(String(fee.id)) ?? 0;
+      const amount = Number(fee.amount);
+      return {
+        fee_id: String(fee.id),
+        name: fee.name,
+        amount,
+        academic_year: fee.academic_year,
+        semester: fee.semester,
+        due_date: fee.due_date,
+        category_id: fee.category_id == null ? null : String(fee.category_id),
+        paid: Number(paid.toFixed(2)),
+        balance: balanceDue(paid, amount),
+        status: paymentStatus(paid, amount),
+      };
+    })
+    .filter((x): x is StudentFeeItem => x !== null)
+    .sort((a, b) => a.name.localeCompare(b.name));
+
+  return { ok: true, items, student };
+}

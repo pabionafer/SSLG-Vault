@@ -37,6 +37,10 @@ let categoryId: string | null = null;
 let collectionId: string | null = null;
 let studentId: string | null = null;
 let feeId: string | null = null;
+let clearanceId: string | null = null;
+let paymentId: string | null = null;
+let receiptId: string | null = null;
+let clearanceItemId: number | null = null;
 
 async function run(c: Case): Promise<void> {
   const headers: Record<string, string> = {};
@@ -53,14 +57,23 @@ async function run(c: Case): Promise<void> {
   console.log(`${good ? "ok  " : "FAIL"} ${c.method} ${c.path} -> ${res.status}${good ? "" : ` (expected ${c.expect.join("|")}) ${text.slice(0, 200)}`}`);
   if (!good) failures += 1;
 
-  if (res.ok && text.length < 4000) {
+  if (res.ok && text.length < 50000) {
     try {
       const json = JSON.parse(text);
       if (c.method === "POST" && c.path === "/api/users" && json?.id) createdUserId = json.id;
       if (json?.category?.id && c.method === "POST" && c.path === "/api/categories") categoryId = json.category.id;
       if (json?.collection?.id && c.method === "POST" && c.path === "/api/collections") collectionId = json.collection.id;
       if (json?.student?.id && c.method === "POST" && c.path === "/api/students") studentId = json.student.id;
-      if (json?.fee?.id && c.method === "POST" && c.path === "/api/fees") feeId = json.fee.id;
+      if (json?.fee?.id && c.method === "POST" && c.path === "/api/fees" && !feeId) {
+        feeId = json.fee.id;
+      }
+      if (json?.payment?.id && c.method === "POST" && c.path === "/api/payments") paymentId = String(json.payment.id);
+      if (json?.receipt?.id && c.method === "POST" && c.path === "/api/receipts") receiptId = String(json.receipt.id);
+      if (json?.clearance?.id && c.method === "POST" && c.path === "/api/clearances") {
+        clearanceId = String(json.clearance.id);
+        clearanceItemId = null;
+      }
+      if (json?.items?.[0]?.id && c.path.startsWith("/api/clearances/")) clearanceItemId = json.items[0].id;
     } catch {
       /* not json */
     }
@@ -230,6 +243,163 @@ if (feeId) {
 } else {
   console.log("FAIL setup: no fee id");
   failures += 1;
+}
+
+// --- payments (11) + receipts (3) + clearances (8) + defaulters (3) --------
+// an overdue fee so the defaulters report has at least one row
+await run({
+  method: "POST",
+  path: "/api/fees",
+  body: {
+    name: `Smoke Overdue Fee ${Date.now()}`,
+    amount: 500,
+    academic_year: "2026-2027",
+    semester: "1st Semester",
+    due_date: "2026-09-01",
+  },
+  expect: [201],
+});
+
+await run({
+  method: "POST",
+  path: "/api/payments",
+  body: {
+    student_id: Number(studentId),
+    fee_id: Number(feeId),
+    collection_id: Number(collectionId),
+    amount: 1600,
+    payment_date: "2026-10-07",
+    mode: "cash",
+    academic_year: "2026-2027",
+    semester: "1st Semester",
+  },
+  expect: [201],
+});
+await run({ method: "GET", path: "/api/payments", expect: [200] });
+if (paymentId && studentId) {
+  await run({ method: "GET", path: `/api/payments/${paymentId}`, expect: [200] });
+  await run({ method: "PATCH", path: `/api/payments/${paymentId}`, body: { remarks: "smoke edited" }, expect: [200] });
+  await run({ method: "GET", path: "/api/payments/summary?from=2026-01-01", expect: [200] });
+  await run({
+    method: "POST",
+    path: "/api/payments/bulk",
+    body: {
+      payments: [
+        { student_id: Number(studentId), amount: 100, payment_date: "2026-10-07", academic_year: "2026-2027" },
+        { student_id: Number(studentId), amount: 250, payment_date: "2026-10-07", academic_year: "2026-2027", mode: "gcash" },
+      ],
+    },
+    expect: [201],
+  });
+  await run({ method: "GET", path: `/api/payments/${paymentId}/receipt`, expect: [200] });
+} else {
+  console.log("FAIL setup: no payment id");
+  failures += 1;
+}
+
+// --- receipts (3; PDF comes in phase 10) ------------------------------------
+if (paymentId) {
+  await run({ method: "POST", path: "/api/receipts", body: { payment_id: Number(paymentId) }, expect: [201] });
+}
+await run({ method: "GET", path: "/api/receipts", expect: [200] });
+if (receiptId) {
+  await run({ method: "GET", path: `/api/receipts/${receiptId}`, expect: [200] });
+}
+if (paymentId) {
+  await run({ method: "POST", path: "/api/receipts", body: { payment_id: Number(paymentId) }, expect: [409] });
+}
+
+// --- defaulters (3; PDF comes in phase 10) ----------------------------------
+await run({ method: "GET", path: "/api/defaulters", expect: [200] });
+{
+  const res = await fetch(`${BASE}/api/defaulters/summary`, { headers: { cookie: cookies } });
+  const j = await res.json().catch(() => ({}));
+  const good = res.status === 200 && typeof j.count === "number" && j.count >= 1 && j.total_balance > 0;
+  console.log(`${good ? "ok  " : "FAIL"} GET /api/defaulters/summary -> ${res.status} count=${j.count} total=${j.total_balance}`);
+  if (!good) failures += 1;
+}
+{
+  const res = await fetch(`${BASE}/api/defaulters/export`, { headers: { cookie: cookies } });
+  const good = res.status === 200 && (res.headers.get("content-type") ?? "").includes("csv");
+  console.log(`${good ? "ok  " : "FAIL"} GET /api/defaulters/export -> ${res.status} ${res.headers.get("content-type")}`);
+  if (!good) failures += 1;
+}
+
+// --- clearances: settle every open fee first so approval can pass ----------
+if (studentId) {
+  const res = await fetch(`${BASE}/api/students/${studentId}/fees`, { headers: { cookie: cookies } });
+  const j = await res.json().catch(() => ({ items: [] }));
+  for (const item of j.items ?? []) {
+    if (!(item.balance > 0)) continue;
+    const pr = await fetch(`${BASE}/api/payments`, {
+      method: "POST",
+      headers: { cookie: cookies, "content-type": "application/json" },
+      body: JSON.stringify({
+        student_id: Number(studentId),
+        fee_id: Number(item.fee_id),
+        amount: item.balance,
+        payment_date: "2026-10-07",
+        mode: "cash",
+        academic_year: item.academic_year,
+        semester: item.semester,
+      }),
+    });
+    const good = pr.status === 201;
+    console.log(`${good ? "ok  " : "FAIL"} pay off fee ${item.name} (${item.balance}) -> ${pr.status}`);
+    if (!good) failures += 1;
+  }
+}
+
+if (studentId) {
+  await run({
+    method: "POST",
+    path: "/api/clearances",
+    body: { student_id: Number(studentId), purpose: "Smoke clearance", academic_year: "2026-2027" },
+    expect: [201],
+  });
+}
+await run({ method: "GET", path: "/api/clearances", expect: [200] });
+if (clearanceId) {
+  await run({ method: "GET", path: `/api/clearances/${clearanceId}`, expect: [200] });
+  await run({ method: "PATCH", path: `/api/clearances/${clearanceId}`, body: { purpose: "Smoke clearance updated" }, expect: [200] });
+  if (clearanceItemId) {
+    await run({
+      method: "PATCH",
+      path: `/api/clearances/${clearanceId}`,
+      body: { items: [{ id: clearanceItemId, status: "cleared", remarks: "signed by smoke" }] },
+      expect: [200],
+    });
+  }
+  await run({ method: "POST", path: `/api/clearances/${clearanceId}/approve`, expect: [200] });
+  await run({ method: "POST", path: `/api/clearances/${clearanceId}/approve`, expect: [409] });
+  await run({ method: "POST", path: `/api/clearances/${clearanceId}/release`, expect: [200] });
+  await run({ method: "DELETE", path: `/api/clearances/${clearanceId}`, expect: [200] });
+}
+// reject path (fresh clearance for the same student)
+if (studentId) {
+  await run({
+    method: "POST",
+    path: "/api/clearances",
+    body: { student_id: Number(studentId), purpose: "Smoke clearance reject" },
+    expect: [201],
+  });
+}
+if (clearanceId) {
+  await run({ method: "POST", path: `/api/clearances/${clearanceId}/reject`, body: { remarks: "smoke" }, expect: [200] });
+  await run({ method: "POST", path: `/api/clearances/${clearanceId}/approve`, expect: [409] });
+  await run({ method: "POST", path: `/api/clearances/${clearanceId}/release`, expect: [409] });
+  await run({ method: "DELETE", path: `/api/clearances/${clearanceId}`, expect: [200] });
+}
+
+// --- payment lifecycle: void, trash, purge schedule, restore ----------------
+if (paymentId) {
+  await run({ method: "POST", path: `/api/payments/${paymentId}/void`, body: { reason: "smoke void" }, expect: [200] });
+  await run({ method: "POST", path: `/api/payments/${paymentId}/void`, body: { reason: "again" }, expect: [409] });
+  await run({ method: "DELETE", path: `/api/payments/${paymentId}`, expect: [200] });
+  await run({ method: "GET", path: "/api/payments?trash=true", expect: [200] });
+  await run({ method: "POST", path: `/api/payments/${paymentId}/schedule-purge`, expect: [200] });
+  await run({ method: "POST", path: `/api/payments/${paymentId}/schedule-purge`, expect: [409] });
+  await run({ method: "POST", path: `/api/payments/${paymentId}/restore`, expect: [200] });
 }
 
 console.log(failures === 0 ? "\nSMOKE PASS" : `\nSMOKE FAIL (${failures})`);
