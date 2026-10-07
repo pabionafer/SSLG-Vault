@@ -60,13 +60,15 @@ export default function DefaultersPage() {
   const [semester, setSemester] = useState("");
   const limit = 50;
 
-  const exportHref = (() => {
+  const filterParams = (() => {
     const p = new URLSearchParams();
     if (asOf) p.set("as_of", asOf);
     if (year) p.set("academic_year", year.trim());
     if (semester) p.set("semester", semester);
-    return `/api/defaulters/export?${p}`;
+    return p;
   })();
+  const exportHref = `/api/defaulters/export?${filterParams}`;
+  const pdfHref = `/api/defaulters/pdf?${filterParams}`;
 
   const load = useCallback(async () => {
     setLoading(true);
@@ -106,9 +108,14 @@ export default function DefaultersPage() {
             Overdue balances as of {summary?.as_of ?? asOf}
           </p>
         </div>
-        <Link href={exportHref} className={btnGhost}>
-          Export CSV
-        </Link>
+        <div className="flex flex-wrap gap-2">
+          <Link href={exportHref} className={btnGhost}>
+            Export CSV
+          </Link>
+          <Link href={pdfHref} target="_blank" className={btnGhost}>
+            Download PDF
+          </Link>
+        </div>
       </div>
 
       {summary && (

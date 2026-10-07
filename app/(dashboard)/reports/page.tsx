@@ -123,6 +123,7 @@ export default function ReportsPage() {
   }, [load]);
 
   const exportHref = `/api/financial-report/export?${baseParams()}`;
+  const pdfHref = `/api/financial-report/pdf?${baseParams()}`;
 
   return (
     <div className="space-y-4">
@@ -133,9 +134,12 @@ export default function ReportsPage() {
             {totals ? `Generated ${new Date(totals.generated_at).toLocaleString()}` : "…"}
           </p>
         </div>
-        <div className="flex gap-2">
+        <div className="flex flex-wrap gap-2">
           <Link href={exportHref} className={btnGhost}>
             Export ledger CSV
+          </Link>
+          <Link href={pdfHref} target="_blank" className={btnGhost}>
+            Download PDF
           </Link>
         </div>
       </div>

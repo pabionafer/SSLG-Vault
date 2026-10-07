@@ -184,6 +184,11 @@ export default function StudentsPage() {
             </Link>
           )}
           {canManage && (
+            <Link href="/students/import" className={btnGhost}>
+              Import
+            </Link>
+          )}
+          {canManage && (
             <button type="button" className={btnPrimary} onClick={openCreate}>
               Add student
             </button>

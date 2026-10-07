@@ -1,6 +1,7 @@
 "use client";
 
 import { useCallback, useEffect, useState } from "react";
+import Link from "next/link";
 import { useSession } from "@/lib/client/session";
 import { useToast } from "@/lib/client/toast";
 import { api } from "@/lib/client/api";
@@ -826,6 +827,15 @@ export default function PaymentsPage() {
             <button type="button" className={btnGhost} onClick={() => setReceiptOpen(false)}>
               Close
             </button>
+            {receipt && (
+              <Link
+                href={`/api/payments/${receipt.receipt.id}/pdf`}
+                target="_blank"
+                className={btnGhost}
+              >
+                Download PDF
+              </Link>
+            )}
             <button type="button" className={btnPrimary} onClick={() => window.print()}>
               Print
             </button>
