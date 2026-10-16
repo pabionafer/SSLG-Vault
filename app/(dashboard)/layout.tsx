@@ -73,18 +73,18 @@ function Shell({ children }: { children: ReactNode }) {
   return (
     <div className="flex min-h-screen">
       <aside
-        className={`no-print fixed inset-y-0 left-0 z-40 w-60 transform border-r border-line bg-surface transition-transform lg:static lg:translate-x-0 ${
+        className={`no-print fixed inset-y-0 left-0 z-40 w-60 transform border-r border-line bg-surface transition-transform lg:sticky lg:top-0 lg:flex lg:h-screen lg:translate-x-0 lg:flex-col ${
           open ? "translate-x-0" : "-translate-x-full"
         }`}
       >
-        <div className="flex h-14 items-center gap-2 border-b border-line px-4">
+        <div className="flex h-14 shrink-0 items-center gap-2 border-b border-line px-4">
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img src="/rufino.jpg" alt="" className="h-8 w-8 rounded-full object-cover" />
           <Link href="/" className="text-lg font-bold text-primary" onClick={() => setOpen(false)}>
             SSLG Vault
           </Link>
         </div>
-        <nav className="flex flex-col gap-0.5 p-2" aria-label="Main">
+        <nav className="flex flex-1 flex-col gap-0.5 overflow-y-auto p-2" aria-label="Main">
           {visible.map((item) => {
             const active =
               item.href === "/"
