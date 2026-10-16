@@ -13,14 +13,22 @@ function readEnv() {
   return env;
 }
 
+const env = readEnv();
+
 const ADMIN = {
-  email: "admin@sslg.edu.ph",
-  password: "Vault#Admin2026!",
-  username: "admin",
-  full_name: "Vault Admin",
+  email: env.ADMIN_EMAIL ?? "admin@sslg.edu.ph",
+  password: env.ADMIN_PASSWORD,
+  username: env.ADMIN_USERNAME ?? "admin",
+  full_name: env.ADMIN_FULL_NAME ?? "SSLG Admin",
 };
 
-const env = readEnv();
+if (!ADMIN.password) {
+  console.error(
+    "ADMIN_PASSWORD is not set. Add ADMIN_PASSWORD=... to .env.local (never commit it).",
+  );
+  process.exit(1);
+}
+
 const url = env.NEXT_PUBLIC_SUPABASE_URL;
 const serviceKey = env.SUPABASE_SERVICE_ROLE_KEY;
 const authHeaders = { apikey: serviceKey, Authorization: `Bearer ${serviceKey}`, "Content-Type": "application/json" };

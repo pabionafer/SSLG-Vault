@@ -4,7 +4,11 @@ import process from "node:process";
 
 const BASE = process.env.SMOKE_BASE ?? "http://localhost:3000";
 const IDENT = process.env.SMOKE_USER ?? "admin";
-const PASS = process.env.SMOKE_PASS ?? "Vault#Admin2026!";
+const PASS = process.env.SMOKE_PASS;
+if (!PASS) {
+  console.error("SMOKE_PASS is not set. Add SMOKE_PASS=... to .env.local (never commit it).");
+  process.exit(1);
+}
 
 let cookies = "";
 
@@ -147,7 +151,7 @@ if (categoryId) {
   failures += 1;
 }
 
-// --- collections (7) -------------------------------------------------------
+// --- collections (8) -------------------------------------------------------
 await run({
   method: "POST",
   path: "/api/collections",
@@ -162,6 +166,8 @@ if (collectionId) {
   await run({ method: "POST", path: `/api/collections/${collectionId}/close`, expect: [409] });
   await run({ method: "DELETE", path: `/api/collections/${collectionId}`, expect: [200] });
   await run({ method: "POST", path: `/api/collections/${collectionId}/restore`, expect: [200] });
+  // reopen so the payment below can join the batch (closed batches reject new payments)
+  await run({ method: "PATCH", path: `/api/collections/${collectionId}`, body: { status: "active" }, expect: [200] });
 } else {
   console.log("FAIL setup: no collection id");
   failures += 1;
