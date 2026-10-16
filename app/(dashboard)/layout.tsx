@@ -77,7 +77,9 @@ function Shell({ children }: { children: ReactNode }) {
           open ? "translate-x-0" : "-translate-x-full"
         }`}
       >
-        <div className="flex h-14 items-center border-b border-line px-4">
+        <div className="flex h-14 items-center gap-2 border-b border-line px-4">
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img src="/rufino.jpg" alt="" className="h-8 w-8 rounded-full object-cover" />
           <Link href="/" className="text-lg font-bold text-primary" onClick={() => setOpen(false)}>
             SSLG Vault
           </Link>
