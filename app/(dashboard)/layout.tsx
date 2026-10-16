@@ -19,6 +19,8 @@ export const NAV: NavItem[] = [
   { href: "/students", label: "Students", guard: "studentManager" },
   { href: "/fees", label: "Fees", guard: "treasurer" },
   { href: "/payments", label: "Payments", guard: "paymentRecorder" },
+  { href: "/collections", label: "Collections", guard: "treasurer" },
+  { href: "/receipts", label: "Receipts", guard: "paymentRecorder" },
   { href: "/expenses", label: "Expenses", guard: "expenseManager" },
   { href: "/igp", label: "IGP / Income", guard: "igpEditor" },
   { href: "/clearances", label: "Clearances", guard: "studentManager" },
@@ -77,7 +79,7 @@ function Shell({ children }: { children: ReactNode }) {
       >
         <div className="flex h-14 items-center border-b border-line px-4">
           <Link href="/" className="text-lg font-bold text-primary" onClick={() => setOpen(false)}>
-            Treasurer Vault
+            SSLG Vault
           </Link>
         </div>
         <nav className="flex flex-col gap-0.5 p-2" aria-label="Main">

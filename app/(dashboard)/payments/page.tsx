@@ -34,6 +34,13 @@ interface Payment {
   remarks: string | null;
   student: { id: number; student_no: string; first_name: string; last_name: string } | null;
   fee: { id: number; name: string } | null;
+  collection: {
+    id: number;
+    collection_date: string;
+    academic_year: string;
+    semester: string;
+    status: string;
+  } | null;
 }
 
 interface Summary {
@@ -53,6 +60,14 @@ interface FeeHit {
   id: string;
   name: string;
   amount: number;
+}
+
+interface CollectionLite {
+  id: number;
+  collection_date: string;
+  academic_year: string;
+  semester: string;
+  status: string;
 }
 
 interface ReceiptPayload {
@@ -107,11 +122,23 @@ export default function PaymentsPage() {
     academic_year: defaultAcademicYear(),
     semester: "",
     remarks: "",
+    collection_id: "",
   });
   const [pickedStudent, setPickedStudent] = useState<StudentHit | null>(null);
   const [studentQuery, setStudentQuery] = useState("");
   const [studentHits, setStudentHits] = useState<StudentHit[]>([]);
   const [fees, setFees] = useState<FeeHit[]>([]);
+  const [collections, setCollections] = useState<CollectionLite[]>([]);
+  useEffect(() => {
+    let cancelled = false;
+    api<{ items: CollectionLite[] }>("/api/collections?status=active&limit=50").then((res) => {
+      if (cancelled) return;
+      if (res.ok) setCollections(res.data.items ?? []);
+    });
+    return () => {
+      cancelled = true;
+    };
+  }, []);
   const [saving, setSaving] = useState(false);
   const [formError, setFormError] = useState<string | null>(null);
 
@@ -201,6 +228,7 @@ export default function PaymentsPage() {
       academic_year: defaultAcademicYear(),
       semester: "",
       remarks: "",
+      collection_id: "",
     });
     setPickedStudent(null);
     setStudentQuery("");
@@ -228,6 +256,7 @@ export default function PaymentsPage() {
         academic_year: form.academic_year.trim(),
         semester: form.semester || null,
         remarks: form.remarks.trim() || null,
+        collection_id: form.collection_id ? Number(form.collection_id) : null,
       },
     });
     setSaving(false);
@@ -466,7 +495,15 @@ export default function PaymentsPage() {
                       : `#${p.student_id}`}
                     <div className="font-mono text-xs text-muted">{p.student?.student_no}</div>
                   </td>
-                  <td className="px-3 py-2">{p.fee?.name ?? "—"}</td>
+                  <td className="px-3 py-2">
+                    {p.fee?.name ?? "—"}
+                    {p.collection && (
+                      <div className="text-xs text-muted">
+                        Batch {p.collection.collection_date}
+                        {p.collection.status === "inactive" ? " (closed)" : ""}
+                      </div>
+                    )}
+                  </td>
                   <td className="px-3 py-2 font-semibold">{php(p.amount)}</td>
                   <td className="px-3 py-2 capitalize">{p.mode.replace("_", " ")}</td>
                   <td className="px-3 py-2">
@@ -675,6 +712,25 @@ export default function PaymentsPage() {
               </select>
             </Field>
           </div>
+          <Field
+            label="Collection batch (optional)"
+            htmlFor="pay_collection"
+            hint="Active transmittal batches. Leave as none to record outside any batch."
+          >
+            <select
+              id="pay_collection"
+              className={inputCls}
+              value={form.collection_id}
+              onChange={(e) => setForm({ ...form, collection_id: e.target.value })}
+            >
+              <option value="">No batch</option>
+              {collections.map((c) => (
+                <option key={c.id} value={c.id}>
+                  {c.collection_date} — {c.semester} {c.academic_year}
+                </option>
+              ))}
+            </select>
+          </Field>
           <div className="grid grid-cols-2 gap-3">
             <Field label="Reference no." htmlFor="pay_ref">
               <input

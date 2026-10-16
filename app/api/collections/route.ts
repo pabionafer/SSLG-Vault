@@ -5,9 +5,11 @@ import { requireRole } from "@/lib/roles";
 import { created, listResponse, paging, parseBody, serverError } from "@/lib/api";
 import { logAction } from "@/lib/audit";
 
-// GET /api/collections?status=&from=&to=&academic_year=&page= (treasurer+)
+// GET /api/collections?status=&from=&to=&academic_year=&page=
+// Readable by paymentRecorder so the payment form can offer active batches;
+// all mutations stay treasurer+.
 export async function GET(req: NextRequest) {
-  const auth = await requireRole("treasurer");
+  const auth = await requireRole("paymentRecorder");
   if (auth.response) return auth.response;
 
   try {

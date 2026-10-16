@@ -52,6 +52,14 @@ const ENTITIES: EntityCfg[] = [
     amount: (r) => Number(r.amount ?? 0),
   },
   {
+    key: "collections",
+    label: "Collections",
+    guard: "treasurer",
+    name: (r) => String(r.collection_date ?? ""),
+    sub: (r) => `${r.semester ?? ""} ${r.academic_year ?? ""}`.trim(),
+    amount: (r) => Number(r.total_amount ?? 0),
+  },
+  {
     key: "expenses",
     label: "Expenses",
     guard: "expenseManager",
