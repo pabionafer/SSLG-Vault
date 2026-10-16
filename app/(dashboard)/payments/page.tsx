@@ -1,6 +1,6 @@
 "use client";
 
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import { useSession } from "@/lib/client/session";
 import { useToast } from "@/lib/client/toast";
@@ -68,6 +68,15 @@ interface CollectionLite {
   academic_year: string;
   semester: string;
   status: string;
+}
+
+interface BulkRow {
+  key: number;
+  student: StudentHit | null;
+  query: string;
+  hits: StudentHit[];
+  fee_id: string;
+  amount: string;
 }
 
 interface ReceiptPayload {
@@ -141,6 +150,21 @@ export default function PaymentsPage() {
   }, []);
   const [saving, setSaving] = useState(false);
   const [formError, setFormError] = useState<string | null>(null);
+
+  const [bulkOpen, setBulkOpen] = useState(false);
+  const [bulkRows, setBulkRows] = useState<BulkRow[]>([]);
+  const [bulkShared, setBulkShared] = useState({
+    payment_date: today(),
+    mode: "cash",
+    academic_year: defaultAcademicYear(),
+    semester: "",
+    collection_id: "",
+  });
+  const [bulkSaving, setBulkSaving] = useState(false);
+  const [bulkError, setBulkError] = useState<string | null>(null);
+  const [bulkDone, setBulkDone] = useState<{ created: number; receipts: string[] } | null>(null);
+  const bulkSeq = useRef(1);
+  const bulkSearchTimers = useRef(new Map<number, number>());
 
   const [editRow, setEditRow] = useState<Payment | null>(null);
   const [editForm, setEditForm] = useState({
@@ -271,6 +295,84 @@ export default function PaymentsPage() {
     load();
   }
 
+  function openBulk() {
+    bulkSeq.current = 1;
+    setBulkRows([emptyBulkRow()]);
+    setBulkShared({
+      payment_date: today(),
+      mode: "cash",
+      academic_year: defaultAcademicYear(),
+      semester: "",
+      collection_id: "",
+    });
+    setBulkError(null);
+    setBulkDone(null);
+    setBulkOpen(true);
+  }
+
+  function emptyBulkRow(): BulkRow {
+    return { key: bulkSeq.current++, student: null, query: "", hits: [], fee_id: "", amount: "" };
+  }
+
+  function patchBulkRow(key: number, patch: Partial<BulkRow>) {
+    setBulkRows((rows) => rows.map((r) => (r.key === key ? { ...r, ...patch } : r)));
+  }
+
+  function searchBulkStudent(key: number, q: string) {
+    patchBulkRow(key, { query: q });
+    const prev = bulkSearchTimers.current.get(key);
+    if (prev) window.clearTimeout(prev);
+    if (q.trim().length < 2) {
+      patchBulkRow(key, { hits: [] });
+      return;
+    }
+    const t = window.setTimeout(() => {
+      api<{ items: StudentHit[] }>(`/api/students?limit=8&q=${encodeURIComponent(q.trim())}`).then(
+        (res) => patchBulkRow(key, { hits: res.ok ? (res.data.items ?? []) : [] }),
+      );
+    }, 250);
+    bulkSearchTimers.current.set(key, t);
+  }
+
+  async function submitBulk() {
+    const ready = bulkRows.filter((r) => r.student && r.amount);
+    if (ready.length === 0) {
+      setBulkError("Add at least one row with a student and amount");
+      return;
+    }
+    const incomplete = bulkRows.filter((r) => !r.student || !r.amount);
+    if (incomplete.length > 0) {
+      setBulkError("Fill in student and amount on every row, or remove empty rows");
+      return;
+    }
+    setBulkSaving(true);
+    setBulkError(null);
+    const res = await api<{ created: number; receipts: string[] }>("/api/payments/bulk", {
+      method: "POST",
+      json: {
+        payments: bulkRows.map((r) => ({
+          student_id: r.student!.id,
+          fee_id: r.fee_id ? Number(r.fee_id) : null,
+          amount: Number(r.amount),
+          payment_date: bulkShared.payment_date,
+          mode: bulkShared.mode,
+          academic_year: bulkShared.academic_year,
+          semester: bulkShared.semester || null,
+          collection_id: bulkShared.collection_id ? Number(bulkShared.collection_id) : null,
+        })),
+      },
+    });
+    setBulkSaving(false);
+    if (!res.ok) {
+      const data = res.data as { error?: string };
+      setBulkError(data.error ?? "Could not record bulk payments");
+      return;
+    }
+    setBulkDone(res.data);
+    push("success", `${res.data.created} payments recorded`);
+    load();
+  }
+
   function openEdit(row: Payment) {
     setEditRow(row);
     setEditForm({
@@ -364,9 +466,14 @@ export default function PaymentsPage() {
           <p className="text-sm text-muted">{total} payment records</p>
         </div>
         {canManage && (
-          <button type="button" className={btnPrimary} onClick={openRecord}>
-            Record payment
-          </button>
+          <div className="flex gap-2">
+            <button type="button" className={btnGhost} onClick={openBulk}>
+              Record bulk
+            </button>
+            <button type="button" className={btnPrimary} onClick={openRecord}>
+              Record payment
+            </button>
+          </div>
         )}
       </div>
 
@@ -750,6 +857,225 @@ export default function PaymentsPage() {
             </Field>
           </div>
         </div>
+      </Modal>
+
+      <Modal
+        open={bulkOpen}
+        title="Record bulk payments"
+        onClose={() => setBulkOpen(false)}
+        footer={
+          bulkDone ? (
+            <button type="button" className={btnPrimary} onClick={() => setBulkOpen(false)}>
+              Done
+            </button>
+          ) : (
+            <>
+              <button type="button" className={btnGhost} onClick={() => setBulkOpen(false)}>
+                Cancel
+              </button>
+              <button type="button" className={btnPrimary} onClick={submitBulk} disabled={bulkSaving}>
+                {bulkSaving ? "Saving…" : `Record ${bulkRows.filter((r) => r.student && r.amount).length} payments`}
+              </button>
+            </>
+          )
+        }
+      >
+        {bulkDone ? (
+          <div className="space-y-2 text-sm">
+            <p className="font-semibold text-success">
+              {bulkDone.created} payment{bulkDone.created === 1 ? "" : "s"} recorded.
+            </p>
+            <p className="text-muted">Receipt numbers issued:</p>
+            <ul className="max-h-48 overflow-y-auto rounded-md border border-line p-2 font-mono text-xs">
+              {bulkDone.receipts.map((rn) => (
+                <li key={rn}>{rn}</li>
+              ))}
+            </ul>
+          </div>
+        ) : (
+          <div className="space-y-3">
+            {bulkError && <ErrorNote message={bulkError} />}
+            <div className="grid grid-cols-2 gap-3">
+              <Field label="Payment date" htmlFor="bulk_date">
+                <input
+                  id="bulk_date"
+                  type="date"
+                  className={inputCls}
+                  value={bulkShared.payment_date}
+                  onChange={(e) => setBulkShared({ ...bulkShared, payment_date: e.target.value })}
+                />
+              </Field>
+              <Field label="Mode" htmlFor="bulk_mode">
+                <select
+                  id="bulk_mode"
+                  className={inputCls}
+                  value={bulkShared.mode}
+                  onChange={(e) => setBulkShared({ ...bulkShared, mode: e.target.value })}
+                >
+                  {MODES.map((m) => (
+                    <option key={m} value={m}>
+                      {m.replace("_", " ")}
+                    </option>
+                  ))}
+                </select>
+              </Field>
+            </div>
+            <div className="grid grid-cols-2 gap-3">
+              <Field label="Academic year" htmlFor="bulk_year">
+                <input
+                  id="bulk_year"
+                  className={inputCls}
+                  value={bulkShared.academic_year}
+                  onChange={(e) => setBulkShared({ ...bulkShared, academic_year: e.target.value })}
+                />
+              </Field>
+              <Field label="Semester" htmlFor="bulk_sem">
+                <select
+                  id="bulk_sem"
+                  className={inputCls}
+                  value={bulkShared.semester}
+                  onChange={(e) => setBulkShared({ ...bulkShared, semester: e.target.value })}
+                >
+                  <option value="">—</option>
+                  <option value="1st Semester">1st Semester</option>
+                  <option value="2nd Semester">2nd Semester</option>
+                  <option value="Summer">Summer</option>
+                </select>
+              </Field>
+            </div>
+            <Field
+              label="Collection batch (optional)"
+              htmlFor="bulk_collection"
+              hint="Applied to every row. Picking a batch fills its academic year and semester."
+            >
+              <select
+                id="bulk_collection"
+                className={inputCls}
+                value={bulkShared.collection_id}
+                onChange={(e) => {
+                  const col = collections.find((c) => String(c.id) === e.target.value);
+                  setBulkShared({
+                    ...bulkShared,
+                    collection_id: e.target.value,
+                    academic_year: col ? col.academic_year : bulkShared.academic_year,
+                    semester: col ? col.semester : bulkShared.semester,
+                  });
+                }}
+              >
+                <option value="">No batch</option>
+                {collections.map((c) => (
+                  <option key={c.id} value={c.id}>
+                    {c.collection_date} — {c.semester} {c.academic_year}
+                  </option>
+                ))}
+              </select>
+            </Field>
+
+            <div className="border-t border-line pt-3">
+              <div className="mb-2 flex items-center justify-between">
+                <span className="text-sm font-semibold">Rows</span>
+                <button
+                  type="button"
+                  className={btnGhost}
+                  disabled={bulkRows.length >= 20}
+                  onClick={() => setBulkRows([...bulkRows, emptyBulkRow()])}
+                >
+                  + Add row
+                </button>
+              </div>
+              <div className="space-y-3">
+                {bulkRows.map((r, i) => (
+                  <div key={r.key} className="rounded-md border border-line p-2">
+                    <div className="mb-2 flex items-center justify-between">
+                      <span className="text-xs font-semibold uppercase text-muted">Row {i + 1}</span>
+                      {bulkRows.length > 1 && (
+                        <button
+                          type="button"
+                          className="text-xs text-danger hover:underline"
+                          onClick={() => setBulkRows(bulkRows.filter((x) => x.key !== r.key))}
+                        >
+                          Remove
+                        </button>
+                      )}
+                    </div>
+                    <div className="space-y-2">
+                      {r.student ? (
+                        <div className="flex h-9 items-center justify-between rounded-md border border-line bg-tint px-3 text-sm">
+                          <span>
+                            {r.student.last_name}, {r.student.first_name}{" "}
+                            <span className="font-mono text-xs text-muted">{r.student.student_no}</span>
+                          </span>
+                          <button
+                            type="button"
+                            className="text-danger hover:underline"
+                            onClick={() => patchBulkRow(r.key, { student: null, query: "", hits: [] })}
+                          >
+                            Change
+                          </button>
+                        </div>
+                      ) : (
+                        <div className="space-y-1">
+                          <input
+                            className={inputCls}
+                            placeholder="Type name or student number…"
+                            value={r.query}
+                            onChange={(e) => searchBulkStudent(r.key, e.target.value)}
+                          />
+                          {r.hits.length > 0 && (
+                            <div className="max-h-32 overflow-y-auto rounded-md border border-line bg-surface">
+                              {r.hits.map((s) => (
+                                <button
+                                  key={s.id}
+                                  type="button"
+                                  className="block w-full px-3 py-1.5 text-left text-sm hover:bg-tint"
+                                  onClick={() => patchBulkRow(r.key, { student: s, query: "", hits: [] })}
+                                >
+                                  {s.last_name}, {s.first_name}{" "}
+                                  <span className="font-mono text-xs text-muted">{s.student_no}</span>
+                                </button>
+                              ))}
+                            </div>
+                          )}
+                        </div>
+                      )}
+                      <div className="grid grid-cols-2 gap-2">
+                        <select
+                          className={inputCls}
+                          aria-label={`Fee for row ${i + 1}`}
+                          value={r.fee_id}
+                          onChange={(e) => {
+                            const fee = fees.find((f) => String(f.id) === e.target.value);
+                            patchBulkRow(r.key, {
+                              fee_id: e.target.value,
+                              amount: fee ? String(fee.amount) : r.amount,
+                            });
+                          }}
+                        >
+                          <option value="">No fee (misc)</option>
+                          {fees.map((f) => (
+                            <option key={f.id} value={f.id}>
+                              {f.name} — {php(f.amount)}
+                            </option>
+                          ))}
+                        </select>
+                        <input
+                          type="number"
+                          min="0.01"
+                          step="0.01"
+                          className={inputCls}
+                          aria-label={`Amount for row ${i + 1}`}
+                          placeholder="Amount"
+                          value={r.amount}
+                          onChange={(e) => patchBulkRow(r.key, { amount: e.target.value })}
+                        />
+                      </div>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+        )}
       </Modal>
 
       <Modal

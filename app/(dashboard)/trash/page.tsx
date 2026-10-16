@@ -104,6 +104,7 @@ export default function TrashPage() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [restoring, setRestoring] = useState<string | number | null>(null);
+  const [purging, setPurging] = useState<string | number | null>(null);
   const limit = 25;
 
   const load = useCallback(async () => {
@@ -138,6 +139,19 @@ export default function TrashPage() {
     } else {
       const data = res.data as { error?: string };
       push("error", data.error ?? "Could not restore");
+    }
+  }
+
+  async function schedulePurge(row: TrashRow) {
+    setPurging(row.id);
+    const res = await api(`/api/payments/${row.id}/schedule-purge`, { method: "POST" });
+    setPurging(null);
+    if (res.ok) {
+      push("success", "Purge scheduled — hard delete in 7 days");
+      load();
+    } else {
+      const data = res.data as { error?: string };
+      push("error", data.error ?? "Could not schedule purge");
     }
   }
 
@@ -213,14 +227,34 @@ export default function TrashPage() {
                     {r.deleted_at ? new Date(r.deleted_at).toLocaleString() : "—"}
                   </td>
                   <td className="px-3 py-2 text-right">
-                    <button
-                      type="button"
-                      className={`${btnPrimary} px-3 py-1.5 text-xs`}
-                      disabled={restoring === r.id}
-                      onClick={() => restore(r)}
-                    >
-                      {restoring === r.id ? "Restoring…" : "Restore"}
-                    </button>
+                    <div className="flex justify-end gap-2">
+                      {active?.key === "payments" && can("admin") && (
+                        <span className="text-xs text-muted">
+                          {r.pending_hard_delete
+                            ? "Purge scheduled"
+                            : purging === r.id
+                              ? "Scheduling…"
+                              : r.deleted_at && (
+                                  <button
+                                    type="button"
+                                    className="rounded-md border border-danger px-3 py-1.5 text-xs font-semibold text-danger hover:bg-danger-tint disabled:opacity-60"
+                                    disabled={purging === r.id}
+                                    onClick={() => schedulePurge(r)}
+                                  >
+                                    Schedule purge
+                                  </button>
+                                )}
+                        </span>
+                      )}
+                      <button
+                        type="button"
+                        className={`${btnPrimary} px-3 py-1.5 text-xs`}
+                        disabled={restoring === r.id}
+                        onClick={() => restore(r)}
+                      >
+                        {restoring === r.id ? "Restoring…" : "Restore"}
+                      </button>
+                    </div>
                   </td>
                 </tr>
               ))

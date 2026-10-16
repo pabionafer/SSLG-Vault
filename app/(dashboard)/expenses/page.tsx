@@ -92,6 +92,7 @@ export default function ExpensesPage() {
   const [categoryId, setCategoryId] = useState("");
   const [summary, setSummary] = useState<Summary | null>(null);
   const [categories, setCategories] = useState<Category[]>([]);
+  const [catStats, setCatStats] = useState<{ total: number; active: number } | null>(null);
   const limit = 25;
 
   const [formOpen, setFormOpen] = useState(false);
@@ -137,6 +138,12 @@ export default function ExpensesPage() {
       if (cancelled) return;
       if (res.ok) setCategories(res.data.items ?? []);
     });
+    api<{ stats: Record<string, { total: number; active: number }> }>("/api/categories/stats").then(
+      (res) => {
+        if (cancelled) return;
+        if (res.ok) setCatStats(res.data.stats?.expense ?? null);
+      },
+    );
     return () => {
       cancelled = true;
     };
@@ -216,7 +223,15 @@ export default function ExpensesPage() {
       <div className="flex flex-wrap items-center justify-between gap-3">
         <div>
           <h1 className="text-2xl font-bold">Expenses</h1>
-          <p className="text-sm text-muted">{total} expense records</p>
+          <p className="text-sm text-muted">
+            {total} expense records
+            {catStats && (
+              <>
+                {" · "}
+                {catStats.total} categories ({catStats.active} active)
+              </>
+            )}
+          </p>
         </div>
         <div className="flex gap-2">
           {canManage && (

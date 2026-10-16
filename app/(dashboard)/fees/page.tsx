@@ -78,6 +78,7 @@ export default function FeesPage() {
   const limit = 25;
 
   const [categories, setCategories] = useState<Category[]>([]);
+  const [catStats, setCatStats] = useState<{ total: number; active: number } | null>(null);
   const [formOpen, setFormOpen] = useState(false);
   const [editing, setEditing] = useState<Fee | null>(null);
   const [form, setForm] = useState<FeeForm>(EMPTY_FORM);
@@ -117,6 +118,12 @@ export default function FeesPage() {
       if (cancelled) return;
       if (res.ok) setCategories(res.data.items ?? []);
     });
+    api<{ stats: Record<string, { total: number; active: number }> }>("/api/categories/stats").then(
+      (res) => {
+        if (cancelled) return;
+        if (res.ok) setCatStats(res.data.stats?.fee ?? null);
+      },
+    );
     return () => {
       cancelled = true;
     };
@@ -205,7 +212,15 @@ export default function FeesPage() {
       <div className="flex flex-wrap items-center justify-between gap-3">
         <div>
           <h1 className="text-2xl font-bold">Fees</h1>
-          <p className="text-sm text-muted">{total} fee definitions</p>
+          <p className="text-sm text-muted">
+            {total} fee definitions
+            {catStats && (
+              <>
+                {" · "}
+                {catStats.total} categories ({catStats.active} active)
+              </>
+            )}
+          </p>
         </div>
         {canManage && (
           <button type="button" className={btnPrimary} onClick={openCreate}>
