@@ -88,7 +88,14 @@ export async function POST(req: NextRequest) {
         year_level: t.year_level ?? null,
       }));
       const { error: tErr } = await db.from("fee_targets").insert(rows);
-      if (tErr) return serverError(tErr);
+      if (tErr) {
+        // The fee already exists at this point. Leaving it behind with an empty
+        // target set would silently make it apply to EVERYONE (empty = all),
+        // so roll the fee back before reporting the failure.
+        await db.from("fees").delete().eq("id", data.id);
+        if (tErr.code === "23505") return conflict("Duplicate target in the list");
+        return serverError(tErr);
+      }
     }
 
     await logAction(auth.profile.username, "create", "fees", data.id, {

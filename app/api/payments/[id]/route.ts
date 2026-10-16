@@ -2,21 +2,11 @@ import { type NextRequest } from "next/server";
 import { z } from "zod";
 import { createAdminClient } from "@/lib/supabase/admin";
 import { requireRole } from "@/lib/roles";
-import { notFound, ok, parseBody, serverError } from "@/lib/api";
+import { notFound, ok, parseBody, serverError, conflict, moneySchema } from "@/lib/api";
 import { logAction } from "@/lib/audit";
+import { recomputeCollectionTotal } from "@/lib/collections";
 
 type Ctx = { params: Promise<{ id: string }> };
-
-async function adjustCollection(db: ReturnType<typeof createAdminClient>, collectionId: number | string, delta: number) {
-  const { data: col } = await db
-    .from("collections")
-    .select("total_amount")
-    .eq("id", collectionId)
-    .maybeSingle();
-  if (!col) return;
-  const next = Math.max(0, Number(col.total_amount) + delta);
-  await db.from("collections").update({ total_amount: Number(next.toFixed(2)) }).eq("id", collectionId);
-}
 
 // GET /api/payments/[id] (paymentRecorder)
 export async function GET(_req: NextRequest, ctx: Ctx) {
@@ -30,6 +20,7 @@ export async function GET(_req: NextRequest, ctx: Ctx) {
       .from("payments")
       .select("*, student:students(*), fee:fees(id,name,amount), collection:collections(id,collection_date)")
       .eq("id", id)
+      .is("deleted_at", null)
       .maybeSingle();
     if (error) return serverError(error);
     if (!data) return notFound("Payment not found");
@@ -40,7 +31,7 @@ export async function GET(_req: NextRequest, ctx: Ctx) {
 }
 
 const patchSchema = z.object({
-  amount: z.coerce.number().positive().optional(),
+  amount: moneySchema(0.01).optional(),
   payment_date: z.string().regex(/^\d{4}-\d{2}-\d{2}$/).optional(),
   mode: z.enum(["cash", "gcash", "bank_transfer", "other"]).optional(),
   reference_no: z.string().max(80).nullish(),
@@ -67,6 +58,7 @@ export async function PATCH(req: NextRequest, ctx: Ctx) {
       .is("deleted_at", null)
       .maybeSingle();
     if (!existing) return notFound("Payment not found");
+    if (existing.status !== "posted") return conflict("Only posted payments can be edited — restore or void instead");
 
     const updates: Record<string, unknown> = { ...body.data };
     if (updates.reference_no === "") updates.reference_no = null;
@@ -81,13 +73,8 @@ export async function PATCH(req: NextRequest, ctx: Ctx) {
       .single();
     if (error) return serverError(error);
 
-    if (
-      typeof updates.amount === "number" &&
-      existing.collection_id &&
-      existing.status === "posted"
-    ) {
-      const delta = Number(updates.amount) - Number(existing.amount);
-      if (delta !== 0) await adjustCollection(db, existing.collection_id, delta);
+    if (typeof updates.amount === "number" && existing.collection_id) {
+      await recomputeCollectionTotal(db, existing.collection_id);
     }
 
     await logAction(auth.profile.username, "update", "payments", id, {
@@ -122,8 +109,8 @@ export async function DELETE(_req: NextRequest, ctx: Ctx) {
       .eq("id", id);
     if (error) return serverError(error);
 
-    if (existing.collection_id && existing.status === "posted") {
-      await adjustCollection(db, existing.collection_id, -Number(existing.amount));
+    if (existing.collection_id) {
+      await recomputeCollectionTotal(db, existing.collection_id);
     }
 
     await logAction(auth.profile.username, "delete", "payments", id, {

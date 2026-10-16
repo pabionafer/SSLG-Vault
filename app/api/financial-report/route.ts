@@ -3,6 +3,8 @@ import { requireRole } from "@/lib/roles";
 import { ok, serverError } from "@/lib/api";
 import { createAdminClient } from "@/lib/supabase/admin";
 import { reportTotals } from "@/lib/formulas";
+import { fetchAllByKeyset, PAGE_LIMIT } from "@/lib/supabase/paged";
+import { readFilters, applySemester } from "@/lib/report-data";
 
 // GET /api/financial-report?from=&to=&academic_year=&semester= (treasurer)
 export async function GET(req: NextRequest) {
@@ -11,59 +13,59 @@ export async function GET(req: NextRequest) {
 
   try {
     const db = createAdminClient();
-    const sp = req.nextUrl.searchParams;
+    const f = readFilters(req.nextUrl.searchParams);
 
-    let payQ = db.from("payments").select("amount,payment_date").eq("status", "posted").is("deleted_at", null);
-    let incQ = db.from("income").select("amount,income_date").is("deleted_at", null);
-    let expQ = db.from("expenses").select("amount,expense_date,status").is("deleted_at", null);
+    const payments = await fetchAllByKeyset((cursor) => {
+      let q = db
+        .from("payments")
+        .select("id,amount,payment_date")
+        .eq("status", "posted")
+        .is("deleted_at", null);
+      if (f.from) q = q.gte("payment_date", f.from);
+      if (f.to) q = q.lte("payment_date", f.to);
+      if (f.academic_year) q = q.eq("academic_year", f.academic_year);
+      if (f.semester) q = applySemester(q, f.semester);
+      return q.gt("id", cursor).limit(PAGE_LIMIT).order("id", { ascending: true });
+    });
 
-    const from = sp.get("from");
-    const to = sp.get("to");
-    const year = sp.get("academic_year");
-    const sem = sp.get("semester");
+    const income = await fetchAllByKeyset((cursor) => {
+      let q = db.from("income").select("id,amount,income_date").is("deleted_at", null);
+      if (f.from) q = q.gte("income_date", f.from);
+      if (f.to) q = q.lte("income_date", f.to);
+      if (f.academic_year) q = q.eq("academic_year", f.academic_year);
+      if (f.semester) q = applySemester(q, f.semester);
+      return q.gt("id", cursor).limit(PAGE_LIMIT).order("id", { ascending: true });
+    });
 
-    if (from) {
-      payQ = payQ.gte("payment_date", from);
-      incQ = incQ.gte("income_date", from);
-      expQ = expQ.gte("expense_date", from);
-    }
-    if (to) {
-      payQ = payQ.lte("payment_date", to);
-      incQ = incQ.lte("income_date", to);
-      expQ = expQ.lte("expense_date", to);
-    }
-    if (year) {
-      payQ = payQ.eq("academic_year", year);
-      incQ = incQ.eq("academic_year", year);
-      expQ = expQ.eq("academic_year", year);
-    }
-    if (sem) {
-      payQ = payQ.eq("semester", sem);
-      incQ = incQ.eq("semester", sem);
-      expQ = expQ.eq("semester", sem);
-    }
+    const expensesAll = await fetchAllByKeyset((cursor) => {
+      let q = db.from("expenses").select("id,amount,expense_date,status").is("deleted_at", null);
+      if (f.from) q = q.gte("expense_date", f.from);
+      if (f.to) q = q.lte("expense_date", f.to);
+      if (f.academic_year) q = q.eq("academic_year", f.academic_year);
+      if (f.semester) q = applySemester(q, f.semester);
+      return q.gt("id", cursor).limit(PAGE_LIMIT).order("id", { ascending: true });
+    });
 
-    const [{ data: payments, error: pErr }, { data: income, error: iErr }, { data: expenses, error: eErr }] =
-      await Promise.all([payQ, incQ, expQ]);
-    if (pErr) return serverError(pErr);
-    if (iErr) return serverError(iErr);
-    if (eErr) return serverError(eErr);
-
-    const postedExpenses = (expenses ?? []).filter((e) => e.status !== "void");
+    const expenses = expensesAll.filter((e) => e.status !== "void");
     const totals = reportTotals({
-      payments: (payments ?? []).map((p) => Number(p.amount)),
-      other_income: (income ?? []).map((i) => Number(i.amount)),
-      expenses: postedExpenses.map((e) => Number(e.amount)),
+      payments: payments.map((p) => Number(p.amount)),
+      other_income: income.map((i) => Number(i.amount)),
+      expenses: expenses.map((e) => Number(e.amount)),
     });
 
     return ok({
       ...totals,
       counts: {
-        payments: payments?.length ?? 0,
-        income: income?.length ?? 0,
-        expenses: postedExpenses.length,
+        payments: payments.length,
+        income: income.length,
+        expenses: expenses.length,
       },
-      period: { from, to, academic_year: year, semester: sem },
+      period: {
+        from: f.from,
+        to: f.to,
+        academic_year: f.academic_year,
+        semester: f.semester,
+      },
       generated_at: new Date().toISOString(),
     });
   } catch (err) {

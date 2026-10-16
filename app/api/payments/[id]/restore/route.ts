@@ -3,6 +3,7 @@ import { createAdminClient } from "@/lib/supabase/admin";
 import { requireRole } from "@/lib/roles";
 import { notFound, ok, serverError } from "@/lib/api";
 import { logAction } from "@/lib/audit";
+import { recomputeCollectionTotal } from "@/lib/collections";
 
 type Ctx = { params: Promise<{ id: string }> };
 
@@ -36,20 +37,8 @@ export async function POST(_req: NextRequest, ctx: Ctx) {
       .single();
     if (error) return serverError(error);
 
-    if (existing.collection_id && existing.status === "posted") {
-      const { data: col } = await db
-        .from("collections")
-        .select("total_amount")
-        .eq("id", existing.collection_id)
-        .maybeSingle();
-      if (col) {
-        await db
-          .from("collections")
-          .update({
-            total_amount: Number((Number(col.total_amount) + Number(existing.amount)).toFixed(2)),
-          })
-          .eq("id", existing.collection_id);
-      }
+    if (existing.collection_id) {
+      await recomputeCollectionTotal(db, existing.collection_id);
     }
 
     await logAction(auth.profile.username, "restore", "payments", id, {

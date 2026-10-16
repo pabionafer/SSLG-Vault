@@ -3,6 +3,7 @@ import { createAdminClient } from "@/lib/supabase/admin";
 import { requireRole } from "@/lib/roles";
 import { notFound, ok, serverError, conflict } from "@/lib/api";
 import { logAction } from "@/lib/audit";
+import { recomputeCollectionTotal } from "@/lib/collections";
 
 type Ctx = { params: Promise<{ id: string }> };
 
@@ -31,28 +32,25 @@ export async function POST(req: NextRequest, ctx: Ctx) {
     if (!existing) return notFound("Payment not found");
     if (existing.status === "void") return conflict("Payment is already void");
 
+    // Keep the recorder's original remarks; append the void reason instead of
+    // overwriting it (the reason is also written to the audit log).
+    const remarks =
+      reason == null
+        ? existing.remarks
+        : existing.remarks
+          ? `${existing.remarks} | void: ${reason}`
+          : reason;
+
     const { data, error } = await db
       .from("payments")
-      .update({ status: "void", remarks: reason ?? existing.remarks })
+      .update({ status: "void", remarks })
       .eq("id", id)
       .select("*")
       .single();
     if (error) return serverError(error);
 
     if (existing.collection_id) {
-      const { data: col } = await db
-        .from("collections")
-        .select("total_amount")
-        .eq("id", existing.collection_id)
-        .maybeSingle();
-      if (col) {
-        await db
-          .from("collections")
-          .update({
-            total_amount: Number(Math.max(0, Number(col.total_amount) - Number(existing.amount)).toFixed(2)),
-          })
-          .eq("id", existing.collection_id);
-      }
+      await recomputeCollectionTotal(db, existing.collection_id);
     }
 
     await logAction(auth.profile.username, "void", "payments", id, {

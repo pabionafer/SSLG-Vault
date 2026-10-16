@@ -9,6 +9,19 @@ export function round2(n: number): number {
   return Math.round((n + Number.EPSILON) * 100) / 100;
 }
 
+/**
+ * Today's date as YYYY-MM-DD in the *server's local* timezone.
+ * `new Date().toISOString().slice(0, 10)` returns the UTC date, which is
+ * tomorrow (in UTC+8) for most of the local day — that made fees due "today"
+ * show as not-yet-due until the local evening.
+ */
+export function todayISO(now: Date = new Date()): string {
+  const y = now.getFullYear();
+  const m = String(now.getMonth() + 1).padStart(2, "0");
+  const d = String(now.getDate()).padStart(2, "0");
+  return `${y}-${m}-${d}`;
+}
+
 export function sum(values: number[]): number {
   return round2(values.reduce((acc, v) => acc + v, 0));
 }
@@ -90,7 +103,7 @@ export interface DefaulterResult {
 
 export function computeDefaulters(
   rows: DefaulterRow[],
-  today: string = new Date().toISOString().slice(0, 10),
+  today: string = todayISO(),
 ): DefaulterResult[] {
   const out: DefaulterResult[] = [];
   for (const row of rows) {

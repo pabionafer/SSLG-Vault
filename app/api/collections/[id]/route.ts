@@ -59,6 +59,9 @@ export async function PATCH(req: NextRequest, ctx: Ctx) {
     const db = createAdminClient();
     const updates: Record<string, unknown> = { ...body.data };
     if (updates.status === "active") updates.deactivated_at = null;
+    // Flipping to inactive must start the purge clock, otherwise the batch
+    // could never be cleaned up by the nightly job (it requires the timestamp).
+    if (updates.status === "inactive") updates.deactivated_at = new Date().toISOString();
     if (Object.keys(updates).length === 0) return ok({ collection: null, note: "no changes" });
 
     const { data, error } = await db

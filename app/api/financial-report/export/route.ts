@@ -4,6 +4,8 @@ import { serverError } from "@/lib/api";
 import { createAdminClient } from "@/lib/supabase/admin";
 import { toCsv, csvResponse } from "@/lib/csv";
 import { logAction } from "@/lib/audit";
+import { fetchAllByKeyset, PAGE_LIMIT } from "@/lib/supabase/paged";
+import { readFilters, applySemester } from "@/lib/report-data";
 
 const COLUMNS = [
   { key: "date", label: "Date" },
@@ -15,56 +17,55 @@ const COLUMNS = [
   { key: "sign", label: "Sign" },
 ];
 
-// GET /api/financial-report/export?from=&to=&academic_year= — full ledger CSV (treasurer)
+// GET /api/financial-report/export?from=&to=&academic_year=&semester= — full ledger CSV (treasurer)
 export async function GET(req: NextRequest) {
   const auth = await requireRole("treasurer");
   if (auth.response) return auth.response;
 
   try {
     const db = createAdminClient();
-    const sp = req.nextUrl.searchParams;
-    const from = sp.get("from");
-    const to = sp.get("to");
-    const year = sp.get("academic_year");
+    const f = readFilters(req.nextUrl.searchParams);
 
-    let payQ = db
-      .from("payments")
-      .select("receipt_no,payment_date,amount,mode,academic_year,student:students(first_name,last_name),fee:fees(name)")
-      .eq("status", "posted")
-      .is("deleted_at", null);
-    let incQ = db
-      .from("income")
-      .select("description,reference_no,income_date,amount,academic_year")
-      .is("deleted_at", null);
-    let expQ = db
-      .from("expenses")
-      .select("description,voucher_no,expense_date,amount,academic_year,status")
-      .is("deleted_at", null);
+    const payments = await fetchAllByKeyset((cursor) => {
+      let q = db
+        .from("payments")
+        .select("id,receipt_no,payment_date,amount,mode,academic_year,student:students(first_name,last_name),fee:fees(name)")
+        .eq("status", "posted")
+        .is("deleted_at", null);
+      if (f.from) q = q.gte("payment_date", f.from);
+      if (f.to) q = q.lte("payment_date", f.to);
+      if (f.academic_year) q = q.eq("academic_year", f.academic_year);
+      if (f.semester) q = applySemester(q, f.semester);
+      return q.gt("id", cursor).limit(PAGE_LIMIT).order("id", { ascending: true });
+    });
 
-    if (from) {
-      payQ = payQ.gte("payment_date", from);
-      incQ = incQ.gte("income_date", from);
-      expQ = expQ.gte("expense_date", from);
-    }
-    if (to) {
-      payQ = payQ.lte("payment_date", to);
-      incQ = incQ.lte("income_date", to);
-      expQ = expQ.lte("expense_date", to);
-    }
-    if (year) {
-      payQ = payQ.eq("academic_year", year);
-      incQ = incQ.eq("academic_year", year);
-      expQ = expQ.eq("academic_year", year);
-    }
+    const income = await fetchAllByKeyset((cursor) => {
+      let q = db
+        .from("income")
+        .select("id,description,reference_no,income_date,amount,academic_year")
+        .is("deleted_at", null);
+      if (f.from) q = q.gte("income_date", f.from);
+      if (f.to) q = q.lte("income_date", f.to);
+      if (f.academic_year) q = q.eq("academic_year", f.academic_year);
+      if (f.semester) q = applySemester(q, f.semester);
+      return q.gt("id", cursor).limit(PAGE_LIMIT).order("id", { ascending: true });
+    });
 
-    const [{ data: payments, error: pErr }, { data: income, error: iErr }, { data: expenses, error: eErr }] =
-      await Promise.all([payQ, incQ, expQ]);
-    if (pErr) return serverError(pErr);
-    if (iErr) return serverError(iErr);
-    if (eErr) return serverError(eErr);
+    const expenses = await fetchAllByKeyset((cursor) => {
+      let q = db
+        .from("expenses")
+        .select("id,description,voucher_no,expense_date,amount,academic_year,status")
+        .is("deleted_at", null)
+        .neq("status", "void");
+      if (f.from) q = q.gte("expense_date", f.from);
+      if (f.to) q = q.lte("expense_date", f.to);
+      if (f.academic_year) q = q.eq("academic_year", f.academic_year);
+      if (f.semester) q = applySemester(q, f.semester);
+      return q.gt("id", cursor).limit(PAGE_LIMIT).order("id", { ascending: true });
+    });
 
     const rows: Record<string, unknown>[] = [];
-    for (const p of payments ?? []) {
+    for (const p of payments) {
       const student = p.student as unknown as { first_name: string; last_name: string } | null;
       const fee = p.fee as unknown as { name: string } | null;
       rows.push({
@@ -77,7 +78,7 @@ export async function GET(req: NextRequest) {
         sign: "+",
       });
     }
-    for (const i of income ?? []) {
+    for (const i of income) {
       rows.push({
         date: i.income_date,
         kind: "income",
@@ -88,8 +89,7 @@ export async function GET(req: NextRequest) {
         sign: "+",
       });
     }
-    for (const e of expenses ?? []) {
-      if (e.status === "void") continue;
+    for (const e of expenses) {
       rows.push({
         date: e.expense_date,
         kind: "expense",

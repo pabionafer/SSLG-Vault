@@ -4,6 +4,7 @@ import { requireRole } from "@/lib/roles";
 import { serverError } from "@/lib/api";
 import { toCsv, csvResponse } from "@/lib/csv";
 import { logAction } from "@/lib/audit";
+import { fetchAllByKeyset, PAGE_LIMIT } from "@/lib/supabase/paged";
 
 const COLUMNS = [
   { key: "expense_date", label: "Date" },
@@ -27,23 +28,28 @@ export async function GET(req: NextRequest) {
     const db = createAdminClient();
     const sp = req.nextUrl.searchParams;
 
-    let q = db.from("expenses").select("*, category:categories(name)");
-    q = q.is("deleted_at", null);
     const from = sp.get("from");
-    if (from) q = q.gte("expense_date", from);
     const to = sp.get("to");
-    if (to) q = q.lte("expense_date", to);
     const year = sp.get("academic_year");
-    if (year) q = q.eq("academic_year", year);
 
-    const { data, error } = await q.order("expense_date", { ascending: true }).limit(10000);
-    if (error) return serverError(error);
+    const data = await fetchAllByKeyset((cursor) => {
+      let q = db
+        .from("expenses")
+        .select("id,expense_date,description,category:categories(name),amount,status,payee,voucher_no,academic_year,semester,created_by")
+        .is("deleted_at", null)
+        .neq("status", "void");
+      if (from) q = q.gte("expense_date", from);
+      if (to) q = q.lte("expense_date", to);
+      if (year) q = q.eq("academic_year", year);
+      return q.gt("id", cursor).limit(PAGE_LIMIT).order("id", { ascending: true });
+    });
 
-    const rows = (data ?? []).map((r) => ({
+    const rows = data.map((r) => ({
       ...r,
       category: (r.category as unknown as { name: string } | null)?.name ?? "",
       amount: Number(r.amount).toFixed(2),
     }));
+    rows.sort((a, b) => String(a.expense_date).localeCompare(String(b.expense_date)));
 
     await logAction(auth.profile.username, "export", "expenses", null, { rows: rows.length });
     return csvResponse(

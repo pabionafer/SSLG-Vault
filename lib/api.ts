@@ -1,5 +1,18 @@
 import { NextResponse, type NextRequest } from "next/server";
-import { ZodError, type ZodType } from "zod";
+import { z, ZodError, type ZodType } from "zod";
+
+/**
+ * Money input: NUMERIC(10,2) columns reject values that round to 0 or lose
+ * precision, which surfaces as a DB error (500) unless we reject it here
+ * first (400). `min` is the smallest allowed amount — 0.01 for amount > 0
+ * columns, 0 for amount >= 0 columns.
+ */
+export function moneySchema(min = 0.01) {
+  return z.coerce.number().refine(
+    (n) => Number.isFinite(n) && n >= min && Math.round(n * 100) / 100 === n,
+    { message: `Amount must be at least ${min} and have at most 2 decimal places` },
+  );
+}
 
 export function ok(data: unknown, init?: ResponseInit): NextResponse {
   return NextResponse.json(data, init);

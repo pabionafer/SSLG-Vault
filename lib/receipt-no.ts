@@ -1,26 +1,22 @@
 import { createAdminClient } from "@/lib/supabase/admin";
 
 /**
- * Next official receipt number from system_settings.or_series_start.
- * Read-modify-write (single-instance dev use; a DB sequence would be needed
- * under heavy concurrency).
+ * Next official receipt number.
+ *
+ * Atomic: the counter is advanced inside Postgres by public.next_receipt_no()
+ * (migration 001) under a row lock, so two concurrent requests can never be
+ * handed the same number — the old read-modify-write here raced and ignored
+ * update errors.
+ *
+ * Callers must reserve numbers only AFTER their own validation has passed.
+ * A failed insert afterwards still leaves a gap in the series; closing that
+ * would require a single transaction spanning PostgREST, which the platform
+ * does not offer.
  */
 export async function nextReceiptNo(): Promise<string> {
   const db = createAdminClient();
-  const { data } = await db
-    .from("system_settings")
-    .select("value")
-    .eq("key", "or_series_start")
-    .maybeSingle();
-
-  const raw = data ? String(data.value).replace(/"/g, "") : "000001";
-  const current = Number.parseInt(raw, 10) || 0;
-  const next = current + 1;
-
-  await db
-    .from("system_settings")
-    .update({ value: JSON.stringify(String(next).padStart(6, "0")) })
-    .eq("key", "or_series_start");
-
-  return String(current).padStart(6, "0");
+  const { data, error } = await db.rpc("next_receipt_no");
+  if (error) throw new Error(`next_receipt_no failed: ${error.message}`);
+  if (typeof data !== "string" || !data) throw new Error("next_receipt_no returned no value");
+  return data;
 }

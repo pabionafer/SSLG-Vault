@@ -75,6 +75,7 @@ export async function POST(req: NextRequest) {
     const fees = await computeStudentFees(String(body.data.student_id));
     const feeItems = fees.ok
       ? fees.items.map((f) => ({
+          fee_id: Number(f.fee_id),
           label: f.name,
           kind: "fee" as const,
           status: f.status === "Paid" ? ("cleared" as const) : ("pending" as const),

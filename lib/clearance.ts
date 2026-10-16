@@ -13,11 +13,15 @@ export async function refreshFeeItems(
 ): Promise<ClearanceChecklist> {
   const db = createAdminClient();
   const fees = await computeStudentFees(String(studentId));
-  const statusByFeeName = new Map((fees.ok ? fees.items : []).map((f) => [f.name, f]));
+  const feeItems = fees.ok ? fees.items : [];
+  // Primary match is fee_id; the label map is a fallback for legacy rows
+  // created before clearance_items.fee_id existed.
+  const byFeeId = new Map(feeItems.map((f) => [String(f.fee_id), f]));
+  const byName = new Map(feeItems.map((f) => [f.name, f]));
 
   const { data: items, error } = await db
     .from("clearance_items")
-    .select("id,label,kind,status,remarks")
+    .select("id,label,kind,status,remarks,fee_id")
     .eq("clearance_id", clearanceId);
   if (error) return { items: [], blockers: ["could not load checklist"] };
 
@@ -27,7 +31,9 @@ export async function refreshFeeItems(
       out.push(item);
       continue;
     }
-    const fee = statusByFeeName.get(item.label);
+    const fee =
+      (item.fee_id != null ? byFeeId.get(String(item.fee_id)) : undefined) ??
+      byName.get(item.label);
     if (!fee) {
       out.push(item);
       continue;
@@ -40,7 +46,7 @@ export async function refreshFeeItems(
         .from("clearance_items")
         .update({ status: nextStatus, remarks: nextRemarks })
         .eq("id", item.id)
-        .select("id,label,kind,status,remarks")
+        .select("id,label,kind,status,remarks,fee_id")
         .single();
       out.push(u ?? item);
     } else {

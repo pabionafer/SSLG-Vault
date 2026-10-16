@@ -19,7 +19,7 @@ export async function GET(req: NextRequest) {
 
     const p = paging(req, 50);
     const start = p.range[0];
-    const page = result.items.slice(start, start + p.limit + 1);
+    const page = result.items.slice(start, start + p.limit);
     const resp = listResponse(page, result.items.length, p);
     resp.headers.set("X-As-Of", result.as_of);
     return resp;
