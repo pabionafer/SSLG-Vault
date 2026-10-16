@@ -8,7 +8,7 @@
     "start": "next start",
     "lint": "eslint",
     "test": "node --test scripts/formulas.test.ts",
-    "smoke": "node scripts/smoke.ts"
+    "smoke": "node --env-file=.env.local scripts/smoke.ts"
   },
   "dependencies": {
     "@react-pdf/renderer": "^4.9.0",
