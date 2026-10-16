@@ -82,4 +82,18 @@ body {
     background: #ffffff;
     color: #000000;
   }
+  /* App-shell locks the viewport; release it so print output isn't clipped. */
+  .app-shell {
+    height: auto !important;
+    overflow: visible !important;
+  }
+  html,
+  body {
+    height: auto !important;
+    overflow: visible !important;
+  }
+  main {
+    overflow: visible !important;
+    height: auto !important;
+  }
 }

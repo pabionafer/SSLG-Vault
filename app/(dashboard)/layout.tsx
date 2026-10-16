@@ -71,9 +71,9 @@ function Shell({ children }: { children: ReactNode }) {
   }
 
   return (
-    <div className="flex min-h-screen">
+    <div className="app-shell flex h-screen overflow-hidden">
       <aside
-        className={`no-print fixed inset-y-0 left-0 z-40 w-60 transform border-r border-line bg-surface transition-transform lg:sticky lg:top-0 lg:flex lg:h-screen lg:translate-x-0 lg:flex-col ${
+        className={`no-print fixed inset-y-0 left-0 z-40 w-60 transform border-r border-line bg-surface transition-transform lg:static lg:flex lg:translate-x-0 lg:flex-col ${
           open ? "translate-x-0" : "-translate-x-full"
         }`}
       >
@@ -118,8 +118,8 @@ function Shell({ children }: { children: ReactNode }) {
         />
       )}
 
-      <div className="flex min-w-0 flex-1 flex-col">
-        <header className="no-print sticky top-0 z-20 flex h-14 items-center gap-3 border-b border-line bg-surface px-4">
+      <div className="flex h-full min-w-0 flex-1 flex-col">
+        <header className="no-print flex h-14 shrink-0 items-center gap-3 border-b border-line bg-surface px-4">
           <button
             type="button"
             aria-label="Open menu"
@@ -149,7 +149,7 @@ function Shell({ children }: { children: ReactNode }) {
           </div>
         </header>
 
-        <main className="flex-1 px-4 py-6 lg:px-8">
+        <main className="flex-1 overflow-y-auto px-4 py-6 lg:px-8">
           <div className="mx-auto w-full max-w-6xl">{children}</div>
         </main>
       </div>
