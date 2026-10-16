@@ -1,10 +1,13 @@
 import { readFileSync } from "node:fs";
+import { execFileSync } from "node:child_process";
 import { fileURLToPath } from "node:url";
 import path from "node:path";
 import pg from "pg";
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
-const REF = "pryfscgeduwecclusbyt";
+// Supabase project reference — derived from the URL instead of hardcoded, so
+// this script works against any project. Set after readEnv() below.
+let REF = "";
 
 function readEnv() {
   const env = {};
@@ -30,10 +33,12 @@ function candidates(base) {
   const list = [{ label: `direct ${base.host}:${base.port}`, cfg: { host: base.host, port: base.port, user: base.user } }];
   for (const r of regions) {
     for (const port of [5432, 6543]) {
-      list.push({
-        label: `pooler ${r}:${port} (user postgres.${REF})`,
-        cfg: { host: `aws-0-${r}.pooler.supabase.com`, port, user: `postgres.${REF}` },
-      });
+      if (REF) {
+        list.push({
+          label: `pooler ${r}:${port} (user postgres.${REF})`,
+          cfg: { host: `aws-0-${r}.pooler.supabase.com`, port, user: `postgres.${REF}` },
+        });
+      }
       list.push({
         label: `pooler ${r}:${port} (user postgres)`,
         cfg: { host: `aws-0-${r}.pooler.supabase.com`, port, user: "postgres" },
@@ -66,6 +71,8 @@ async function connect(base, password, database) {
 }
 
 const env = readEnv();
+REF = (env.NEXT_PUBLIC_SUPABASE_URL ?? "").replace(/^https?:\/\//, "").split(".")[0];
+if (!REF) console.warn("warning: NEXT_PUBLIC_SUPABASE_URL not set — pooler candidates skipped");
 const direct = parseDbUrl(env.DATABASE_URL);
 const { password, database } = direct;
 const schema = readFileSync(path.join(root, "scripts", "schema.sql"), "utf8");
@@ -81,6 +88,18 @@ try {
 try {
   await client.query(schema);
   console.log("\nschema.sql applied");
+  await client.end();
+
+  // schema.sql is the current baseline; migrations run next so databases that
+  // predate a migration converge on the same state (each file is idempotent
+  // and tracked in public.schema_migrations).
+  console.log("\napplying migrations ...");
+  execFileSync(process.execPath, [path.join(root, "scripts", "migrate.mjs"), "apply"], {
+    stdio: "inherit",
+    cwd: root,
+  });
+
+  client = await connect({ host: direct.host, port: direct.port, user: direct.user }, password, database);
 
   const { rows } = await client.query(`
     select table_name from information_schema.tables
@@ -93,7 +112,13 @@ try {
     select distinct tablename from pg_policies
     where schemaname = 'public' and policyname = 'authenticated_read'
     order by tablename`);
-  console.log(`\nRLS authenticated_read policies: ${pol.length}/16`);
+  const { rows: selfPol } = await client.query(`
+    select count(*) as n from pg_policies
+     where schemaname = 'public' and policyname = 'profiles_self_read'`);
+  console.log(
+    `\nRLS: ${pol.length}/16 tables with authenticated_read ` +
+      `(expected 15; profiles uses profiles_self_read x${selfPol[0].n}, audit_log has none)`,
+  );
 
   const { rows: seeds } = await client.query(`
     select (select count(*) from public.categories) as categories,
@@ -103,5 +128,5 @@ try {
   console.error("FAILED:", err.message);
   process.exitCode = 1;
 } finally {
-  await client.end();
+  await client.end().catch(() => {});
 }
