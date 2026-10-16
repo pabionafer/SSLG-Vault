@@ -8,7 +8,7 @@ const outfit = Outfit({
 });
 
 export const metadata: Metadata = {
-  title: "Treasurer Vault",
+  title: "SSLG Vault",
   description: "College treasurer system: students, fees, payments, expenses, clearances and reports.",
 };
 
